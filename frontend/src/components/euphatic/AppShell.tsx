@@ -46,6 +46,8 @@ export function AppShell({ children }: Props) {
     caseData,
     currentUser,
     logoutUser,
+    loadMockData,
+    startFreshCase,
     setAuthModalOpen,
     setAssistantOpen,
     setInviteModalOpen,
@@ -153,9 +155,32 @@ export function AppShell({ children }: Props) {
         {/* Sidebar Footer: Case & Auth status */}
         <div className="border-t border-white/10 p-4">
           <div className="mb-2 rounded-[8px] bg-white/5 p-2.5">
-            <span className="block text-[10px] uppercase tracking-wider text-[#ACA986]">Current Case</span>
+            <div className="flex items-center justify-between">
+              <span className="block text-[10px] uppercase tracking-wider text-[#ACA986]">Current Case</span>
+              {caseData.assets.length > 0 || caseData.deceased.fullName ? (
+                <button
+                  type="button"
+                  onClick={startFreshCase}
+                  className="text-[10px] font-semibold text-[#FFB077] hover:underline"
+                  title="Clear all and start from scratch"
+                >
+                  Clear Blank
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={loadMockData}
+                  className="text-[10px] font-semibold text-[#B7C497] hover:underline"
+                  title="Load sample demo case"
+                >
+                  Load Demo
+                </button>
+              )}
+            </div>
             <span className="font-mono text-xs font-bold text-white">{caseData.caseId}</span>
-            <p className="truncate text-[11px] text-[#EDE9E2]/70">{caseData.deceased.fullName}</p>
+            <p className="truncate text-[11px] text-[#EDE9E2]/70">
+              {caseData.deceased.fullName || "New Blank Estate"}
+            </p>
           </div>
 
           {isAuthenticated ? (

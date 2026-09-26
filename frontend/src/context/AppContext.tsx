@@ -335,7 +335,7 @@ export interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [currentView, setCurrentView] = useState<ViewKey>("dashboard");
+  const [currentView, setCurrentView] = useState<ViewKey>("landing");
   const [lang, setLang] = useState<"en" | "hi">("en");
 
   const [currentUser, setCurrentUser] = useState<string | null>(() => {
@@ -347,6 +347,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   });
 
   const loadCaseForUser = (user: string | null): CaseData => {
+    if (user === "demo@euphatics.example") {
+      return DEFAULT_CASE_DATA;
+    }
+    const mockActive = localStorage.getItem("euphatics_mock_active");
+    if (mockActive === "true" && !user) {
+      return DEFAULT_CASE_DATA;
+    }
+
     const key = getStorageKeyForUser(user);
     const saved = localStorage.getItem(key);
     if (saved) {
@@ -356,12 +364,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         // fall through
       }
     }
-    // If demo or unauthenticated guest who hasn't created a case yet:
-    if (!user || user === "demo@euphatics.example") {
-      return DEFAULT_CASE_DATA;
-    }
-    // If it's a real new user who hasn't added data yet:
-    return createEmptyCaseData(user);
+    // By default, start with a fresh clean empty estate
+    return createEmptyCaseData(user || undefined);
   };
 
   const [caseData, setCaseData] = useState<CaseData>(() => {
@@ -414,11 +418,26 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setCaseData(mock);
       const key = getStorageKeyForUser(cleaned);
       localStorage.setItem(key, JSON.stringify(mock));
+      localStorage.setItem("euphatics_mock_active", "true");
       showToast(`Logged in as ${cleaned} with Sample Mock Data.`);
     } else {
-      const loaded = loadCaseForUser(cleaned);
-      setCaseData(loaded);
-      showToast(`Logged in as ${cleaned}.`);
+      const key = getStorageKeyForUser(cleaned);
+      const saved = localStorage.getItem(key);
+      if (saved) {
+        try {
+          setCaseData(JSON.parse(saved));
+        } catch {
+          const fresh = createEmptyCaseData(cleaned);
+          setCaseData(fresh);
+          localStorage.setItem(key, JSON.stringify(fresh));
+        }
+      } else {
+        const fresh = createEmptyCaseData(cleaned);
+        setCaseData(fresh);
+        localStorage.setItem(key, JSON.stringify(fresh));
+      }
+      localStorage.removeItem("euphatics_mock_active");
+      showToast(`Logged in as ${cleaned} with a clean estate.`);
     }
   };
 
@@ -428,8 +447,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setIsAuthenticated(false);
     localStorage.removeItem("euphatics_user");
     localStorage.removeItem("euphatics_token");
-    setCaseData(loadCaseForUser(null));
-    showToast("Signed out from workspace.");
+    localStorage.removeItem("euphatics_mock_active");
+    const fresh = createEmptyCaseData();
+    setCaseData(fresh);
+    localStorage.setItem(getStorageKeyForUser(null), JSON.stringify(fresh));
+    showToast("Signed out. Workspace reset to clean slate.");
   };
 
   const loadMockData = () => {
@@ -441,13 +463,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
       },
     };
     setCaseData(mock);
+    const key = getStorageKeyForUser(currentUser);
+    localStorage.setItem(key, JSON.stringify(mock));
+    localStorage.setItem("euphatics_mock_active", "true");
     showToast("Loaded sample mock estate data (Rameshwar Prasad Sharma).");
   };
 
   const startFreshCase = () => {
     const fresh = createEmptyCaseData(currentUser || undefined);
     setCaseData(fresh);
-    showToast("Started fresh estate. Ready for intake.");
+    const key = getStorageKeyForUser(currentUser);
+    localStorage.setItem(key, JSON.stringify(fresh));
+    localStorage.removeItem("euphatics_mock_active");
+    showToast("Started clean estate from scratch. All sample data cleared.");
   };
 
   const addAsset = (newAst: Partial<Asset>) => {

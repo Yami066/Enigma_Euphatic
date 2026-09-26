@@ -10,6 +10,7 @@ import {
   Filter,
   Landmark,
   Plus,
+  RotateCcw,
   Scale,
   ShieldAlert,
   Sparkles,
@@ -75,6 +76,17 @@ export function DashboardPage() {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
+            {caseData.assets.length > 0 || caseData.deceased.fullName ? (
+              <button
+                type="button"
+                onClick={startFreshCase}
+                className="btn-secondary-sm text-xs border-[#AA4342]/30 text-[#AA4342] hover:bg-[#FBEAE9]"
+                title="Wipe current case and start completely blank from scratch"
+              >
+                <RotateCcw className="size-3.5" />
+                Start Blank (Scratch)
+              </button>
+            ) : null}
             <button
               type="button"
               onClick={loadMockData}
@@ -82,7 +94,7 @@ export function DashboardPage() {
               title="Load pre-filled sample estate with SBI/HDFC accounts to test features"
             >
               <Sparkles className="size-3.5 text-[#FFB077]" />
-              Load Sample Mock Data
+              Load Sample Demo
             </button>
             <button
               type="button"

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, CheckCircle2, ChevronRight, Compass, Landmark, Plus, Scale, ShieldCheck, UserCheck, Users } from "lucide-react";
 import { useApp } from "../../context/AppContext";
 
@@ -17,6 +17,11 @@ export function GuidedIntakePage() {
 
   // Step 3: Claimant state
   const [claimant, setClaimant] = useState(caseData.claimant);
+
+  useEffect(() => {
+    setDeceased(caseData.deceased);
+    setClaimant(caseData.claimant);
+  }, [caseData]);
 
   const handleNextStep1 = (e: React.FormEvent) => {
     e.preventDefault();

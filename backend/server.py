@@ -93,6 +93,16 @@ local_files = LocalFiles()
 
 # -------------------- Auth Helpers -------------------- #
 
+try:
+    import firebase_admin
+    from firebase_admin import auth as fb_auth
+    if not firebase_admin._apps:
+        firebase_admin.initialize_app()
+    HAS_FIREBASE_ADMIN = True
+except Exception:
+    HAS_FIREBASE_ADMIN = False
+
+
 def create_jwt(email: str) -> str:
     payload = {
         "email": email.strip().lower(),
@@ -107,12 +117,24 @@ def get_current_user(authorization: str | None = Header(None)) -> str:
         # Default fallback for demo / unauthenticated dev testing
         return "demo@euphatics.example"
     token = authorization.replace("Bearer ", "").replace("bearer ", "").strip()
+
+    # 1. Try Firebase ID Token verification if available
+    if HAS_FIREBASE_ADMIN:
+        try:
+            decoded = fb_auth.verify_id_token(token, check_revoked=False)
+            user_id = decoded.get("email") or decoded.get("phone_number") or decoded.get("uid")
+            if user_id:
+                return str(user_id).strip().lower()
+        except Exception:
+            pass
+
+    # 2. Try Local Dev JWT verification
     try:
         payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
-        return payload["email"]
+        return payload.get("email") or payload.get("sub") or "demo@euphatics.example"
     except Exception:
-        # If token is invalid or cognito token, accept email or fall back gracefully
-        if "@" in token:
+        # If token is email or phone number string or fallback gracefully
+        if "@" in token or token.startswith("+") or token.isdigit():
             return token.lower()
         return "demo@euphatics.example"
 

@@ -1,0 +1,11 @@
+{
+  "name": "euphatics-root",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "frontend": "npm --prefix frontend run dev",
+    "preview": "npm --prefix frontend run preview",
+    "typecheck": "npm --prefix frontend run typecheck"
+  }
+}

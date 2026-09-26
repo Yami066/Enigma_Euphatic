@@ -14,12 +14,9 @@ import { SettingsPage } from "./pages/euphatic/SettingsPage";
 function MainContent() {
   const { currentView } = useApp();
 
-  if (currentView === "landing") {
-    return <LandingPage />;
-  }
-
   return (
     <AppShell>
+      {currentView === "landing" && <LandingPage />}
       {currentView === "dashboard" && <DashboardPage />}
       {currentView === "intake" && <GuidedIntakePage />}
       {currentView === "docDiscovery" && <DocumentDiscoveryPage />}

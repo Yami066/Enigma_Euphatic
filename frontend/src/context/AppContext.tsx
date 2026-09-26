@@ -326,6 +326,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("euphatic_case_data", JSON.stringify(caseData));
   }, [caseData]);
 
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => {

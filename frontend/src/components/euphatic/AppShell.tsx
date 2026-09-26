@@ -60,6 +60,7 @@ export function AppShell({ children }: Props) {
     icon: typeof Home;
     badge?: string;
   }> = [
+    { key: "landing", labelEn: "Home / Overview", labelHi: "होम पेज", icon: Home },
     { key: "dashboard", labelEn: "Case Overview", labelHi: "केस अवलोकन", icon: LayoutDashboard },
     { key: "intake", labelEn: "Guided Intake", labelHi: "मार्गदर्शित प्रविष्टि", icon: Compass },
     { key: "docDiscovery", labelEn: "Document OCR", labelHi: "दस्तावेज़ स्कैन", icon: FileSearch },
@@ -78,7 +79,7 @@ export function AppShell({ children }: Props) {
 
   const getPageTitle = (key: ViewKey): string => {
     const item = navItems.find((n) => n.key === key);
-    if (!item) return key === "landing" ? "Euphatic" : "Dashboard";
+    if (!item) return key === "landing" ? "Home / Overview" : "Dashboard";
     return lang === "hi" ? item.labelHi : item.labelEn;
   };
 
@@ -88,9 +89,9 @@ export function AppShell({ children }: Props) {
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] flex-col justify-between bg-[#4F3F38] text-white md:flex">
         <div>
           {/* Logo & Product Brand Header */}
-          <button 
-            type="button" 
-            onClick={() => handleNavClick("dashboard")}
+          <button
+            type="button"
+            onClick={() => handleNavClick("landing")}
             className="flex w-full items-center gap-3 border-b border-white/10 px-5 py-4 text-left transition-colors hover:bg-white/5"
           >
             <div className="flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-[#3a2d27] font-mono text-base font-bold text-[#FFB077] shadow-inner">

@@ -1,0 +1,197 @@
+{
+  "note": "How to get each document a claim may need. Facts are summarised from the linked official sources; state-specific costs (stamp duty, court fees) vary, so the app sends those questions to the web-grounded assistant with citations.",
+  "guides": {
+    "death_certificate": {
+      "title": {"en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र"},
+      "what": {"en": "The first document every claim asks for. Get several certified copies at once; banks keep copies and verify the original.", "hi": "हर दावे में सबसे पहले यही चाहिए। एक साथ कई प्रमाणित प्रतियां लें।"},
+      "issuer": {"en": "Registrar of births and deaths: municipal corporation, municipality or gram panchayat where the death happened", "hi": "जन्म-मृत्यु रजिस्ट्रार: जहां मृत्यु हुई वहां का नगर निगम, नगरपालिका या ग्राम पंचायत"},
+      "steps": [
+        {"en": "Deaths in hospital are reported by the hospital; at home, the family reports it. Registration is due within 21 days.", "hi": "अस्पताल में मृत्यु की सूचना अस्पताल देता है; घर पर परिवार। 21 दिन में पंजीकरण होना चाहिए।"},
+        {"en": "Download or collect the certificate from the Civil Registration System (crsorgi.gov.in) or your state's portal / municipal office.", "hi": "सिविल रजिस्ट्रेशन सिस्टम (crsorgi.gov.in) या राज्य पोर्टल / नगर कार्यालय से प्रमाण पत्र लें।"},
+        {"en": "Late? 21–30 days: late fee. 30 days–1 year: written permission of the District Registrar plus an affidavit. After 1 year: order of a District / Sub-Divisional / Executive Magistrate (RBD Act 1969, s.13; being amended in 2026, so confirm locally).", "hi": "देरी: 30 दिन तक विलंब शुल्क; 1 साल तक जिला रजिस्ट्रार की अनुमति और शपथपत्र; 1 साल बाद मजिस्ट्रेट का आदेश (जन्म-मृत्यु पंजीकरण अधिनियम 1969, धारा 13)।"}
+      ],
+      "time": {"en": "Usually a few days after registration", "hi": "पंजीकरण के कुछ दिन बाद"},
+      "cost": {"en": "Small fee per copy; late fees if registered late", "hi": "प्रति प्रति थोड़ा शुल्क; देरी पर विलंब शुल्क"},
+      "links": [{"label": "Civil Registration System", "url": "https://crsorgi.gov.in/"}, {"label": "RBD Act 1969, s.13", "url": "https://indiankanoon.org/doc/874632/"}]
+    },
+    "legal_heir_certificate": {
+      "title": {"en": "Legal heir certificate", "hi": "कानूनी वारिस प्रमाण पत्र"},
+      "what": {"en": "Names the deceased's legal heirs. Banks accept it for claims without a nominee (RBI Annex I-B, 4.3); SEBI and AMFI accept it in place of court papers within their limits.", "hi": "मृतक के कानूनी वारिसों के नाम बताता है। बिना नामिती वाले दावों में बैंक, सेबी और एम्फी इसे स्वीकार करते हैं।"},
+      "issuer": {"en": "Tahsildar / revenue office (names differ: 'Family Member Certificate' in Andhra Pradesh and Telangana, family tree / survival certificate in Karnataka; in some states a civil court issues a heirship certificate)", "hi": "तहसीलदार / राजस्व कार्यालय (नाम अलग: आंध्र प्रदेश और तेलंगाना में 'फैमिली मेंबर सर्टिफिकेट', कर्नाटक में वंशावली / सर्वाइवल सर्टिफिकेट)"},
+      "steps": [
+        {"en": "Apply on your state's e-District / Seva portal or at the Tahsildar office with the death certificate, ID of each heir and an affidavit listing the heirs.", "hi": "राज्य के ई-डिस्ट्रिक्ट / सेवा पोर्टल या तहसील कार्यालय में मृत्यु प्रमाण पत्र, वारिसों के पहचान पत्र और शपथपत्र के साथ आवेदन करें।"},
+        {"en": "A revenue official may verify the family (visit or enquiry).", "hi": "राजस्व अधिकारी परिवार का सत्यापन कर सकते हैं।"},
+        {"en": "Collect the certificate; keep attested copies for each claim.", "hi": "प्रमाण पत्र लें; हर दावे के लिए सत्यापित प्रतियां रखें।"}
+      ],
+      "time": {"en": "Often 2–4 weeks, varies by state", "hi": "अक्सर 2–4 सप्ताह, राज्य के अनुसार"},
+      "cost": {"en": "Nominal fee plus the affidavit's stamp paper", "hi": "मामूली शुल्क और शपथपत्र का स्टांप पेपर"},
+      "links": [{"label": "India's services portal", "url": "https://services.india.gov.in/"}]
+    },
+    "succession_certificate": {
+      "title": {"en": "Succession certificate (civil court)", "hi": "उत्तराधिकार प्रमाण पत्र (सिविल कोर्ट)"},
+      "what": {"en": "A court certificate that lets heirs collect debts and securities (bank deposits, shares, funds) when there is no nominee and the amount is above the simplified limits.", "hi": "अदालत का प्रमाण पत्र, जिससे बिना नामिती और बड़ी राशि वाले जमा, शेयर, फंड वारिस ले सकते हैं।"},
+      "issuer": {"en": "District judge / civil court where the deceased ordinarily lived, or where the property is (Indian Succession Act 1925, Part X, ss.370–390)", "hi": "जहां मृतक सामान्यतः रहते थे वहां का जिला न्यायाधीश / सिविल कोर्ट (भारतीय उत्तराधिकार अधिनियम 1925, धारा 370–390)"},
+      "steps": [
+        {"en": "A lawyer files a petition listing the heirs and each debt / security (bank, account, amount).", "hi": "वकील वारिसों और हर जमा/प्रतिभूति की सूची के साथ याचिका दायर करता है।"},
+        {"en": "The court issues a public notice so anyone can object, then hears the petition.", "hi": "अदालत सार्वजनिक नोटिस देती है ताकि कोई आपत्ति कर सके, फिर सुनवाई होती है।"},
+        {"en": "Pay the court fee and collect the certificate; banks and DPs accept a certified copy.", "hi": "कोर्ट फीस भरें और प्रमाण पत्र लें; बैंक प्रमाणित प्रति स्वीकार करते हैं।"}
+      ],
+      "time": {"en": "Usually several months", "hi": "आमतौर पर कई महीने"},
+      "cost": {"en": "Court fee is a percentage of the amount under your state's Court-fees Act, plus lawyer's fees. Ask the assistant for your state's rate.", "hi": "कोर्ट फीस राशि का प्रतिशत (राज्य के अनुसार) और वकील की फीस।"},
+      "links": [{"label": "Indian Succession Act 1925", "url": "https://www.indiacode.nic.in/handle/123456789/2385"}]
+    },
+    "probate": {
+      "title": {"en": "Probate / letters of administration (if there is a will)", "hi": "प्रोबेट / प्रशासन पत्र (वसीयत हो तो)"},
+      "what": {"en": "Court confirmation of a will. Mandatory for wills of Hindus, Buddhists, Sikhs and Jains of the kinds in s.57(a),(b) (broadly: made in, or about property in, the old presidency towns of Kolkata, Chennai and Mumbai), and for some Parsi wills (Indian Succession Act ss.57, 213). Otherwise optional, but banks may ask for it for large amounts.", "hi": "वसीयत की अदालती पुष्टि। कुछ वसीयतों (कोलकाता, चेन्नई, मुंबई से जुड़ी) के लिए अनिवार्य (धारा 57, 213)। अन्यथा वैकल्पिक, पर बड़ी राशि पर बैंक मांग सकते हैं।"},
+      "issuer": {"en": "District court or High Court (original side in Mumbai, Kolkata, Chennai)", "hi": "जिला अदालत या हाई कोर्ट"},
+      "steps": [
+        {"en": "The executor named in the will files a probate petition with the original will and death certificate. With no executor, heirs ask for letters of administration.", "hi": "वसीयत में नामित निष्पादक मूल वसीयत और मृत्यु प्रमाण पत्र के साथ याचिका दायर करता है।"},
+        {"en": "The court notifies the family and hears objections, then grants probate.", "hi": "अदालत परिवार को सूचना देकर आपत्तियां सुनती है, फिर प्रोबेट देती है।"}
+      ],
+      "time": {"en": "Months; longer if contested", "hi": "महीनों; विवाद हो तो अधिक"},
+      "cost": {"en": "Court fee on the estate value (varies by state) plus lawyer's fees", "hi": "संपत्ति मूल्य पर कोर्ट फीस (राज्य के अनुसार) और वकील की फीस"},
+      "links": [{"label": "SEBI FAQ Q73 on probate", "url": "https://www.sebi.gov.in/sebi_data/faqfiles/jan-2026/1767611333081.pdf"}]
+    },
+    "stamp_paper": {
+      "title": {"en": "Stamp paper and e-stamping", "hi": "स्टांप पेपर और ई-स्टांपिंग"},
+      "what": {"en": "Indemnity bonds, affidavits and no-objection letters must be 'duly stamped as per the Stamp Act applicable to the State' (RBI Annex I-C, I-D, I-E). The value depends on your state and the document.", "hi": "क्षतिपूर्ति बंधपत्र, शपथपत्र और अनापत्ति पत्र राज्य के स्टांप अधिनियम के अनुसार स्टांप होने चाहिए। मूल्य राज्य और दस्तावेज़ पर निर्भर।"},
+      "issuer": {"en": "E-stamp certificate from Stock Holding Corporation (SHCIL) centres / shcilestamp.com in most states, or licensed stamp vendors", "hi": "अधिकांश राज्यों में स्टॉक होल्डिंग (SHCIL) केंद्र / shcilestamp.com से ई-स्टांप, या लाइसेंसी विक्रेता"},
+      "steps": [
+        {"en": "Ask the bank branch / DP which stamp value they need for each document (they see these daily).", "hi": "बैंक शाखा / डीपी से पूछें कि हर दस्तावेज़ के लिए कितने का स्टांप चाहिए।"},
+        {"en": "Buy an e-stamp in the name of the person signing, with the document type and the other party (the bank).", "hi": "हस्ताक्षर करने वाले के नाम, दस्तावेज़ के प्रकार और दूसरे पक्ष (बैंक) के साथ ई-स्टांप लें।"},
+        {"en": "Print the pre-filled form on the e-stamp sheet's continuation or attach it as the bank says, then sign.", "hi": "पहले से भरा फ़ॉर्म ई-स्टांप के साथ प्रिंट करें या बैंक के कहे अनुसार लगाएं, फिर हस्ताक्षर करें।"}
+      ],
+      "time": {"en": "Same day", "hi": "उसी दिन"},
+      "cost": {"en": "Varies by state and document; affidavits are usually cheaper than indemnity bonds. Ask the assistant for your state.", "hi": "राज्य और दस्तावेज़ पर निर्भर; शपथपत्र आमतौर पर सस्ता।"},
+      "links": [{"label": "SHCIL e-stamping", "url": "https://www.shcilestamp.com/"}],
+      "askAi": {"en": "What is the stamp duty for an indemnity bond and an affidavit in {state}?", "hi": "{state} में क्षतिपूर्ति बंधपत्र और शपथपत्र पर स्टांप शुल्क कितना है?"}
+    },
+    "notary": {
+      "title": {"en": "Notarising a document", "hi": "दस्तावेज़ नोटरी कराना"},
+      "what": {"en": "A notary public confirms who signed. RBI's Annex I-E declaration and many transmission documents above certain amounts must be notarised.", "hi": "नोटरी पुष्टि करता है कि किसने हस्ताक्षर किए। कई दस्तावेज़ों को नोटरी कराना होता है।"},
+      "issuer": {"en": "Any notary public (usually near courts); a first-class magistrate also works for some forms", "hi": "कोई भी नोटरी (आमतौर पर अदालत के पास)"},
+      "steps": [
+        {"en": "Take the unsigned document, the signer in person with original ID, and the stamp paper.", "hi": "बिना हस्ताक्षर दस्तावेज़, मूल पहचान पत्र के साथ हस्ताक्षरकर्ता और स्टांप पेपर ले जाएं।"},
+        {"en": "Sign in front of the notary, who stamps, signs and enters it in the register.", "hi": "नोटरी के सामने हस्ताक्षर करें; नोटरी मुहर और हस्ताक्षर करता है।"}
+      ],
+      "time": {"en": "Minutes", "hi": "कुछ मिनट"},
+      "cost": {"en": "Small fee per document", "hi": "प्रति दस्तावेज़ थोड़ा शुल्क"},
+      "links": []
+    },
+    "indemnity_bond": {
+      "title": {"en": "Indemnity bond", "hi": "क्षतिपूर्ति बंधपत्र"},
+      "what": {"en": "The claimants promise to repay the institution if someone else later proves a better claim. For bank deposits it is RBI Annex I-C, which this app fills for you; above the threshold the bank may also ask for a surety.", "hi": "दावेदार वादा करते हैं कि बाद में कोई और सही दावेदार निकला तो संस्था को भरपाई करेंगे। बैंक के लिए यह आरबीआई अनुलग्नक I-C है, जिसे ऐप भरता है।"},
+      "issuer": {"en": "You prepare it; printed on stamp paper and signed by the claimants (notarised where required)", "hi": "आप तैयार करते हैं; स्टांप पेपर पर दावेदार हस्ताक्षर करते हैं"},
+      "steps": [
+        {"en": "Print the pre-filled Annex I-C (or the institution's format) on the right stamp paper.", "hi": "पहले से भरा अनुलग्नक I-C सही स्टांप पेपर पर प्रिंट करें।"},
+        {"en": "All claimants sign; add the surety's signature if the bank requires one (only above the threshold).", "hi": "सभी दावेदार हस्ताक्षर करें; सीमा से ऊपर बैंक मांगे तो जमानतदार के हस्ताक्षर।"}
+      ],
+      "time": {"en": "Same day", "hi": "उसी दिन"},
+      "cost": {"en": "Stamp paper (state-specific)", "hi": "स्टांप पेपर (राज्य के अनुसार)"},
+      "links": [{"label": "RBI Directions 2025 (Annex I-C)", "url": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12901&Mode=0"}]
+    },
+    "affidavit": {
+      "title": {"en": "Affidavit / declaration about the legal heirs", "hi": "कानूनी वारिसों के बारे में शपथपत्र / घोषणा"},
+      "what": {"en": "For bank claims up to the threshold, an independent person who knows the family (and is not related or a claimant) declares who the legal heirs are: RBI Annex I-E, filled in your pack. Securities and mutual funds ask each heir for their own affidavit.", "hi": "बैंक दावों में परिवार को जानने वाला स्वतंत्र व्यक्ति (रिश्तेदार या दावेदार नहीं) वारिसों की घोषणा करता है: आरबीआई अनुलग्नक I-E।"},
+      "issuer": {"en": "Signed by the declarant on stamp paper; sworn before a notary or magistrate", "hi": "घोषणाकर्ता स्टांप पेपर पर हस्ताक्षर करता है; नोटरी के सामने"},
+      "steps": [
+        {"en": "Choose a neighbour, family friend or colleague who has known the family for years and is not related to anyone in the claim.", "hi": "ऐसे पड़ोसी, मित्र या सहकर्मी को चुनें जो वर्षों से परिवार को जानता हो और रिश्तेदार न हो।"},
+        {"en": "Print Annex I-E on stamp paper; they sign in front of a notary.", "hi": "अनुलग्नक I-E स्टांप पेपर पर प्रिंट करें; वे नोटरी के सामने हस्ताक्षर करें।"}
+      ],
+      "time": {"en": "Same day", "hi": "उसी दिन"},
+      "cost": {"en": "Stamp paper plus notary fee", "hi": "स्टांप पेपर और नोटरी शुल्क"},
+      "links": []
+    },
+    "noc_heirs": {
+      "title": {"en": "No-objection / disclaimer from other heirs", "hi": "अन्य वारिसों से अनापत्ति / अस्वीकरण"},
+      "what": {"en": "Heirs who are not claiming confirm they don't object. For bank claims this is one RBI Annex I-D letter that all of them sign; your pack lists them already.", "hi": "जो वारिस दावा नहीं कर रहे, वे अनापत्ति देते हैं। बैंक के लिए एक ही अनुलग्नक I-D पत्र पर सब हस्ताक्षर करते हैं।"},
+      "issuer": {"en": "Signed by each non-claiming heir, on stamp paper", "hi": "हर गैर-दावेदार वारिस स्टांप पेपर पर हस्ताक्षर करता है"},
+      "steps": [
+        {"en": "Print the letter on stamp paper; each non-claiming heir signs beside their name.", "hi": "पत्र स्टांप पेपर पर प्रिंट करें; हर वारिस अपने नाम के आगे हस्ताक्षर करे।"},
+        {"en": "Heirs in other cities can sign and courier it; attach a copy of their ID.", "hi": "दूसरे शहर के वारिस हस्ताक्षर करके कूरियर कर सकते हैं; पहचान पत्र की प्रति लगाएं।"}
+      ],
+      "time": {"en": "Depends on reaching everyone", "hi": "सबसे संपर्क पर निर्भर"},
+      "cost": {"en": "Stamp paper", "hi": "स्टांप पेपर"},
+      "links": []
+    },
+    "claimant_kyc": {
+      "title": {"en": "Claimant's ID and address proof (KYC)", "hi": "दावेदार का पहचान और पता प्रमाण (केवाईसी)"},
+      "what": {"en": "An Officially Valid Document: Aadhaar (masked), passport, voter ID or driving licence, plus PAN. Mutual funds need the claimant to be 'KYC complied'.", "hi": "आधिकारिक वैध दस्तावेज़: आधार (मास्क किया), पासपोर्ट, वोटर आईडी या ड्राइविंग लाइसेंस, और पैन।"},
+      "issuer": {"en": "You already have it; self-attest copies (sign across them)", "hi": "आपके पास है; प्रतियों पर स्व-सत्यापन करें"},
+      "steps": [
+        {"en": "Upload it in Documents: we hide the first 8 Aadhaar digits automatically.", "hi": "दस्तावेज़ों में अपलोड करें: आधार के पहले 8 अंक अपने आप छुप जाते हैं।"},
+        {"en": "Carry originals for verification.", "hi": "सत्यापन के लिए मूल साथ ले जाएं।"}
+      ],
+      "time": {"en": "—", "hi": "—"},
+      "cost": {"en": "Free", "hi": "निःशुल्क"},
+      "links": [{"label": "Check MF KYC status (KRA)", "url": "https://www.cvlkra.com/"}]
+    },
+    "bank_proof": {
+      "title": {"en": "Claimant's bank proof", "hi": "दावेदार का बैंक प्रमाण"},
+      "what": {"en": "A cancelled cheque with the claimant's name printed, or a recent passbook / statement page. The money is paid here.", "hi": "दावेदार के नाम वाला रद्द चेक, या हाल की पासबुक / स्टेटमेंट। पैसा यहीं आता है।"},
+      "issuer": {"en": "Your own bank", "hi": "आपका अपना बैंक"},
+      "steps": [{"en": "Write 'CANCELLED' across a cheque leaf, or print the first page of your passbook.", "hi": "चेक पर 'CANCELLED' लिखें, या पासबुक का पहला पेज प्रिंट करें।"}],
+      "time": {"en": "—", "hi": "—"},
+      "cost": {"en": "Free", "hi": "निःशुल्क"},
+      "links": []
+    },
+    "uan": {
+      "title": {"en": "UAN / PRAN of the deceased", "hi": "मृतक का यूएएन / प्रान"},
+      "what": {"en": "The 12-digit Universal Account Number (EPF) or Permanent Retirement Account Number (NPS).", "hi": "12 अंकों का यूनिवर्सल अकाउंट नंबर (ईपीएफ) या प्रान (एनपीएस)।"},
+      "issuer": {"en": "Printed on payslips, the PF passbook, Form 16, or the PRAN card; the employer's HR can confirm it", "hi": "वेतन पर्ची, पीएफ पासबुक, फ़ॉर्म 16 या प्रान कार्ड पर; एचआर पुष्टि कर सकता है"},
+      "steps": [{"en": "Search emails for 'UAN' or 'PRAN', or ask HR / the NPS POP.", "hi": "ईमेल में 'UAN' या 'PRAN' खोजें, या एचआर / पीओपी से पूछें।"}],
+      "time": {"en": "—", "hi": "—"},
+      "cost": {"en": "Free", "hi": "निःशुल्क"},
+      "links": [{"label": "EPFO member portal", "url": "https://unifiedportal-mem.epfindia.gov.in/"}]
+    },
+    "cml": {
+      "title": {"en": "Client master list (CML) of your demat account", "hi": "आपके डीमैट खाते की क्लाइंट मास्टर लिस्ट (सीएमएल)"},
+      "what": {"en": "Proof of the claimant's own demat account, where the shares will be moved.", "hi": "दावेदार के अपने डीमैट खाते का प्रमाण, जहां शेयर आएंगे।"},
+      "issuer": {"en": "Your broker / DP (downloadable in most broker apps, or on request)", "hi": "आपका ब्रोकर / डीपी (ज्यादातर ऐप में डाउनलोड)"},
+      "steps": [{"en": "Open a demat account if you don't have one, then download the CML signed by the DP.", "hi": "डीमैट खाता न हो तो खोलें, फिर डीपी द्वारा हस्ताक्षरित सीएमएल डाउनलोड करें।"}],
+      "time": {"en": "1–2 days for a new account", "hi": "नए खाते में 1–2 दिन"},
+      "cost": {"en": "Usually free", "hi": "आमतौर पर निःशुल्क"},
+      "links": []
+    },
+    "policy_document": {
+      "title": {"en": "Original policy / passbook / certificates", "hi": "मूल पॉलिसी / पासबुक / प्रमाण पत्र"},
+      "what": {"en": "The original instrument. If it is lost, the institution will ask for an indemnity for loss and may issue a duplicate.", "hi": "मूल दस्तावेज़। खो जाए तो संस्था नुकसान की क्षतिपूर्ति मांगेगी।"},
+      "issuer": {"en": "Look in the deceased's files, locker or email; the institution can confirm details", "hi": "मृतक की फाइलों, लॉकर या ईमेल में देखें"},
+      "steps": [{"en": "If you can't find it, tell the institution in the claim letter; ask for their lost-document process.", "hi": "न मिले तो दावा पत्र में बताएं; खोए दस्तावेज़ की प्रक्रिया पूछें।"}],
+      "time": {"en": "—", "hi": "—"},
+      "cost": {"en": "Indemnity stamp paper if lost", "hi": "खो जाने पर क्षतिपूर्ति स्टांप पेपर"},
+      "links": []
+    },
+    "medical_records": {
+      "title": {"en": "Medical records / hospital certificate", "hi": "चिकित्सा रिकॉर्ड / अस्पताल प्रमाण"},
+      "what": {"en": "Insurers may ask for the cause of death, especially when the policy is less than 3 years old.", "hi": "बीमा कंपनियां मृत्यु का कारण पूछ सकती हैं, खासकर पॉलिसी 3 साल से कम पुरानी हो तो।"},
+      "issuer": {"en": "The hospital's medical records department (discharge summary, medical certificate of cause of death)", "hi": "अस्पताल का मेडिकल रिकॉर्ड विभाग"},
+      "steps": [{"en": "Request the discharge / death summary and the medical certificate of cause of death.", "hi": "डिस्चार्ज / मृत्यु सारांश और मृत्यु के कारण का प्रमाण पत्र मांगें।"}],
+      "time": {"en": "A few days", "hi": "कुछ दिन"},
+      "cost": {"en": "Copying fee", "hi": "प्रति शुल्क"},
+      "links": []
+    },
+    "fir_postmortem": {
+      "title": {"en": "FIR and post-mortem report", "hi": "एफआईआर और पोस्टमार्टम रिपोर्ट"},
+      "what": {"en": "Needed for accidental or unnatural deaths (PMSBY, accident riders, some insurance claims).", "hi": "दुर्घटना या अप्राकृतिक मृत्यु के दावों के लिए जरूरी।"},
+      "issuer": {"en": "Police station (FIR, final report) and the hospital that did the post-mortem", "hi": "थाना (एफआईआर) और पोस्टमार्टम करने वाला अस्पताल"},
+      "steps": [{"en": "Ask the police station for a certified FIR copy and the hospital for the post-mortem report.", "hi": "थाने से एफआईआर की प्रमाणित प्रति और अस्पताल से पोस्टमार्टम रिपोर्ट मांगें।"}],
+      "time": {"en": "Days to weeks", "hi": "कुछ दिन से सप्ताह"},
+      "cost": {"en": "Nominal", "hi": "मामूली"},
+      "links": []
+    }
+  },
+  "rbiDocs": {
+    "death_certificate": "death_certificate",
+    "ovd_nominee": "claimant_kyc",
+    "ovd_claimants": "claimant_kyc",
+    "indemnity_I_C": "indemnity_bond",
+    "noc_I_D": "noc_heirs",
+    "heirship_declaration_I_E": "affidavit",
+    "heirship_affidavit_I_E": "affidavit",
+    "succession_certificate": "succession_certificate",
+    "surety_I_C_if_asked": "indemnity_bond",
+    "probate_or_loa": "probate",
+    "court_decree": "succession_certificate"
+  }
+}

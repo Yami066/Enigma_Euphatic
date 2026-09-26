@@ -1,0 +1,177 @@
+{
+  "source": {
+    "id": "RBI-DECEASED-2025",
+    "title": "Reserve Bank of India (Settlement of Claims in respect of Deceased Customers of Banks) Directions, 2025",
+    "ref": "RBI/2025-26/82 · DoR.MCS.REC.50/01.01.003/2025-26 · 26 Sep 2025",
+    "url": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12901&Mode=0",
+    "file": "sources/rbi-2025-deceased-claims/directions_2025.txt",
+    "in_force_by": "2026-03-31",
+    "applies_to": "All commercial banks and co-operative banks (para 6(a)); not Government savings schemes such as SCSS and PPF (para 6(b))."
+  },
+  "thresholds": {
+    "cooperative": 500000,
+    "other": 1500000,
+    "para": "7(h)",
+    "quote": "‘Threshold limit’ means ₹5 lakh in case of a co-operative bank and ₹15 lakh in case of any other bank"
+  },
+  "documents": {
+    "claim_form_I_A": {"en": "Claim form (Annex I-A), signed by the nominee(s)/survivor(s)", "hi": "दावा फ़ॉर्म (अनुलग्नक I-A), नामिती/उत्तरजीवी द्वारा हस्ताक्षरित", "form": "I-A"},
+    "claim_form_I_B": {"en": "Claim form (Annex I-B), signed by the claimant legal heir(s)", "hi": "दावा फ़ॉर्म (अनुलग्नक I-B), दावा करने वाले कानूनी वारिसों द्वारा हस्ताक्षरित", "form": "I-B"},
+    "death_certificate": {"en": "Death certificate of the deceased", "hi": "मृतक का मृत्यु प्रमाण पत्र"},
+    "ovd_nominee": {"en": "Officially Valid Document (ID and address proof) of the nominee/survivor", "hi": "नामिती/उत्तरजीवी का आधिकारिक वैध दस्तावेज़ (पहचान और पता प्रमाण)"},
+    "ovd_claimants": {"en": "Officially Valid Document (ID and address proof) of each claimant", "hi": "हर दावेदार का आधिकारिक वैध दस्तावेज़ (पहचान और पता प्रमाण)"},
+    "indemnity_I_C": {"en": "Bond of indemnity (Annex I-C), signed by the claimant(s)", "hi": "क्षतिपूर्ति बंधपत्र (अनुलग्नक I-C), दावेदारों द्वारा हस्ताक्षरित", "form": "I-C"},
+    "noc_I_D": {"en": "Letter of disclaimer / no objection (Annex I-D) from each legal heir who is not claiming", "hi": "दावा न करने वाले हर कानूनी वारिस से अस्वीकरण/अनापत्ति पत्र (अनुलग्नक I-D)", "form": "I-D", "only_if": "non_claimant_heirs"},
+    "heirship_declaration_I_E": {"en": "Legal Heir Certificate from a competent authority, OR Declaration (Annex I-E) by an independent person who knows the family well, is not a party to the claim and is acceptable to the bank", "hi": "सक्षम प्राधिकारी से कानूनी वारिस प्रमाण पत्र, या किसी स्वतंत्र व्यक्ति द्वारा घोषणा (अनुलग्नक I-E)", "form": "I-E"},
+    "heirship_affidavit_I_E": {"en": "Legal Heir Certificate, OR Affidavit (Annex I-E) sworn before a Notary Public / Judge / Judicial Magistrate by an independent person", "hi": "कानूनी वारिस प्रमाण पत्र, या नोटरी/न्यायाधीश के सामने स्वतंत्र व्यक्ति का शपथ-पत्र (अनुलग्नक I-E)", "form": "I-E", "variant": "affidavit"},
+    "succession_certificate": {"en": "Succession Certificate from a court (or, instead, Legal Heir Certificate / sworn Affidavit as in para 10(b)(ii))", "hi": "न्यायालय से उत्तराधिकार प्रमाण पत्र (या पैरा 10(b)(ii) के अनुसार विकल्प)"},
+    "surety_I_C_if_asked": {"en": "Bond of surety (Annex I-C) from acceptable third parties, only if the bank asks (allowed above the threshold)", "hi": "ज़मानत बंधपत्र (अनुलग्नक I-C), केवल बैंक के मांगने पर"},
+    "probate_or_loa": {"en": "Probate of the Will / Letter of Administration (the bank may act on an undisputed Will without probate)", "hi": "वसीयत का प्रोबेट / प्रशासन पत्र"},
+    "court_decree": {"en": "Probate / Letter of Administration / Succession Certificate / Court order or decree", "hi": "प्रोबेट / प्रशासन पत्र / उत्तराधिकार प्रमाण पत्र / न्यायालय आदेश"},
+    "inventory_I_F": {"en": "Locker inventory (Annex I-F), made at the branch with two independent witnesses", "hi": "लॉकर सूची (अनुलग्नक I-F), शाखा में दो स्वतंत्र गवाहों के सामने", "form": "I-F", "at_branch": true},
+    "inventory_I_G": {"en": "Safe-custody articles inventory (Annex I-G), made at the branch", "hi": "सुरक्षित अभिरक्षा वस्तुओं की सूची (अनुलग्नक I-G)", "form": "I-G", "at_branch": true},
+    "indemnity_valuation_I_H": {"en": "Bond of indemnity with independent valuation of the locker contents (Annex I-H)", "hi": "लॉकर सामग्री के मूल्यांकन सहित क्षतिपूर्ति बंधपत्र (अनुलग्नक I-H)", "form": "I-H", "at_branch": true}
+  },
+  "routes": [
+    {
+      "id": "DEP_COURT_ORDER",
+      "asset_types": ["bank_deposit", "term_deposit"],
+      "when": {"court_order": true},
+      "route": "BLOCKED_BY_COURT",
+      "title": {"en": "Paused: a court order stops the payment", "hi": "रुका हुआ: न्यायालय आदेश भुगतान रोकता है"},
+      "documents": [],
+      "para": "11(b)",
+      "quote": "where there is an order from a Court restraining the bank from making the payment, the claim shall not be entertained during the period the order is in force",
+      "automation": "stop"
+    },
+    {
+      "id": "DEP_NOMINEE",
+      "asset_types": ["bank_deposit", "term_deposit"],
+      "when": {"nomination": ["nominee", "survivor"]},
+      "route": "NOMINEE",
+      "title": {"en": "Nominee / survivor route: no court papers, any amount", "hi": "नामिती/उत्तरजीवी मार्ग: कोई न्यायालय दस्तावेज़ नहीं, किसी भी राशि पर"},
+      "documents": ["claim_form_I_A", "death_certificate", "ovd_nominee"],
+      "para": "8–9",
+      "quote": "the bank shall not insist on production of legal documents such as Succession Certificate, Letter of Administration, Probate of Will, etc., or seek any bond of indemnity/ surety from the nominee(s)/ survivor(s)/ third-party, irrespective of the amount standing to the credit of the deceased account holder(s)",
+      "notes": [
+        {"para": "8(iii)", "quote": "they would be receiving the payment from the bank as a trustee of the legal heirs of the deceased depositor(s)", "en": "The nominee receives the money as a trustee for all legal heirs; share it according to succession law.", "hi": "नामिती सभी कानूनी वारिसों के ट्रस्टी के रूप में पैसा प्राप्त करता है।"},
+        {"para": "8", "quote": "In the case of a joint deposit account with or without survivorship clause, the nominee's right arises only after the death of all the depositors.", "en": "For a joint account, the nominee's right starts only after all account holders have died.", "hi": "संयुक्त खाते में नामिती का अधिकार सभी खाताधारकों की मृत्यु के बाद ही शुरू होता है।", "only_if": "joint"}
+      ],
+      "automation": "full"
+    },
+    {
+      "id": "DEP_DISPUTE",
+      "asset_types": ["bank_deposit", "term_deposit"],
+      "when": {"dispute": true},
+      "route": "DISPUTE_COURT",
+      "title": {"en": "Heirs disagree: this needs court documents", "hi": "वारिसों में विवाद: न्यायालय दस्तावेज़ चाहिए"},
+      "documents": ["court_decree", "claim_form_I_B", "death_certificate", "ovd_claimants"],
+      "para": "11(b)",
+      "quote": "In case of contesting claims or dispute amongst the legal heir(s) and/ or the beneficiaries named in the Will of the deceased depositor, the bank shall settle claims on the basis of Probate of Will or Letter of Administration or Succession Certificate or Court order/ decree",
+      "automation": "stop"
+    },
+    {
+      "id": "DEP_WILL",
+      "asset_types": ["bank_deposit", "term_deposit"],
+      "when": {"will": true},
+      "route": "WILL",
+      "title": {"en": "There is a Will: probate, or the bank's discretion if nobody disputes it", "hi": "वसीयत है: प्रोबेट, या विवाद न हो तो बैंक का विवेक"},
+      "documents": ["probate_or_loa", "claim_form_I_B", "death_certificate", "ovd_claimants", "indemnity_I_C", "noc_I_D"],
+      "para": "11(a)",
+      "quote": "The bank shall settle claims involving ‘Will’ left behind by a deceased depositor on the basis of Probate of Will/ Letter of Administration",
+      "automation": "partial"
+    },
+    {
+      "id": "DEP_SIMPLIFIED",
+      "asset_types": ["bank_deposit", "term_deposit"],
+      "when": {"nomination": ["none"], "amount_lte_threshold": true},
+      "route": "SIMPLIFIED",
+      "title": {"en": "Simplified route: no succession certificate, no court", "hi": "सरल मार्ग: उत्तराधिकार प्रमाण पत्र या न्यायालय की ज़रूरत नहीं"},
+      "documents": ["claim_form_I_B", "death_certificate", "ovd_claimants", "indemnity_I_C", "noc_I_D", "heirship_declaration_I_E"],
+      "para": "10(a)",
+      "quote": "Declaration, as given in Annex I-E, regarding the legal heir(s) of the deceased depositor(s) by an independent person who is well known to the family of the deceased, is not a party to the claim and is acceptable to the bank.",
+      "notes": [
+        {"para": "10(a)", "quote": "No bond of surety from a third-party shall be obtained in case of claims up to the threshold limit.", "en": "The bank cannot ask for a third-party surety up to the threshold.", "hi": "सीमा तक बैंक किसी तीसरे पक्ष की ज़मानत नहीं मांग सकता।"}
+      ],
+      "automation": "full"
+    },
+    {
+      "id": "DEP_ABOVE_THRESHOLD",
+      "asset_types": ["bank_deposit", "term_deposit"],
+      "when": {"nomination": ["none"], "amount_lte_threshold": false},
+      "route": "ABOVE_THRESHOLD",
+      "title": {"en": "Above the threshold: Succession Certificate, or Legal Heir Certificate / sworn affidavit", "hi": "सीमा से अधिक: उत्तराधिकार प्रमाण पत्र, या कानूनी वारिस प्रमाण पत्र / शपथ-पत्र"},
+      "documents": ["succession_certificate", "claim_form_I_B", "death_certificate", "ovd_claimants", "indemnity_I_C", "noc_I_D", "heirship_affidavit_I_E", "surety_I_C_if_asked"],
+      "para": "10(b)",
+      "quote": "In cases where claim amount is above the threshold limit, the bank shall settle the claim based on",
+      "automation": "partial"
+    },
+    {
+      "id": "LOCKER_COURT_ORDER",
+      "asset_types": ["locker", "safe_custody"],
+      "when": {"court_order": true},
+      "route": "BLOCKED_BY_COURT",
+      "title": {"en": "Paused: a court order is in force", "hi": "रुका हुआ: न्यायालय आदेश लागू है"},
+      "documents": [],
+      "para": "19",
+      "quote": "There is no order or direction as on date from a Court/ Forum in the knowledge of the bank, restraining the nominee(s)/ survivor(s) from having access or the bank from giving access to the locker",
+      "automation": "stop"
+    },
+    {
+      "id": "LOCKER_NOMINEE",
+      "asset_types": ["locker", "safe_custody"],
+      "when": {"nomination": ["nominee", "survivor"]},
+      "route": "LOCKER_NOMINEE",
+      "title": {"en": "Locker with nominee: access after an inventory, no court papers", "hi": "नामिती वाला लॉकर: सूची के बाद पहुंच, न्यायालय दस्तावेज़ नहीं"},
+      "documents": ["claim_form_I_A", "death_certificate", "ovd_nominee", "inventory_I_F"],
+      "para": "16–21",
+      "quote": "Production of legal documents, viz., Succession Certificate, Letter of Administration, Probate of Will, etc., or Bond of indemnity from the nominee(s)/ survivor(s) shall not be required unless there is any discrepancy in nomination.",
+      "notes": [
+        {"para": "20", "quote": "two independent witnesses (should not be employee or ex-employee of the bank)", "en": "Bring two independent witnesses (not bank staff or ex-staff) for the inventory.", "hi": "सूची के समय दो स्वतंत्र गवाह लाएं (बैंक कर्मचारी या पूर्व कर्मचारी नहीं)।"}
+      ],
+      "automation": "full"
+    },
+    {
+      "id": "LOCKER_DISPUTE",
+      "asset_types": ["locker", "safe_custody"],
+      "when": {"dispute": true},
+      "route": "DISPUTE_COURT",
+      "title": {"en": "Heirs disagree: court documents needed for the locker", "hi": "वारिसों में विवाद: लॉकर के लिए न्यायालय दस्तावेज़"},
+      "documents": ["court_decree", "claim_form_I_B", "death_certificate", "ovd_claimants"],
+      "para": "24(b)",
+      "quote": "Cases involving dispute amongst the legal heir(s) and/ or beneficiaries named in the Will, as applicable, shall be settled based on Probate of Will or Succession Certificate or Letter of Administration or Court order/ decree",
+      "automation": "stop"
+    },
+    {
+      "id": "LOCKER_WILL",
+      "asset_types": ["locker", "safe_custody"],
+      "when": {"will": true},
+      "route": "WILL",
+      "title": {"en": "There is a Will: probate, or the bank's discretion if nobody disputes it", "hi": "वसीयत है: प्रोबेट, या विवाद न हो तो बैंक का विवेक"},
+      "documents": ["probate_or_loa", "claim_form_I_B", "death_certificate", "ovd_claimants", "noc_I_D", "heirship_affidavit_I_E"],
+      "para": "24(a)",
+      "quote": "The bank shall settle claims involving ‘Will’ left behind by a deceased safe deposit locker hirer on the basis of Probate of Will/ Letter of Administration",
+      "automation": "partial"
+    },
+    {
+      "id": "LOCKER_SIMPLIFIED",
+      "asset_types": ["locker", "safe_custody"],
+      "when": {"nomination": ["none"]},
+      "route": "LOCKER_SIMPLIFIED",
+      "title": {"en": "Locker, simplified route: no court papers; inventory plus valuation", "hi": "लॉकर सरल मार्ग: न्यायालय दस्तावेज़ नहीं; सूची और मूल्यांकन"},
+      "documents": ["claim_form_I_B", "death_certificate", "ovd_claimants", "noc_I_D", "heirship_affidavit_I_E", "inventory_I_F", "indemnity_valuation_I_H"],
+      "para": "23, 25",
+      "quote": "a bank shall adopt a simplified procedure for settlement of claims in safe deposit lockers provided there is no dispute amongst the legal heir(s)/ claimant(s)",
+      "notes": [
+        {"para": "25", "quote": "Valuation of the contents of the safe deposit locker shall be carried out by an independent valuer and recorded in the Bond of Indemnity as given in Annex I-H.", "en": "An independent valuer values the contents; the value goes into the Annex I-H bond.", "hi": "एक स्वतंत्र मूल्यांकक सामग्री का मूल्यांकन करता है।"}
+      ],
+      "automation": "full"
+    }
+  ],
+  "extra_notes": {
+    "term_deposit": {"para": "13", "quote": "premature termination of term deposits would be allowed without any penal charge, even if the deposit is within the lock-in-period", "en": "Fixed deposits can be closed early without penalty, even in a lock-in period.", "hi": "सावधि जमा बिना जुर्माने के समय से पहले बंद की जा सकती है।"},
+    "acknowledgement": {"para": "29", "quote": "A claimant shall be allowed to lodge the claim at any of the branches against acknowledgment.", "en": "You can submit at any branch of the bank. Ask for a dated acknowledgement; if something is missing, the bank must list it.", "hi": "आप बैंक की किसी भी शाखा में जमा कर सकते हैं। तारीख वाली पावती मांगें।"},
+    "standard_forms": {"para": "27", "quote": "A bank shall use the standardised forms for receiving the claims and other documents as per the formats provided in Annex I-A to I-H.", "en": "Banks must use RBI's standard forms (Annex I-A to I-H).", "hi": "बैंकों को आरबीआई के मानक फ़ॉर्म (अनुलग्नक I-A से I-H) उपयोग करने होंगे।"},
+    "govt_schemes": {"para": "6(b)", "quote": "These Directions shall not be applicable in case of Government savings schemes administered by banks such as Senior Citizen Savings Scheme (SCSS), Public Provident Fund (PPF), etc.", "en": "PPF, SCSS and similar government schemes follow their own scheme rules.", "hi": "पीपीएफ, एससीएसएस जैसी सरकारी योजनाएं अपने नियमों से चलती हैं।"}
+  }
+}

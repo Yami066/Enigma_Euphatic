@@ -1,0 +1,529 @@
+{
+  "note": "Claim playbooks for assets outside RBI's 2025 bank Directions. Rules as data: each route has variants chosen by nomination and amount, documents that link to guides.json, ordered steps, where to go, the official timeline and sources. verified=false means the source was read and summarised but its text is not yet stored and hashed like the RBI rules.",
+  "routes": {
+    "epf": {
+      "route": "EPFO_DEATH_CLAIM",
+      "title": {"en": "PF, pension and EDLI through EPFO, plus employer dues", "hi": "ईपीएफओ से पीएफ, पेंशन और ईडीएलआई, और नियोक्ता के बकाया"},
+      "where": "EPFO (online member portal or regional office) and the employer's HR",
+      "url": "https://www.epfindia.gov.in/",
+      "timeline": {"en": "EPFO must settle a complete claim within 30 days; after 20 days without reason, penal interest of 12% a year can apply (EPF Scheme 1952, para 72(7)). Gratuity: employer pays within 30 days of it becoming payable (Payment of Gratuity Act, s.7(3)).", "hi": "पूरा दावा मिलने के 30 दिन में ईपीएफओ को भुगतान करना होता है (ईपीएफ योजना 1952, पैरा 72(7))। ग्रेच्युटी: देय होने के 30 दिन में नियोक्ता भुगतान करे (ग्रेच्युटी अधिनियम, धारा 7(3))।"},
+      "sources": [
+        {"label": "EPF Scheme 1952, para 72", "url": "https://indiankanoon.org/doc/111744363/"},
+        {"label": "EPFO", "url": "https://www.epfindia.gov.in/"}
+      ],
+      "variants": [
+        {
+          "id": "family",
+          "title": {"en": "Family / nominee claims PF (Form 20), pension (Form 10D) and EDLI insurance (Form 5(IF))", "hi": "परिवार / नामिती पीएफ (फ़ॉर्म 20), पेंशन (फ़ॉर्म 10D) और ईडीएलआई बीमा (फ़ॉर्म 5(IF)) का दावा करें"},
+          "documents": [
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "uan", "en": "UAN and last payslip of the deceased (from HR or old payslips)", "hi": "मृतक का यूएएन और आखिरी वेतन पर्ची", "guide": "uan"},
+            {"id": "claimant_kyc", "en": "Claimant's Aadhaar and PAN", "hi": "दावेदार का आधार और पैन", "guide": "claimant_kyc"},
+            {"id": "bank_proof", "en": "Claimant's cancelled cheque or passbook copy", "hi": "दावेदार का रद्द चेक या पासबुक की कॉपी", "guide": "bank_proof"},
+            {"id": "forms_epf", "en": "Form 20 (PF), Form 10D (pension), Form 5(IF) (EDLI), attested by the employer", "hi": "फ़ॉर्म 20, 10D और 5(IF), नियोक्ता द्वारा सत्यापित", "form": "EPFO"},
+            {"id": "gratuity_form", "en": "Gratuity: Form J (nominee) or Form K (legal heir) to the employer", "hi": "ग्रेच्युटी: नियोक्ता को फ़ॉर्म J (नामिती) या फ़ॉर्म K (कानूनी वारिस)", "form": "Gratuity"}
+          ],
+          "steps": [
+            {"en": "Ask the employer's HR for the UAN, final salary, leave encashment, gratuity and any group life insurance. Ask them to attest the EPF forms.", "hi": "नियोक्ता के एचआर से यूएएन, अंतिम वेतन, छुट्टी नकदीकरण, ग्रेच्युटी और समूह जीवन बीमा के बारे में पूछें। ईपीएफ फ़ॉर्म सत्यापित करवाएं।"},
+            {"en": "If an e-nomination was filed, the nominee can file the death claim online on the EPFO member portal. Otherwise submit Forms 20, 10D and 5(IF) at the EPFO regional office.", "hi": "ई-नामांकन हो तो नामिती ईपीएफओ पोर्टल पर ऑनलाइन दावा कर सकता है। नहीं तो फ़ॉर्म 20, 10D और 5(IF) क्षेत्रीय कार्यालय में जमा करें।"},
+            {"en": "Apply for gratuity to the employer (Form J if you are the nominee, Form K if you are a legal heir).", "hi": "ग्रेच्युटी के लिए नियोक्ता को आवेदन दें (नामिती फ़ॉर्म J, कानूनी वारिस फ़ॉर्म K)।"},
+            {"en": "Keep the claim ID and track it on the EPFO portal. Complain on EPFiGMS if it is late.", "hi": "क्लेम आईडी रखें और पोर्टल पर ट्रैक करें। देरी हो तो EPFiGMS पर शिकायत करें।"}
+          ]
+        }
+      ],
+      "verified": false
+    },
+    "life_insurance": {
+      "route": "INSURANCE_DEATH_CLAIM",
+      "title": {"en": "Life insurance: death claim with the insurer", "hi": "जीवन बीमा: बीमा कंपनी से मृत्यु दावा"},
+      "where": "Any branch of the insurer, or its online claims page",
+      "url": "https://bimabharosa.irdai.gov.in/",
+      "timeline": {"en": "The insurer must settle within 15 days of receiving all documents, or 45 days if it investigates; if late, it owes interest at Bank Rate + 2% (IRDAI Protection of Policyholders' Interests Regulations 2024 and Master Circular).", "hi": "सभी दस्तावेज़ मिलने के 15 दिन में, और जांच हो तो 45 दिन में दावा निपटाना होता है; देरी पर बैंक दर + 2% ब्याज (आईआरडीएआई नियम 2024)।"},
+      "sources": [
+        {"label": "IRDAI (Protection of Policyholders' Interests…) Regulations, 2024", "url": "https://irdai.gov.in/web/guest/document-detail?documentId=4590885"},
+        {"label": "Bima Bharosa (IRDAI grievance portal)", "url": "https://bimabharosa.irdai.gov.in/"}
+      ],
+      "variants": [
+        {
+          "id": "nominee",
+          "when": {"nomination": ["nominee", "survivor"]},
+          "title": {"en": "The nominee claims directly from the insurer", "hi": "नामिती सीधे बीमा कंपनी से दावा करे"},
+          "documents": [
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "policy_document", "en": "Original policy document (or an indemnity if it is lost)", "hi": "मूल पॉलिसी दस्तावेज़ (खो जाए तो क्षतिपूर्ति पत्र)", "guide": "policy_document"},
+            {"id": "claim_form", "en": "Insurer's claim form (claimant's statement)", "hi": "बीमा कंपनी का दावा फ़ॉर्म", "form": "Insurer"},
+            {"id": "claimant_kyc", "en": "Nominee's ID and address proof", "hi": "नामिती का पहचान और पता प्रमाण", "guide": "claimant_kyc"},
+            {"id": "bank_proof", "en": "Nominee's cancelled cheque or passbook copy", "hi": "नामिती का रद्द चेक या पासबुक कॉपी", "guide": "bank_proof"},
+            {"id": "medical_records", "en": "Hospital / doctor's certificate if the death was due to illness, especially within 3 years of the policy start", "hi": "बीमारी से मृत्यु हो तो अस्पताल/डॉक्टर का प्रमाण, खासकर पॉलिसी के 3 साल के भीतर", "guide": "medical_records"},
+            {"id": "fir_postmortem", "en": "FIR and post-mortem report if the death was an accident or unnatural", "hi": "दुर्घटना या अप्राकृतिक मृत्यु हो तो एफआईआर और पोस्टमार्टम रिपोर्ट", "guide": "fir_postmortem"}
+          ],
+          "steps": [
+            {"en": "Tell the insurer about the death (branch, website or helpline) and note the claim number.", "hi": "बीमा कंपनी को मृत्यु की सूचना दें (शाखा, वेबसाइट या हेल्पलाइन) और क्लेम नंबर लिख लें।"},
+            {"en": "Submit the claim form with the documents; ask for a dated acknowledgement.", "hi": "दस्तावेज़ों के साथ दावा फ़ॉर्म जमा करें; तारीख वाली पावती लें।"},
+            {"en": "If the insurer is late or rejects the claim, complain to the insurer, then on Bima Bharosa, then to the Insurance Ombudsman.", "hi": "देरी या अस्वीकृति पर पहले बीमा कंपनी, फिर बीमा भरोसा पोर्टल, फिर बीमा लोकपाल को शिकायत करें।"}
+          ]
+        },
+        {
+          "id": "heirs",
+          "when": {"nomination": ["none"]},
+          "title": {"en": "No nominee: legal heirs claim and prove heirship", "hi": "नामिती नहीं: कानूनी वारिस दावा करें और वारिस होना साबित करें"},
+          "documents": [
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "policy_document", "en": "Original policy document", "hi": "मूल पॉलिसी दस्तावेज़", "guide": "policy_document"},
+            {"id": "claim_form", "en": "Insurer's claim form", "hi": "बीमा कंपनी का दावा फ़ॉर्म", "form": "Insurer"},
+            {"id": "heirship", "en": "Proof of heirship the insurer accepts: legal heir certificate, or a succession certificate for larger amounts", "hi": "वारिस होने का प्रमाण: कानूनी वारिस प्रमाण पत्र, या बड़ी राशि पर उत्तराधिकार प्रमाण पत्र", "guide": "legal_heir_certificate"},
+            {"id": "indemnity", "en": "Indemnity bond and no-objection letters from the other heirs, if the insurer asks", "hi": "मांगे जाने पर क्षतिपूर्ति बंधपत्र और अन्य वारिसों के अनापत्ति पत्र", "guide": "indemnity_bond"},
+            {"id": "claimant_kyc", "en": "Each claimant's ID and address proof", "hi": "हर दावेदार का पहचान और पता प्रमाण", "guide": "claimant_kyc"},
+            {"id": "bank_proof", "en": "Claimant's cancelled cheque", "hi": "दावेदार का रद्द चेक", "guide": "bank_proof"}
+          ],
+          "steps": [
+            {"en": "Tell the insurer about the death and ask which heirship proof they need for this amount.", "hi": "बीमा कंपनी को सूचना दें और पूछें कि इस राशि के लिए वारिस होने का कौन सा प्रमाण चाहिए।"},
+            {"en": "Get the legal heir certificate (or succession certificate if asked) and the other heirs' no-objection letters.", "hi": "कानूनी वारिस प्रमाण पत्र (या मांगा जाए तो उत्तराधिकार प्रमाण पत्र) और अन्य वारिसों के अनापत्ति पत्र लें।"},
+            {"en": "Submit everything and take a dated acknowledgement. Escalate on Bima Bharosa if it is late.", "hi": "सब जमा करें और पावती लें। देरी हो तो बीमा भरोसा पर शिकायत करें।"}
+          ]
+        }
+      ],
+      "needs": ["nomination"],
+      "verified": false
+    },
+    "pmjjby": {
+      "route": "PMJJBY_CLAIM",
+      "title": {"en": "PMJJBY: ₹2 lakh life cover, claimed at the bank branch", "hi": "पीएमजेजेबीवाई: ₹2 लाख जीवन बीमा, बैंक शाखा में दावा"},
+      "where": "The bank branch where the yearly ₹436 premium was debited",
+      "url": "https://jansuraksha.gov.in/",
+      "sources": [{"label": "Jan Suraksha portal (forms)", "url": "https://jansuraksha.gov.in/Forms-PMJJBY.aspx"}],
+      "variants": [
+        {
+          "id": "nominee",
+          "title": {"en": "The nominee claims through the bank; the bank sends it to the insurer", "hi": "नामिती बैंक से दावा करे; बैंक बीमा कंपनी को भेजता है"},
+          "documents": [
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "claim_form", "en": "PMJJBY claim form and discharge receipt (from the branch or the Jan Suraksha portal)", "hi": "पीएमजेजेबीवाई दावा फ़ॉर्म और डिस्चार्ज रसीद", "form": "PMJJBY"},
+            {"id": "claimant_kyc", "en": "Nominee's ID proof", "hi": "नामिती का पहचान प्रमाण", "guide": "claimant_kyc"},
+            {"id": "bank_proof", "en": "Nominee's bank account details (cancelled cheque)", "hi": "नामिती के बैंक खाते का विवरण (रद्द चेक)", "guide": "bank_proof"}
+          ],
+          "steps": [
+            {"en": "Go to the branch where the ₹436 premium was debited and ask for the PMJJBY claim form.", "hi": "जिस शाखा से ₹436 कटे, वहां जाकर पीएमजेजेबीवाई दावा फ़ॉर्म मांगें।"},
+            {"en": "Submit it with the death certificate; the bank fills its part and sends it to the insurer. Take an acknowledgement.", "hi": "मृत्यु प्रमाण पत्र के साथ जमा करें; बैंक बीमा कंपनी को भेजेगा। पावती लें।"},
+            {"en": "₹2 lakh is paid into the nominee's account.", "hi": "₹2 लाख नामिती के खाते में आते हैं।"}
+          ]
+        }
+      ],
+      "verified": false
+    },
+    "pmsby": {
+      "route": "PMSBY_CLAIM",
+      "title": {"en": "PMSBY: ₹2 lakh for accidental death, claimed at the bank branch", "hi": "पीएमएसबीवाई: दुर्घटना मृत्यु पर ₹2 लाख, बैंक शाखा में दावा"},
+      "where": "The bank branch where the yearly ₹20 premium was debited",
+      "url": "https://jansuraksha.gov.in/",
+      "sources": [{"label": "Jan Suraksha portal (forms)", "url": "https://jansuraksha.gov.in/Forms-PMSBY.aspx"}],
+      "variants": [
+        {
+          "id": "nominee",
+          "title": {"en": "Only if the death was an accident: nominee claims through the bank", "hi": "केवल दुर्घटना से मृत्यु पर: नामिती बैंक से दावा करे"},
+          "documents": [
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "fir_postmortem", "en": "FIR and post-mortem report", "hi": "एफआईआर और पोस्टमार्टम रिपोर्ट", "guide": "fir_postmortem"},
+            {"id": "claim_form", "en": "PMSBY claim form and discharge receipt", "hi": "पीएमएसबीवाई दावा फ़ॉर्म और डिस्चार्ज रसीद", "form": "PMSBY"},
+            {"id": "claimant_kyc", "en": "Nominee's ID proof", "hi": "नामिती का पहचान प्रमाण", "guide": "claimant_kyc"},
+            {"id": "bank_proof", "en": "Nominee's cancelled cheque", "hi": "नामिती का रद्द चेक", "guide": "bank_proof"}
+          ],
+          "steps": [
+            {"en": "Collect the FIR and post-mortem report from the police station / hospital.", "hi": "थाने / अस्पताल से एफआईआर और पोस्टमार्टम रिपोर्ट लें।"},
+            {"en": "Submit the PMSBY claim form at the branch; the bank sends it to the insurer. Take an acknowledgement.", "hi": "शाखा में पीएमएसबीवाई दावा फ़ॉर्म जमा करें; पावती लें।"}
+          ]
+        }
+      ],
+      "verified": false
+    },
+    "mutual_fund": {
+      "route": "MF_TRANSMISSION",
+      "title": {"en": "Mutual funds: transmission to the nominee or legal heirs", "hi": "म्यूचुअल फंड: नामिती या कानूनी वारिसों को हस्तांतरण"},
+      "where": "Any AMC branch, CAMS or KFintech service centre, or MF Central online",
+      "url": "https://www.mfcentral.com/",
+      "timeline": {"en": "After transmission, units can be redeemed after a 10 business day cooling-off period (AMFI guidelines). Ask the AMC/RTA for a dated acknowledgement.", "hi": "हस्तांतरण के बाद 10 कार्यदिवस बाद यूनिट बेचे जा सकते हैं (एम्फी दिशानिर्देश)। पावती लें।"},
+      "sources": [
+        {"label": "AMFI Best Practice Guidelines circular 110 (31 Jan 2024): transmission of units", "url": "https://www.amfiindia.com/Themes/Theme1/downloads/circulars/SEBI/CU149-AMFI%20BP%20cir%20110%20dt.%2031-Jan-24.pdf"},
+        {"label": "SEBI MITRA (trace inactive folios)", "url": "https://mitra.mfcentral.com/"}
+      ],
+      "variants": [
+        {
+          "id": "nominee",
+          "when": {"nomination": ["nominee", "survivor"]},
+          "title": {"en": "Nominee / surviving holder: Form T3 (or T2 for joint holders)", "hi": "नामिती / जीवित धारक: फ़ॉर्म T3 (संयुक्त धारक के लिए T2)"},
+          "documents": [
+            {"id": "form_t3", "en": "Transmission Request Form T3 (nominee) or T2 (surviving joint holder)", "hi": "हस्तांतरण अनुरोध फ़ॉर्म T3 (नामिती) या T2 (संयुक्त धारक)", "form": "AMFI T3"},
+            {"id": "death_certificate", "en": "Death certificate (attested copy)", "hi": "मृत्यु प्रमाण पत्र (सत्यापित प्रति)", "guide": "death_certificate"},
+            {"id": "claimant_kyc", "en": "Nominee's KYC (must be 'KYC complied')", "hi": "नामिती का केवाईसी ('KYC complied' होना चाहिए)", "guide": "claimant_kyc"},
+            {"id": "bank_proof", "en": "Cancelled cheque with the nominee's name, or a recent bank statement", "hi": "नामिती के नाम वाला रद्द चेक या हाल का बैंक स्टेटमेंट", "guide": "bank_proof"},
+            {"id": "signature_attestation", "en": "Up to ₹5 lakh: signature attested by your bank manager (Annexure I(a)). Above ₹5 lakh: attested by a notary or magistrate", "hi": "₹5 लाख तक: बैंक मैनेजर से हस्ताक्षर सत्यापन; अधिक पर नोटरी से", "guide": "notary"}
+          ],
+          "steps": [
+            {"en": "List every folio: download a consolidated account statement (CAS) from MF Central, CAMS or KFintech, or trace old folios on SEBI MITRA.", "hi": "सभी फोलियो की सूची बनाएं: एमएफ सेंट्रल, कैम्स या केफिनटेक से सीएएस लें, या सेबी मित्रा पर खोजें।"},
+            {"en": "Stop SIPs so money doesn't keep leaving the bank account.", "hi": "एसआईपी बंद कराएं ताकि खाते से पैसा न कटे।"},
+            {"en": "Submit Form T3 with the documents at any AMC / CAMS / KFintech branch. One request per AMC covers all its folios.", "hi": "किसी भी एएमसी / कैम्स / केफिनटेक शाखा में फ़ॉर्म T3 जमा करें।"}
+          ]
+        },
+        {
+          "id": "heirs_small",
+          "when": {"nomination": ["none"], "amount_lte": 500000},
+          "title": {"en": "No nominee, up to ₹5 lakh: indemnity, affidavits and no-objection letters (no court)", "hi": "नामिती नहीं, ₹5 लाख तक: क्षतिपूर्ति, शपथपत्र और अनापत्ति पत्र (अदालत नहीं)"},
+          "documents": [
+            {"id": "form_t3", "en": "Transmission Request Form T3", "hi": "हस्तांतरण अनुरोध फ़ॉर्म T3", "form": "AMFI T3"},
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "indemnity", "en": "Indemnity bond signed by the legal heirs (AMFI Annexure II)", "hi": "कानूनी वारिसों का क्षतिपूर्ति बंधपत्र (एम्फी अनुलग्नक II)", "guide": "indemnity_bond"},
+            {"id": "affidavits", "en": "Individual affidavit from each legal heir (Annexure III)", "hi": "हर कानूनी वारिस का अलग शपथपत्र (अनुलग्नक III)", "guide": "affidavit"},
+            {"id": "noc", "en": "No-objection letters from the other legal heirs (Annexure IV)", "hi": "अन्य वारिसों के अनापत्ति पत्र (अनुलग्नक IV)", "guide": "noc_heirs"},
+            {"id": "signature_attestation", "en": "Claimant's signature attested by the bank manager (Annexure I(a))", "hi": "दावेदार के हस्ताक्षर बैंक मैनेजर से सत्यापित", "guide": "bank_proof"},
+            {"id": "claimant_kyc", "en": "Claimant's KYC", "hi": "दावेदार का केवाईसी", "guide": "claimant_kyc"}
+          ],
+          "steps": [
+            {"en": "List every folio with a CAS (MF Central / CAMS / KFintech) or SEBI MITRA.", "hi": "सीएएस या सेबी मित्रा से सभी फोलियो की सूची बनाएं।"},
+            {"en": "Get the indemnity bond, affidavits and no-objection letters signed on stamp paper as the AMC's formats require.", "hi": "एएमसी के प्रारूप में स्टांप पेपर पर क्षतिपूर्ति, शपथपत्र और अनापत्ति पत्र पर हस्ताक्षर कराएं।"},
+            {"en": "Submit Form T3 with everything at an AMC / CAMS / KFintech branch and take an acknowledgement.", "hi": "सब कुछ के साथ फ़ॉर्म T3 जमा करें और पावती लें।"}
+          ]
+        },
+        {
+          "id": "heirs_mid",
+          "when": {"nomination": ["none"], "amount_gt": 500000, "amount_lte": 1000000},
+          "title": {"en": "No nominee, ₹5–10 lakh: will or legal heir certificate, notarised indemnity and NOCs", "hi": "नामिती नहीं, ₹5–10 लाख: वसीयत या वारिस प्रमाण पत्र, नोटरीकृत क्षतिपूर्ति और एनओसी"},
+          "documents": [
+            {"id": "form_t3", "en": "Transmission Request Form T3 (signature attested by a notary)", "hi": "फ़ॉर्म T3 (नोटरी से हस्ताक्षर सत्यापित)", "form": "AMFI T3"},
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "heirship", "en": "Notarised copy of a registered will, or a legal heir certificate", "hi": "पंजीकृत वसीयत की नोटरीकृत प्रति, या कानूनी वारिस प्रमाण पत्र", "guide": "legal_heir_certificate"},
+            {"id": "indemnity", "en": "Notarised indemnity bond from the claimant", "hi": "दावेदार का नोटरीकृत क्षतिपूर्ति बंधपत्र", "guide": "indemnity_bond"},
+            {"id": "noc", "en": "No-objection letters from all other legal heirs, attested by a notary or gazetted officer", "hi": "अन्य सभी वारिसों के अनापत्ति पत्र, नोटरी से सत्यापित", "guide": "noc_heirs"},
+            {"id": "affidavits", "en": "Individual affidavit from each legal heir", "hi": "हर वारिस का शपथपत्र", "guide": "affidavit"}
+          ],
+          "steps": [
+            {"en": "Get a legal heir certificate from the Tahsildar / revenue office (or use the registered will).", "hi": "तहसीलदार / राजस्व कार्यालय से कानूनी वारिस प्रमाण पत्र लें (या पंजीकृत वसीयत)।"},
+            {"en": "Notarise the indemnity bond and the other heirs' no-objection letters.", "hi": "क्षतिपूर्ति बंधपत्र और अनापत्ति पत्र नोटरी से सत्यापित कराएं।"},
+            {"en": "Submit Form T3 with everything and take an acknowledgement.", "hi": "फ़ॉर्म T3 जमा करें और पावती लें।"}
+          ]
+        },
+        {
+          "id": "heirs_large",
+          "when": {"nomination": ["none"], "amount_gt": 1000000},
+          "title": {"en": "No nominee, above ₹10 lakh: court document needed", "hi": "नामिती नहीं, ₹10 लाख से अधिक: अदालत का दस्तावेज़ जरूरी"},
+          "documents": [
+            {"id": "form_t3", "en": "Transmission Request Form T3", "hi": "फ़ॉर्म T3", "form": "AMFI T3"},
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "court_document", "en": "One of: probated will, succession certificate, or letters of administration / court decree", "hi": "इनमें से एक: प्रोबेट वसीयत, उत्तराधिकार प्रमाण पत्र, या प्रशासन पत्र / अदालत का आदेश", "guide": "succession_certificate"},
+            {"id": "claimant_kyc", "en": "Claimant's KYC and bank proof", "hi": "दावेदार का केवाईसी और बैंक प्रमाण", "guide": "claimant_kyc"}
+          ],
+          "steps": [
+            {"en": "Apply to the civil court for a succession certificate (or probate if there is a will). A lawyer usually helps.", "hi": "उत्तराधिकार प्रमाण पत्र (वसीयत हो तो प्रोबेट) के लिए सिविल कोर्ट में आवेदन करें।"},
+            {"en": "Submit Form T3 with a notarised copy of the court document.", "hi": "अदालत के दस्तावेज़ की नोटरीकृत प्रति के साथ फ़ॉर्म T3 जमा करें।"}
+          ]
+        }
+      ],
+      "needs": ["nomination", "amount"],
+      "verified": false
+    },
+    "shares": {
+      "route": "SECURITIES_TRANSMISSION",
+      "title": {"en": "Shares / demat: transmission through the depository participant (broker)", "hi": "शेयर / डीमैट: डिपॉजिटरी प्रतिभागी (ब्रोकर) के माध्यम से हस्तांतरण"},
+      "where": "The deceased's DP / broker (Zerodha, Groww, a bank's demat desk…); for paper certificates, the company's RTA",
+      "url": "https://www.sebi.gov.in/sebi_data/faqfiles/jan-2026/1767611333081.pdf",
+      "timeline": {"en": "The claimant needs their own demat account; shares move into it. For paper share certificates the RTA uses Form ISR-5 and the limit below is ₹5 lakh per company.", "hi": "दावेदार का अपना डीमैट खाता चाहिए; शेयर उसमें आते हैं। कागज़ी शेयरों के लिए आरटीए फ़ॉर्म ISR-5 लेता है और सीमा प्रति कंपनी ₹5 लाख है।"},
+      "sources": [{"label": "SEBI FAQs on investor service requests (Jan 2026), Q71–73", "url": "https://www.sebi.gov.in/sebi_data/faqfiles/jan-2026/1767611333081.pdf"}],
+      "variants": [
+        {
+          "id": "nominee",
+          "when": {"nomination": ["nominee", "survivor"]},
+          "title": {"en": "Nominee: transmission request with the death certificate, no court papers", "hi": "नामिती: मृत्यु प्रमाण पत्र के साथ हस्तांतरण अनुरोध, अदालत के कागज़ नहीं"},
+          "documents": [
+            {"id": "trf", "en": "Transmission request form from the DP (signed by the nominee)", "hi": "डीपी का हस्तांतरण अनुरोध फ़ॉर्म (नामिती के हस्ताक्षर)", "form": "DP TRF"},
+            {"id": "death_certificate", "en": "Death certificate (original, or copy attested by a notary / gazetted officer)", "hi": "मृत्यु प्रमाण पत्र (मूल या नोटरी से सत्यापित प्रति)", "guide": "death_certificate"},
+            {"id": "claimant_kyc", "en": "Nominee's PAN (self-attested)", "hi": "नामिती का पैन (स्व-सत्यापित)", "guide": "claimant_kyc"},
+            {"id": "cml", "en": "Client master list (CML) of the nominee's own demat account", "hi": "नामिती के अपने डीमैट खाते की क्लाइंट मास्टर लिस्ट (सीएमएल)", "guide": "cml"}
+          ],
+          "steps": [
+            {"en": "Find the demat account: NSDL/CDSL CAS emails, contract notes, the broker app, or DigiLocker.", "hi": "डीमैट खाता खोजें: एनएसडीएल/सीडीएसएल सीएएस ईमेल, कॉन्ट्रैक्ट नोट, ब्रोकर ऐप या डिजीलॉकर।"},
+            {"en": "Open a demat account in the nominee's name if they don't have one.", "hi": "नामिती का डीमैट खाता न हो तो खोलें।"},
+            {"en": "Submit the transmission form and documents to the deceased's DP. Take an acknowledgement.", "hi": "मृतक के डीपी को हस्तांतरण फ़ॉर्म और दस्तावेज़ दें। पावती लें।"}
+          ]
+        },
+        {
+          "id": "heirs_small",
+          "when": {"nomination": ["none"], "amount_lte": 1500000},
+          "title": {"en": "No nominee, up to ₹15 lakh per demat account: notarised affidavit, indemnity and NOCs (no court)", "hi": "नामिती नहीं, प्रति डीमैट खाता ₹15 लाख तक: नोटरीकृत शपथपत्र, क्षतिपूर्ति और एनओसी (अदालत नहीं)"},
+          "documents": [
+            {"id": "trf", "en": "Transmission request form signed by the claimant(s)", "hi": "दावेदारों के हस्ताक्षर वाला हस्तांतरण अनुरोध फ़ॉर्म", "form": "DP TRF"},
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "claimant_kyc", "en": "Claimant's PAN and address proof", "hi": "दावेदार का पैन और पता प्रमाण", "guide": "claimant_kyc"},
+            {"id": "affidavit", "en": "Notarised affidavit from all legal heirs on non-judicial stamp paper", "hi": "सभी वारिसों का गैर-न्यायिक स्टांप पेपर पर नोटरीकृत शपथपत्र", "guide": "affidavit"},
+            {"id": "indemnity", "en": "Notarised indemnity bond on stamp paper", "hi": "स्टांप पेपर पर नोटरीकृत क्षतिपूर्ति बंधपत्र", "guide": "indemnity_bond"},
+            {"id": "noc", "en": "No-objection from all legal heirs (or a family settlement deed), attested by a notary or gazetted officer", "hi": "सभी वारिसों की अनापत्ति (या पारिवारिक समझौता विलेख), नोटरी से सत्यापित", "guide": "noc_heirs"},
+            {"id": "cml", "en": "Client master list of the claimant's demat account", "hi": "दावेदार के डीमैट खाते की सीएमएल", "guide": "cml"}
+          ],
+          "steps": [
+            {"en": "Check the holding value on the DP's statement; the ₹15 lakh limit is per demat account on the date you submit.", "hi": "डीपी स्टेटमेंट पर मूल्य देखें; ₹15 लाख की सीमा जमा करने की तारीख पर प्रति खाते है।"},
+            {"en": "Prepare the affidavit, indemnity bond and NOCs on stamp paper and notarise them.", "hi": "शपथपत्र, क्षतिपूर्ति और एनओसी स्टांप पेपर पर बनाकर नोटरी कराएं।"},
+            {"en": "Submit everything to the deceased's DP and take an acknowledgement.", "hi": "सब कुछ मृतक के डीपी को दें और पावती लें।"}
+          ]
+        },
+        {
+          "id": "heirs_large",
+          "when": {"nomination": ["none"], "amount_gt": 1500000},
+          "title": {"en": "No nominee, above ₹15 lakh: succession certificate, probate or legal heirship certificate", "hi": "नामिती नहीं, ₹15 लाख से अधिक: उत्तराधिकार प्रमाण पत्र, प्रोबेट या वारिस प्रमाण पत्र"},
+          "documents": [
+            {"id": "trf", "en": "Transmission request form", "hi": "हस्तांतरण अनुरोध फ़ॉर्म", "form": "DP TRF"},
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "court_document", "en": "Succession certificate, probate, letters of administration, or legal heirship certificate (with notarised indemnity and NOCs)", "hi": "उत्तराधिकार प्रमाण पत्र, प्रोबेट, प्रशासन पत्र या वारिस प्रमाण पत्र (नोटरीकृत क्षतिपूर्ति और एनओसी के साथ)", "guide": "succession_certificate"},
+            {"id": "affidavit", "en": "Notarised affidavit from the claimant(s)", "hi": "दावेदारों का नोटरीकृत शपथपत्र", "guide": "affidavit"},
+            {"id": "claimant_kyc", "en": "Claimant's PAN and address proof", "hi": "दावेदार का पैन और पता प्रमाण", "guide": "claimant_kyc"}
+          ],
+          "steps": [
+            {"en": "Get a succession certificate from the civil court, or probate if there is a will (mandatory for some wills: Indian Succession Act ss.57, 213).", "hi": "सिविल कोर्ट से उत्तराधिकार प्रमाण पत्र लें, वसीयत हो तो प्रोबेट (कुछ वसीयतों के लिए अनिवार्य)।"},
+            {"en": "Submit with the transmission form to the DP.", "hi": "हस्तांतरण फ़ॉर्म के साथ डीपी को जमा करें।"}
+          ]
+        }
+      ],
+      "needs": ["nomination", "amount"],
+      "verified": false
+    },
+    "nps": {
+      "route": "NPS_DEATH_CLAIM",
+      "title": {"en": "NPS: the full corpus goes to the nominee or legal heirs", "hi": "एनपीएस: पूरी राशि नामिती या कानूनी वारिसों को"},
+      "where": "The Point of Presence (bank or POP) where the account was opened, or the CRA online",
+      "url": "https://npstrust.org.in/",
+      "sources": [{"label": "NPS Trust", "url": "https://npstrust.org.in/"}],
+      "variants": [
+        {
+          "id": "nominee",
+          "when": {"nomination": ["nominee", "survivor"]},
+          "title": {"en": "Nominee applies for death withdrawal", "hi": "नामिती मृत्यु निकासी के लिए आवेदन करे"},
+          "documents": [
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "pran", "en": "PRAN of the deceased (12 digits, on the PRAN card or statements)", "hi": "मृतक का प्रान (12 अंक)", "guide": "uan"},
+            {"id": "claim_form", "en": "NPS withdrawal form for death, from the POP or CRA website", "hi": "मृत्यु के लिए एनपीएस निकासी फ़ॉर्म", "form": "NPS"},
+            {"id": "claimant_kyc", "en": "Nominee's KYC", "hi": "नामिती का केवाईसी", "guide": "claimant_kyc"},
+            {"id": "bank_proof", "en": "Nominee's cancelled cheque", "hi": "नामिती का रद्द चेक", "guide": "bank_proof"}
+          ],
+          "steps": [
+            {"en": "Find the PRAN and the POP (bank) that serviced the account.", "hi": "प्रान और सेवा देने वाला पीओपी (बैंक) खोजें।"},
+            {"en": "Submit the death withdrawal form with documents at the POP; the corpus is paid to the nominee.", "hi": "पीओपी पर दस्तावेज़ों के साथ निकासी फ़ॉर्म जमा करें।"}
+          ]
+        },
+        {
+          "id": "heirs",
+          "when": {"nomination": ["none"]},
+          "title": {"en": "No nominee: legal heirs claim with proof of heirship", "hi": "नामिती नहीं: वारिस प्रमाण के साथ दावा करें"},
+          "documents": [
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "heirship", "en": "Legal heir certificate or succession certificate, as the POP asks", "hi": "कानूनी वारिस या उत्तराधिकार प्रमाण पत्र", "guide": "legal_heir_certificate"},
+            {"id": "claim_form", "en": "NPS death withdrawal form", "hi": "एनपीएस मृत्यु निकासी फ़ॉर्म", "form": "NPS"},
+            {"id": "claimant_kyc", "en": "Claimants' KYC and bank proof", "hi": "दावेदारों का केवाईसी और बैंक प्रमाण", "guide": "claimant_kyc"}
+          ],
+          "steps": [
+            {"en": "Ask the POP which heirship proof and indemnity they need.", "hi": "पीओपी से पूछें कि कौन सा वारिस प्रमाण और क्षतिपूर्ति चाहिए।"},
+            {"en": "Submit the withdrawal form with the documents and take an acknowledgement.", "hi": "निकासी फ़ॉर्म जमा करें और पावती लें।"}
+          ]
+        }
+      ],
+      "needs": ["nomination"],
+      "verified": false
+    },
+    "ppf": {
+      "route": "SMALL_SAVINGS_CLAIM",
+      "title": {"en": "PPF: closed and paid to the nominee or legal heirs (Form-11)", "hi": "पीपीएफ: बंद करके नामिती या वारिसों को भुगतान (फ़ॉर्म-11)"},
+      "where": "The bank branch or post office that holds the PPF account",
+      "url": "https://www.indiapost.gov.in/",
+      "timeline": {"en": "Small savings claims follow Rule 15 of the Government Savings Promotion General Rules, 2018.", "hi": "लघु बचत दावे सरकारी बचत संवर्धन सामान्य नियम 2018 के नियम 15 के अनुसार।"},
+      "sources": [{"label": "Form-11 (Rule 15, Government Savings Promotion General Rules 2018)", "url": "https://www.nsiindia.gov.in/writereaddata/FileUploads/FORM%2011.pdf"}],
+      "variants": [
+        {
+          "id": "nominee",
+          "when": {"nomination": ["nominee", "survivor"]},
+          "title": {"en": "Nominee is paid whatever the amount, without legal documents", "hi": "राशि कितनी भी हो, नामिती को बिना कानूनी दस्तावेज़ भुगतान"},
+          "documents": [
+            {"id": "form11", "en": "Form-11 (claim for the deceased's account)", "hi": "फ़ॉर्म-11 (मृतक के खाते का दावा)", "form": "Form-11"},
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "passbook", "en": "PPF passbook", "hi": "पीपीएफ पासबुक", "guide": "policy_document"},
+            {"id": "claimant_kyc", "en": "Nominee's KYC", "hi": "नामिती का केवाईसी", "guide": "claimant_kyc"}
+          ],
+          "steps": [
+            {"en": "Submit Form-11 with the death certificate and passbook at the branch / post office.", "hi": "शाखा / डाकघर में मृत्यु प्रमाण पत्र और पासबुक के साथ फ़ॉर्म-11 जमा करें।"}
+          ]
+        },
+        {
+          "id": "heirs_small",
+          "when": {"nomination": ["none"], "amount_lte": 500000},
+          "title": {"en": "No nominee, up to ₹5 lakh: claim without legal documents, 6 months after the death", "hi": "नामिती नहीं, ₹5 लाख तक: मृत्यु के 6 महीने बाद बिना कानूनी दस्तावेज़ दावा"},
+          "documents": [
+            {"id": "form11", "en": "Form-11 with the affidavit, indemnity and disclaimer parts filled", "hi": "शपथपत्र, क्षतिपूर्ति और अस्वीकरण भागों के साथ फ़ॉर्म-11", "form": "Form-11"},
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "noc", "en": "Letters of disclaimer from other legal heirs", "hi": "अन्य वारिसों के अस्वीकरण पत्र", "guide": "noc_heirs"},
+            {"id": "claimant_kyc", "en": "Claimants' KYC and two witnesses", "hi": "दावेदारों का केवाईसी और दो गवाह", "guide": "claimant_kyc"}
+          ],
+          "steps": [
+            {"en": "Wait until 6 months after the death, then submit Form-11 with the heirs' disclaimers.", "hi": "मृत्यु के 6 महीने बाद अन्य वारिसों के अस्वीकरण के साथ फ़ॉर्म-11 जमा करें।"}
+          ]
+        },
+        {
+          "id": "heirs_large",
+          "when": {"nomination": ["none"], "amount_gt": 500000},
+          "title": {"en": "No nominee, above ₹5 lakh: legal evidence needed", "hi": "नामिती नहीं, ₹5 लाख से अधिक: कानूनी साक्ष्य जरूरी"},
+          "documents": [
+            {"id": "form11", "en": "Form-11", "hi": "फ़ॉर्म-11", "form": "Form-11"},
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "court_document", "en": "Succession certificate, probate or letters of administration", "hi": "उत्तराधिकार प्रमाण पत्र, प्रोबेट या प्रशासन पत्र", "guide": "succession_certificate"}
+          ],
+          "steps": [
+            {"en": "Get the court document, then submit Form-11 with it.", "hi": "अदालत का दस्तावेज़ लेकर फ़ॉर्म-11 के साथ जमा करें।"}
+          ]
+        }
+      ],
+      "needs": ["nomination", "amount"],
+      "verified": false
+    },
+    "post_office": {
+      "route": "SMALL_SAVINGS_CLAIM",
+      "title": {"en": "Post office savings (NSC, KVP, SCSS, MIS, RD, TD, SB): claim with Form-11", "hi": "डाकघर बचत (एनएससी, केवीपी, एससीएसएस, एमआईएस, आरडी, टीडी, एसबी): फ़ॉर्म-11 से दावा"},
+      "where": "The post office (or bank) that holds the account or certificates",
+      "url": "https://www.indiapost.gov.in/",
+      "timeline": {"en": "Small savings claims follow Rule 15 of the Government Savings Promotion General Rules, 2018. Without a nominee or legal evidence, claims up to ₹5 lakh can be settled at the authority's discretion 6 months after the death.", "hi": "नियम 15 के अनुसार: नामिती या कानूनी साक्ष्य न हो तो ₹5 लाख तक के दावे मृत्यु के 6 महीने बाद निपटाए जा सकते हैं।"},
+      "sources": [
+        {"label": "Form-11 (Rule 15, Government Savings Promotion General Rules 2018)", "url": "https://www.nsiindia.gov.in/writereaddata/FileUploads/FORM%2011.pdf"},
+        {"label": "India Post: deceased claim application", "url": "https://www.indiapost.gov.in/api/documents/file/application-for-settlement-of-deceased-claim-case-20250816-7be2c7"}
+      ],
+      "variants": [
+        {
+          "id": "nominee",
+          "when": {"nomination": ["nominee", "survivor"]},
+          "title": {"en": "Nominee is paid whatever the amount, without legal documents", "hi": "राशि कितनी भी हो, नामिती को बिना कानूनी दस्तावेज़ भुगतान"},
+          "documents": [
+            {"id": "form11", "en": "Form-11", "hi": "फ़ॉर्म-11", "form": "Form-11"},
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "passbook", "en": "Passbook or certificates", "hi": "पासबुक या प्रमाण पत्र", "guide": "policy_document"},
+            {"id": "claimant_kyc", "en": "Nominee's KYC", "hi": "नामिती का केवाईसी", "guide": "claimant_kyc"}
+          ],
+          "steps": [
+            {"en": "Submit Form-11 with the death certificate and passbook / certificates at the post office.", "hi": "डाकघर में फ़ॉर्म-11 जमा करें।"}
+          ]
+        },
+        {
+          "id": "heirs_small",
+          "when": {"nomination": ["none"], "amount_lte": 500000},
+          "title": {"en": "No nominee, up to ₹5 lakh: claim without legal documents, 6 months after the death", "hi": "नामिती नहीं, ₹5 लाख तक: 6 महीने बाद बिना कानूनी दस्तावेज़ दावा"},
+          "documents": [
+            {"id": "form11", "en": "Form-11 with affidavit, indemnity and disclaimer parts", "hi": "शपथपत्र, क्षतिपूर्ति और अस्वीकरण के साथ फ़ॉर्म-11", "form": "Form-11"},
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "noc", "en": "Disclaimers from other legal heirs", "hi": "अन्य वारिसों के अस्वीकरण", "guide": "noc_heirs"},
+            {"id": "claimant_kyc", "en": "Claimants' KYC", "hi": "दावेदारों का केवाईसी", "guide": "claimant_kyc"}
+          ],
+          "steps": [
+            {"en": "After 6 months from the death, submit Form-11 with the disclaimers at the post office.", "hi": "मृत्यु के 6 महीने बाद अस्वीकरण के साथ फ़ॉर्म-11 जमा करें।"}
+          ]
+        },
+        {
+          "id": "heirs_large",
+          "when": {"nomination": ["none"], "amount_gt": 500000},
+          "title": {"en": "No nominee, above ₹5 lakh: succession certificate or probate", "hi": "नामिती नहीं, ₹5 लाख से अधिक: उत्तराधिकार प्रमाण पत्र या प्रोबेट"},
+          "documents": [
+            {"id": "form11", "en": "Form-11", "hi": "फ़ॉर्म-11", "form": "Form-11"},
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "court_document", "en": "Succession certificate, probate or letters of administration", "hi": "उत्तराधिकार प्रमाण पत्र, प्रोबेट या प्रशासन पत्र", "guide": "succession_certificate"}
+          ],
+          "steps": [
+            {"en": "Get the court document, then submit Form-11 with it.", "hi": "अदालत का दस्तावेज़ लेकर फ़ॉर्म-11 जमा करें।"}
+          ]
+        }
+      ],
+      "needs": ["nomination", "amount"],
+      "verified": false
+    },
+    "govt_scheme": {
+      "route": "SMALL_SAVINGS_CLAIM",
+      "title": {"en": "Government savings scheme (APY, SSY, SCSS…): claim where the account is held", "hi": "सरकारी बचत योजना (एपीवाई, एसएसवाई, एससीएसएस…): खाते वाली जगह पर दावा"},
+      "where": "The bank branch or post office where the scheme account is held",
+      "url": "https://www.indiapost.gov.in/",
+      "sources": [{"label": "Form-11 (Rule 15, Government Savings Promotion General Rules 2018)", "url": "https://www.nsiindia.gov.in/writereaddata/FileUploads/FORM%2011.pdf"}],
+      "variants": [
+        {
+          "id": "general",
+          "title": {"en": "Nominee or legal heirs claim at the branch / post office", "hi": "नामिती या वारिस शाखा / डाकघर में दावा करें"},
+          "documents": [
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "claim_form", "en": "The scheme's claim form (Form-11 for small savings schemes)", "hi": "योजना का दावा फ़ॉर्म (लघु बचत के लिए फ़ॉर्म-11)", "form": "Form-11"},
+            {"id": "claimant_kyc", "en": "Claimant's KYC and bank proof", "hi": "दावेदार का केवाईसी और बैंक प्रमाण", "guide": "claimant_kyc"}
+          ],
+          "steps": [
+            {"en": "Ask the branch which scheme it is and whether a nominee is registered.", "hi": "शाखा से योजना और नामिती के बारे में पूछें।"},
+            {"en": "Submit the claim form with the death certificate. For Atal Pension Yojana, the spouse usually continues to get the pension.", "hi": "मृत्यु प्रमाण पत्र के साथ दावा फ़ॉर्म जमा करें। अटल पेंशन योजना में आमतौर पर जीवनसाथी को पेंशन मिलती रहती है।"}
+          ]
+        }
+      ],
+      "verified": false
+    },
+    "credit_card": {
+      "route": "LIABILITY_CARD",
+      "title": {"en": "Credit card: inform the issuer and close it; heirs don't pay from their own pocket", "hi": "क्रेडिट कार्ड: जारीकर्ता को सूचना दें और बंद कराएं; वारिस अपनी जेब से नहीं भरते"},
+      "where": "The card issuer's customer care or branch",
+      "url": "https://cms.rbi.org.in/",
+      "sources": [{"label": "RBI Complaint Management System", "url": "https://cms.rbi.org.in/"}],
+      "variants": [
+        {
+          "id": "inform",
+          "title": {"en": "Inform, stop auto-debits, ask about card insurance", "hi": "सूचना दें, ऑटो-डेबिट बंद करें, कार्ड बीमा के बारे में पूछें"},
+          "documents": [
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"}
+          ],
+          "steps": [
+            {"en": "Tell the issuer about the death and ask them to block the card and send the final outstanding statement.", "hi": "जारीकर्ता को सूचना दें; कार्ड ब्लॉक करवाएं और अंतिम बकाया विवरण मांगें।"},
+            {"en": "Ask whether the card had insurance that pays off the balance.", "hi": "पूछें कि क्या कार्ड पर बकाया चुकाने वाला बीमा था।"},
+            {"en": "Legal heirs are not personally liable; any dues are recovered from the deceased's estate. Don't pay from your own money under pressure; complain on RBI CMS if the bank harasses you.", "hi": "वारिस व्यक्तिगत रूप से जिम्मेदार नहीं; बकाया संपत्ति से वसूला जाता है। दबाव में अपनी जेब से न भरें; परेशान करने पर आरबीआई सीएमएस पर शिकायत करें।"}
+          ]
+        }
+      ],
+      "verified": false
+    },
+    "loan": {
+      "route": "LIABILITY_LOAN",
+      "title": {"en": "Loan: inform the lender and check loan insurance before paying anything", "hi": "ऋण: ऋणदाता को सूचना दें और कुछ भी भरने से पहले ऋण बीमा जांचें"},
+      "where": "The lender's branch",
+      "url": "https://cms.rbi.org.in/",
+      "sources": [{"label": "RBI Complaint Management System", "url": "https://cms.rbi.org.in/"}],
+      "variants": [
+        {
+          "id": "inform",
+          "title": {"en": "Inform the lender, claim loan-protection insurance, settle from the estate", "hi": "ऋणदाता को बताएं, ऋण सुरक्षा बीमा का दावा करें, संपत्ति से निपटाएं"},
+          "documents": [
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "loan_statement", "en": "Loan account statement and any insurance certificate bundled with the loan", "hi": "ऋण खाते का विवरण और ऋण के साथ लिया गया बीमा प्रमाण", "guide": "policy_document"}
+          ],
+          "steps": [
+            {"en": "Inform the lender and ask for the loan statement and whether loan-protection (credit life) insurance was taken.", "hi": "ऋणदाता को सूचना दें; ऋण विवरण और ऋण सुरक्षा बीमा के बारे में पूछें।"},
+            {"en": "If insured, file the insurance claim first; it may close the loan.", "hi": "बीमा हो तो पहले बीमा दावा करें; इससे ऋण बंद हो सकता है।"},
+            {"en": "A co-borrower or guarantor stays liable. Otherwise dues come from the estate (for a home loan, the property). Heirs are not personally liable beyond what they inherit.", "hi": "सह-ऋणी या गारंटर जिम्मेदार रहते हैं। बाकी बकाया संपत्ति से; वारिस विरासत से अधिक के लिए जिम्मेदार नहीं।"}
+          ]
+        }
+      ],
+      "verified": false
+    },
+    "other": {
+      "route": "OTHER_CHECKLIST",
+      "title": {"en": "Other asset: tell the institution and ask for its claim process", "hi": "अन्य संपत्ति: संस्था को सूचना दें और उसकी दावा प्रक्रिया पूछें"},
+      "where": "The institution that holds it",
+      "url": "https://unclaimedassetsportal.in/",
+      "sources": [{"label": "Unclaimed assets portal", "url": "https://unclaimedassetsportal.in/"}],
+      "variants": [
+        {
+          "id": "general",
+          "title": {"en": "Ask the institution for its death-claim form and document list", "hi": "संस्था से मृत्यु दावा फ़ॉर्म और दस्तावेज़ सूची मांगें"},
+          "documents": [
+            {"id": "death_certificate", "en": "Death certificate", "hi": "मृत्यु प्रमाण पत्र", "guide": "death_certificate"},
+            {"id": "claimant_kyc", "en": "Claimant's KYC and bank proof", "hi": "दावेदार का केवाईसी और बैंक प्रमाण", "guide": "claimant_kyc"},
+            {"id": "heirship", "en": "Nomination proof, or legal heir / succession certificate", "hi": "नामांकन प्रमाण, या वारिस / उत्तराधिकार प्रमाण पत्र", "guide": "legal_heir_certificate"}
+          ],
+          "steps": [
+            {"en": "Write to the institution with the death certificate and ask for its claim form and document list.", "hi": "मृत्यु प्रमाण पत्र के साथ संस्था को लिखें और दावा फ़ॉर्म व दस्तावेज़ सूची मांगें।"},
+            {"en": "Use the pre-filled intimation letter from your pack.", "hi": "अपने पैक का पहले से भरा सूचना पत्र इस्तेमाल करें।"}
+          ]
+        }
+      ],
+      "verified": false
+    }
+  }
+}

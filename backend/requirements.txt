@@ -1,0 +1,9 @@
+# Runtime dependencies, packaged into the Lambda layer by scripts/build_layer.py
+# (Linux wheels fetched with --platform, so builds work from Windows without Docker).
+boto3>=1.40.60
+pdfplumber==0.11.7
+pypdfium2>=4.30
+rapidfuzz>=3.9
+reportlab>=4.2
+pypdf>=5.0
+pillow>=11.0

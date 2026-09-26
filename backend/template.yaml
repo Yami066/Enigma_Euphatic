@@ -1,0 +1,485 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >-
+  Euphatics backend: find, claim and follow up on what a loved one left behind.
+  Cognito + HTTP API + Lambda + DynamoDB + S3 + Step Functions + Verified Permissions (Cedar)
+  + Textract + Comprehend + Bedrock (Amazon Nova 2 Lite with Web Grounding).
+
+Parameters:
+  AppName:
+    Type: String
+    Default: Euphatics
+  AlertEmail:
+    Type: String
+    Default: ""
+    Description: Optional. Budget alerts, error alarms and (SES sandbox) reminder emails go here.
+  MonthlyBudgetUsd:
+    Type: Number
+    Default: 20
+  CreateSenderIdentity:
+    Type: String
+    Default: "false"
+    AllowedValues: ["true", "false"]
+    Description: Create the SES identity for AlertEmail (skip if it is already verified in SES).
+  ModelIdWeb:
+    Type: String
+    Default: us.amazon.nova-2-lite-v1:0
+  ModelRegionWeb:
+    Type: String
+    Default: us-east-1
+  ModelIdExplain:
+    Type: String
+    Default: openai.gpt-oss-120b-1:0      # explanations run in Mumbai (data stays in India); chosen 19 Sep after a head-to-head
+  ModelRegionExplain:
+    Type: String
+    Default: ap-south-1
+
+Conditions:
+  HasAlertEmail: !Not [!Equals [!Ref AlertEmail, ""]]
+  MakeSenderIdentity: !And [!Condition HasAlertEmail, !Equals [!Ref CreateSenderIdentity, "true"]]
+
+Globals:
+  Function:
+    Runtime: python3.13
+    Architectures: [x86_64]
+    CodeUri: src/
+    Timeout: 30
+    MemorySize: 512
+    Tracing: Active
+    Layers: [!Ref DepsLayer]
+    Environment:
+      Variables:
+        TABLE_NAME: !Ref MainTable
+        DOCS_BUCKET: !Ref DocsBucket
+        POLICY_STORE_ID: !Ref PolicyStore
+        APP_NAME: !Ref AppName
+        MODEL_ID_WEB: !Ref ModelIdWeb
+        MODEL_REGION_WEB: !Ref ModelRegionWeb
+        MODEL_ID_EXPLAIN: !Ref ModelIdExplain
+        MODEL_REGION_EXPLAIN: !Ref ModelRegionExplain
+        NOTIFY_FROM: !If [HasAlertEmail, !Ref AlertEmail, ""]
+        NOTIFY_ALLOWED: !If [HasAlertEmail, !Ref AlertEmail, ""]
+
+Resources:
+  # ---------------------------------------------------------------- data
+  DepsLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: !Sub "${AWS::StackName}-deps"
+      Description: pdfplumber, pypdfium2, rapidfuzz, reportlab, pypdf, pillow, boto3 (Linux wheels)
+      ContentUri: layer/
+      CompatibleRuntimes: [python3.13]
+      CompatibleArchitectures: [x86_64]
+      RetentionPolicy: Delete
+
+  MainTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - {AttributeName: PK, AttributeType: S}
+        - {AttributeName: SK, AttributeType: S}
+        - {AttributeName: GSI1PK, AttributeType: S}
+        - {AttributeName: GSI1SK, AttributeType: S}
+      KeySchema:
+        - {AttributeName: PK, KeyType: HASH}
+        - {AttributeName: SK, KeyType: RANGE}
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - {AttributeName: GSI1PK, KeyType: HASH}
+            - {AttributeName: GSI1SK, KeyType: RANGE}
+          Projection: {ProjectionType: ALL}
+      PointInTimeRecoverySpecification: {PointInTimeRecoveryEnabled: true}
+      SSESpecification: {SSEEnabled: true}
+      TimeToLiveSpecification: {AttributeName: ttl, Enabled: true}
+
+  DocsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault: {SSEAlgorithm: AES256}
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      OwnershipControls:
+        Rules: [{ObjectOwnership: BucketOwnerEnforced}]
+      CorsConfiguration:
+        CorsRules:
+          - AllowedMethods: [GET, PUT, HEAD]
+            AllowedOrigins: ["*"]
+            AllowedHeaders: ["*"]
+            ExposedHeaders: [ETag]
+            MaxAge: 3000
+      LifecycleConfiguration:
+        Rules:
+          - {Id: expire-tmp, Status: Enabled, Prefix: tmp/, ExpirationInDays: 1}
+
+  DocsBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref DocsBucket
+      PolicyDocument:
+        Statement:
+          - Sid: DenyInsecureTransport
+            Effect: Deny
+            Principal: "*"
+            Action: "s3:*"
+            Resource: [!GetAtt DocsBucket.Arn, !Sub "${DocsBucket.Arn}/*"]
+            Condition: {Bool: {"aws:SecureTransport": "false"}}
+
+  # ---------------------------------------------------------------- identity
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: !Sub "${AWS::StackName}-users"
+      UsernameAttributes: [email]
+      AutoVerifiedAttributes: [email]
+      Policies:
+        PasswordPolicy: {MinimumLength: 8, RequireLowercase: true, RequireNumbers: true, RequireUppercase: false, RequireSymbols: false}
+      AccountRecoverySetting:
+        RecoveryMechanisms: [{Name: verified_email, Priority: 1}]
+      VerificationMessageTemplate:
+        DefaultEmailOption: CONFIRM_WITH_CODE
+        EmailSubject: !Sub "Your ${AppName} verification code"
+        EmailMessage: !Sub "Your ${AppName} verification code is {####}"
+
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref UserPool
+      ClientName: web-and-android
+      GenerateSecret: false
+      ExplicitAuthFlows: [ALLOW_USER_SRP_AUTH, ALLOW_USER_PASSWORD_AUTH, ALLOW_REFRESH_TOKEN_AUTH]
+      PreventUserExistenceErrors: ENABLED
+      EnableTokenRevocation: true
+
+  # ---------------------------------------------------------------- authorization (Cedar)
+  PolicyStore:
+    Type: AWS::VerifiedPermissions::PolicyStore
+    Properties:
+      Description: Euphatics family roles (lead, heir, helper)
+      ValidationSettings: {Mode: STRICT}
+      Schema:
+        CedarJson: |
+          {"Euphatics":{"entityTypes":{"User":{},"Case":{"shape":{"type":"Record","attributes":{"lead":{"type":"Entity","name":"User"},"heirs":{"type":"Set","element":{"type":"Entity","name":"User"}},"helpers":{"type":"Set","element":{"type":"Entity","name":"User"}}}}},"Document":{"shape":{"type":"Record","attributes":{"case":{"type":"Entity","name":"Case"},"kind":{"type":"String"}}}}},"actions":{"ViewCase":{"appliesTo":{"principalTypes":["User"],"resourceTypes":["Case"]}},"EditCase":{"appliesTo":{"principalTypes":["User"],"resourceTypes":["Case"]}},"ManageMembers":{"appliesTo":{"principalTypes":["User"],"resourceTypes":["Case"]}},"UploadDocument":{"appliesTo":{"principalTypes":["User"],"resourceTypes":["Case"]}},"UseAssistant":{"appliesTo":{"principalTypes":["User"],"resourceTypes":["Case"]}},"ViewDocumentPreview":{"appliesTo":{"principalTypes":["User"],"resourceTypes":["Document"]}},"DownloadOriginal":{"appliesTo":{"principalTypes":["User"],"resourceTypes":["Document"]}}}}}
+
+  PolicyLeadFullCase:
+    Type: AWS::VerifiedPermissions::Policy
+    Properties:
+      PolicyStoreId: !Ref PolicyStore
+      Definition:
+        Static:
+          Description: The case lead can view, edit, manage members, upload and use the assistant.
+          Statement: |
+            permit (
+              principal,
+              action in [Euphatics::Action::"ViewCase", Euphatics::Action::"EditCase", Euphatics::Action::"ManageMembers", Euphatics::Action::"UploadDocument", Euphatics::Action::"UseAssistant"],
+              resource
+            ) when { resource.lead == principal };
+
+  PolicyHeirsWorkOnCase:
+    Type: AWS::VerifiedPermissions::Policy
+    Properties:
+      PolicyStoreId: !Ref PolicyStore
+      Definition:
+        Static:
+          Description: Heirs work on the case but do not manage members.
+          Statement: |
+            permit (
+              principal,
+              action in [Euphatics::Action::"ViewCase", Euphatics::Action::"EditCase", Euphatics::Action::"UploadDocument", Euphatics::Action::"UseAssistant"],
+              resource
+            ) when { resource.heirs.contains(principal) };
+
+  PolicyHelpersViewCase:
+    Type: AWS::VerifiedPermissions::Policy
+    Properties:
+      PolicyStoreId: !Ref PolicyStore
+      Definition:
+        Static:
+          Description: Helpers (e.g. a CA or family friend) can view the case and use the assistant.
+          Statement: |
+            permit (
+              principal,
+              action in [Euphatics::Action::"ViewCase", Euphatics::Action::"UseAssistant"],
+              resource
+            ) when { resource.helpers.contains(principal) };
+
+  PolicyFamilyDocuments:
+    Type: AWS::VerifiedPermissions::Policy
+    Properties:
+      PolicyStoreId: !Ref PolicyStore
+      Definition:
+        Static:
+          Description: The lead and heirs can preview and download original documents.
+          Statement: |
+            permit (
+              principal,
+              action in [Euphatics::Action::"ViewDocumentPreview", Euphatics::Action::"DownloadOriginal"],
+              resource
+            ) when { resource.case.lead == principal || resource.case.heirs.contains(principal) };
+
+  PolicyHelpersMaskedPreviews:
+    Type: AWS::VerifiedPermissions::Policy
+    Properties:
+      PolicyStoreId: !Ref PolicyStore
+      Definition:
+        Static:
+          Description: Helpers can see masked previews only.
+          Statement: |
+            permit (
+              principal,
+              action == Euphatics::Action::"ViewDocumentPreview",
+              resource
+            ) when { resource.case.helpers.contains(principal) };
+
+  PolicyForbidOriginalsOutsideFamily:
+    Type: AWS::VerifiedPermissions::Policy
+    Properties:
+      PolicyStoreId: !Ref PolicyStore
+      Definition:
+        Static:
+          Description: Guardrail. Nobody but the lead and heirs downloads originals, whatever permits are added later.
+          Statement: |
+            forbid (
+              principal,
+              action == Euphatics::Action::"DownloadOriginal",
+              resource
+            ) unless { resource.case.lead == principal || resource.case.heirs.contains(principal) };
+
+  PolicyForbidMembersUnlessLead:
+    Type: AWS::VerifiedPermissions::Policy
+    Properties:
+      PolicyStoreId: !Ref PolicyStore
+      Definition:
+        Static:
+          Description: Guardrail. Only the lead manages members.
+          Statement: |
+            forbid (
+              principal,
+              action == Euphatics::Action::"ManageMembers",
+              resource
+            ) unless { resource.lead == principal };
+
+  # ---------------------------------------------------------------- API
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      Auth:
+        DefaultAuthorizer: CognitoJwt
+        Authorizers:
+          CognitoJwt:
+            IdentitySource: $request.header.Authorization
+            JwtConfiguration:
+              issuer: !Sub "https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}"
+              audience: [!Ref UserPoolClient]
+      CorsConfiguration:
+        AllowOrigins: ["*"]
+        AllowHeaders: [authorization, content-type]
+        AllowMethods: [GET, POST, PUT, PATCH, DELETE, OPTIONS]
+        MaxAge: 600
+      DefaultRouteSettings:
+        ThrottlingBurstLimit: 50
+        ThrottlingRateLimit: 25
+
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: handlers.api.handler
+      Description: Cases, family, leads, assets, documents, search kit, clock control
+      Environment:
+        Variables:
+          STATE_MACHINE_ARN: !Ref ClaimClockStateMachine
+      Policies:
+        - DynamoDBCrudPolicy: {TableName: !Ref MainTable}
+        - S3CrudPolicy: {BucketName: !Ref DocsBucket}
+        - StepFunctionsExecutionPolicy: {StateMachineName: !GetAtt ClaimClockStateMachine.Name}
+        - Statement:
+            - Effect: Allow
+              Action: [states:SendTaskSuccess, states:SendTaskFailure, states:StopExecution]
+              Resource: "*"
+            - Effect: Allow
+              Action: verifiedpermissions:IsAuthorized
+              Resource: !GetAtt PolicyStore.Arn
+      Events:
+        Health: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: /health, Method: GET, Auth: {Authorizer: NONE}}}
+        Rules: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: /rules, Method: GET, Auth: {Authorizer: NONE}}}
+        Guides: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: /guides, Method: GET, Auth: {Authorizer: NONE}}}
+        MyCases: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: /me/cases, Method: GET}}
+        DemoCase: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: /demo/case, Method: POST}}
+        CreateCase: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: /cases, Method: POST}}
+        GetCase: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}", Method: GET}}
+        PatchCase: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}", Method: PATCH}}
+        DeleteCase: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}", Method: DELETE}}
+        Invite: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/members", Method: POST}}
+        PutPerson: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/people/{personId}", Method: PUT}}
+        DeletePerson: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/people/{personId}", Method: DELETE}}
+        Upload: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/uploads", Method: POST}}
+        DocUrl: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/documents/{docId}/url", Method: GET}}
+        ConfirmLead: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/leads/{leadId}/confirm", Method: POST}}
+        DismissLead: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/leads/{leadId}/dismiss", Method: POST}}
+        AddAsset: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/assets", Method: POST}}
+        PatchAsset: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/assets/{assetId}", Method: PATCH}}
+        DeleteAsset: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/assets/{assetId}", Method: DELETE}}
+        SearchKit: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/search-kit", Method: GET}}
+        Finding: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/findings", Method: POST}}
+        Submit: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/assets/{assetId}/submit", Method: POST}}
+        Answer: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/assets/{assetId}/answer", Method: POST}}
+
+  ScanFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: handlers.scan.handler
+      Description: Bank statement → leads (pdfplumber, Textract fallback); ID images → Aadhaar masked
+      MemorySize: 1536
+      Timeout: 90
+      Policies:
+        - DynamoDBCrudPolicy: {TableName: !Ref MainTable}
+        - S3CrudPolicy: {BucketName: !Ref DocsBucket}
+        - Statement:
+            - Effect: Allow
+              Action: [textract:DetectDocumentText, comprehend:DetectPiiEntities]
+              Resource: "*"
+            - Effect: Allow
+              Action: verifiedpermissions:IsAuthorized
+              Resource: !GetAtt PolicyStore.Arn
+      Events:
+        Process: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/documents/{docId}/process", Method: POST}}
+
+  PackFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: handlers.pack.handler
+      Description: Pre-filled RBI Annex claim pack PDF with masked attachments
+      MemorySize: 1536
+      Timeout: 60
+      Policies:
+        - DynamoDBCrudPolicy: {TableName: !Ref MainTable}
+        - S3CrudPolicy: {BucketName: !Ref DocsBucket}
+        - Statement:
+            - Effect: Allow
+              Action: verifiedpermissions:IsAuthorized
+              Resource: !GetAtt PolicyStore.Arn
+      Events:
+        Pack: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/cases/{caseId}/assets/{assetId}/pack", Method: POST}}
+
+  AssistantFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: handlers.assistant.handler
+      Description: Nova 2 Lite explanations and Web Grounding answers behind a PII firewall (async jobs)
+      Timeout: 120
+      Policies:
+        - DynamoDBCrudPolicy: {TableName: !Ref MainTable}
+        - Statement:
+            - Effect: Allow
+              Action: lambda:InvokeFunction
+              Resource: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${AWS::StackName}-AssistantFunction-*"
+        - Statement:
+            - Effect: Allow
+              Action: [bedrock:InvokeModel, bedrock:InvokeModelWithResponseStream]
+              Resource: "*"
+            - Effect: Allow
+              Action: bedrock:InvokeTool
+              Resource: !Sub "arn:aws:bedrock::${AWS::AccountId}:system-tool/amazon.nova_grounding"
+            - Effect: Allow
+              Action: comprehend:DetectPiiEntities
+              Resource: "*"
+            - Effect: Allow
+              Action: verifiedpermissions:IsAuthorized
+              Resource: !GetAtt PolicyStore.Arn
+      Events:
+        Ask: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: /assistant, Method: POST}}
+        Poll: {Type: HttpApi, Properties: {ApiId: !Ref HttpApi, Path: "/assistant/{jobId}", Method: GET}}
+
+  ClockFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: handlers.clock.handler
+      Description: Step Functions tasks for the 15-day claim clock, compensation and letters
+      MemorySize: 1024
+      Timeout: 60
+      Policies:
+        - DynamoDBCrudPolicy: {TableName: !Ref MainTable}
+        - S3CrudPolicy: {BucketName: !Ref DocsBucket}
+        - Statement:
+            - Effect: Allow
+              Action: ses:SendEmail
+              Resource: "*"
+
+  ClaimClockStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      Type: STANDARD
+      DefinitionUri: statemachines/claim_clock.asl.json
+      DefinitionSubstitutions:
+        ClockFunctionArn: !GetAtt ClockFunction.Arn
+      Tracing: {Enabled: true}
+      Policies:
+        - LambdaInvokePolicy: {FunctionName: !Ref ClockFunction}
+
+  # ---------------------------------------------------------------- cost and alerts
+  AlertTopic:
+    Type: AWS::SNS::Topic
+    Condition: HasAlertEmail
+    Properties:
+      Subscription: [{Protocol: email, Endpoint: !Ref AlertEmail}]
+
+  ApiErrorsAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Condition: HasAlertEmail
+    Properties:
+      AlarmDescription: API Lambda errors in the last 5 minutes
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions: [{Name: FunctionName, Value: !Ref ApiFunction}]
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 5
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref AlertTopic]
+
+  MonthlyBudget:
+    Type: AWS::Budgets::Budget
+    Condition: HasAlertEmail
+    Properties:
+      Budget:
+        BudgetName: !Sub "${AWS::StackName}-monthly"
+        BudgetType: COST
+        TimeUnit: MONTHLY
+        BudgetLimit: {Amount: !Ref MonthlyBudgetUsd, Unit: USD}
+      NotificationsWithSubscribers:
+        - Notification: {NotificationType: ACTUAL, ComparisonOperator: GREATER_THAN, Threshold: 50, ThresholdType: PERCENTAGE}
+          Subscribers: [{SubscriptionType: EMAIL, Address: !Ref AlertEmail}]
+        - Notification: {NotificationType: FORECASTED, ComparisonOperator: GREATER_THAN, Threshold: 100, ThresholdType: PERCENTAGE}
+          Subscribers: [{SubscriptionType: EMAIL, Address: !Ref AlertEmail}]
+
+  SenderIdentity:
+    Type: AWS::SES::EmailIdentity
+    Condition: MakeSenderIdentity
+    Properties:
+      EmailIdentity: !Ref AlertEmail
+
+Outputs:
+  ApiUrl:
+    Value: !Sub "https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+  UserPoolId:
+    Value: !Ref UserPool
+  UserPoolClientId:
+    Value: !Ref UserPoolClient
+  DocsBucketName:
+    Value: !Ref DocsBucket
+  TableName:
+    Value: !Ref MainTable
+  StateMachineArn:
+    Value: !Ref ClaimClockStateMachine
+  PolicyStoreId:
+    Value: !Ref PolicyStore
+  Region:
+    Value: !Ref AWS::Region

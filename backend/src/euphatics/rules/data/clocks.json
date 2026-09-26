@@ -1,0 +1,52 @@
+{
+  "deposit": {
+    "days": 15,
+    "calendar_days": true,
+    "starts_on": "docs_complete_date",
+    "para": "31",
+    "quote": "A bank shall settle a claim in respect of deposit accounts of a deceased customer within a period not exceeding 15 calendar days from the date of receipt of all the required documents associated with the claim.",
+    "reminders_on_day": [10, 14],
+    "compensation": {
+      "type": "interest",
+      "base": "bank_rate",
+      "spread_pct": 4,
+      "rate_reference": "docs_complete_date",
+      "attributable_to": "bank",
+      "para": "33",
+      "quote": "in cases of delay attributable to the bank, compensation shall be paid by the bank in the form of interest, at a rate not less than the prevailing Bank Rate + 4% per annum, on the settlement amount due for the period of delay",
+      "reference_quote": "The reference date for reckoning the amount due and the prevailing Bank Rate shall be the date of receipt of all required documents from the claimant.",
+      "reasons_quote": "the bank shall communicate the reasons for such delay to the claimant(s)"
+    }
+  },
+  "locker": {
+    "days": 15,
+    "calendar_days": true,
+    "starts_on": "docs_complete_date",
+    "para": "32",
+    "quote": "the bank shall, within 15 calendar days of receipt of all the required documents, process the claim and communicate with the claimant(s) for fixing the date for making inventory of the locker/ articles in safe custody",
+    "reminders_on_day": [10, 14],
+    "compensation": {
+      "type": "per_day",
+      "amount_inr": 5000,
+      "para": "34",
+      "quote": "the bank shall be required to pay compensation to the claimant(s) at the rate of ₹5,000 for each day of delay"
+    }
+  },
+  "escalation": {
+    "bank_reply_wait_days": 30,
+    "ombudsman_window_days_after_reply": 365,
+    "ombudsman_window_days_if_no_reply": 395,
+    "portal": "https://cms.rbi.org.in",
+    "source": "Reserve Bank - Integrated Ombudsman Scheme, 2021 (clause 10(2): complain to the bank first; approach the Ombudsman if there's no reply in 30 days or the reply isn't satisfactory, within one year of the reply, or one year and 30 days if there was no reply)",
+    "url": "https://www.rbi.org.in/Scripts/bs_viewcontent.aspx?Id=4061",
+    "verified": false
+  },
+  "life_insurance": {
+    "days_no_investigation": 15,
+    "days_with_investigation": 45,
+    "interest": "Bank Rate + 2% for delay",
+    "source": "IRDAI Master Circular on Protection of Policyholders' Interests, 2024",
+    "url": "https://irdai.gov.in/document-detail?documentId=5625747",
+    "verified": false
+  }
+}

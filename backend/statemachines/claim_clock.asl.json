@@ -1,0 +1,114 @@
+{
+  "Comment": "Claim clock: RBI Directions 2025 para 31 (15 days), para 33 (compensation), then RBI Integrated Ombudsman Scheme 2021 escalation. Human answers arrive through callback tokens.",
+  "StartAt": "Schedule",
+  "States": {
+    "Schedule": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {"FunctionName": "${ClockFunctionArn}", "Payload": {"action": "schedule", "input.$": "$"}},
+      "ResultSelector": {"clock.$": "$.Payload"},
+      "ResultPath": "$.sched",
+      "Retry": [{"ErrorEquals": ["Lambda.ServiceException", "Lambda.TooManyRequestsException", "Lambda.SdkClientException", "States.TaskFailed"], "IntervalSeconds": 2, "MaxAttempts": 3, "BackoffRate": 2}],
+      "Next": "WaitReminder1"
+    },
+    "WaitReminder1": {"Type": "Wait", "TimestampPath": "$.sched.clock.reminder1At", "Next": "Remind1"},
+    "Remind1": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {"FunctionName": "${ClockFunctionArn}", "Payload": {"action": "remind", "day": 10, "input.$": "$"}},
+      "ResultPath": null,
+      "Retry": [{"ErrorEquals": ["States.ALL"], "IntervalSeconds": 2, "MaxAttempts": 2, "BackoffRate": 2}],
+      "Catch": [{"ErrorEquals": ["States.ALL"], "ResultPath": null, "Next": "WaitReminder2"}],
+      "Next": "WaitReminder2"
+    },
+    "WaitReminder2": {"Type": "Wait", "TimestampPath": "$.sched.clock.reminder2At", "Next": "Remind2"},
+    "Remind2": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {"FunctionName": "${ClockFunctionArn}", "Payload": {"action": "remind", "day": 14, "input.$": "$"}},
+      "ResultPath": null,
+      "Retry": [{"ErrorEquals": ["States.ALL"], "IntervalSeconds": 2, "MaxAttempts": 2, "BackoffRate": 2}],
+      "Catch": [{"ErrorEquals": ["States.ALL"], "ResultPath": null, "Next": "WaitDue"}],
+      "Next": "WaitDue"
+    },
+    "WaitDue": {"Type": "Wait", "TimestampPath": "$.sched.clock.dueAt", "Next": "AskSettled"},
+    "AskSettled": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke.waitForTaskToken",
+      "Parameters": {"FunctionName": "${ClockFunctionArn}", "Payload": {"action": "ask", "stage": "settled", "taskToken.$": "$$.Task.Token", "input.$": "$"}},
+      "TimeoutSecondsPath": "$.sched.clock.askTimeoutSeconds",
+      "ResultPath": "$.answer",
+      "Catch": [{"ErrorEquals": ["States.Timeout"], "ResultPath": "$.askTimedOut", "Next": "Late"}],
+      "Next": "IsSettled"
+    },
+    "IsSettled": {
+      "Type": "Choice",
+      "Choices": [{"Variable": "$.answer.settled", "BooleanEquals": true, "Next": "Settled"}],
+      "Default": "Late"
+    },
+    "Settled": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {"FunctionName": "${ClockFunctionArn}", "Payload": {"action": "settled", "input.$": "$"}},
+      "ResultPath": null,
+      "Retry": [{"ErrorEquals": ["States.ALL"], "IntervalSeconds": 2, "MaxAttempts": 3, "BackoffRate": 2}],
+      "End": true
+    },
+    "Late": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {"FunctionName": "${ClockFunctionArn}", "Payload": {"action": "late", "input.$": "$"}},
+      "ResultSelector": {"late.$": "$.Payload"},
+      "ResultPath": "$.lateResult",
+      "Retry": [{"ErrorEquals": ["States.ALL"], "IntervalSeconds": 2, "MaxAttempts": 3, "BackoffRate": 2}],
+      "Next": "AskComplaintSent"
+    },
+    "AskComplaintSent": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke.waitForTaskToken",
+      "Parameters": {"FunctionName": "${ClockFunctionArn}", "Payload": {"action": "ask", "stage": "complaint_sent", "taskToken.$": "$$.Task.Token", "input.$": "$"}},
+      "ResultPath": "$.complaint",
+      "Next": "ComplaintSent"
+    },
+    "ComplaintSent": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {"FunctionName": "${ClockFunctionArn}", "Payload": {"action": "complaint_sent", "input.$": "$"}},
+      "ResultSelector": {"sent.$": "$.Payload"},
+      "ResultPath": "$.complaintResult",
+      "Retry": [{"ErrorEquals": ["States.ALL"], "IntervalSeconds": 2, "MaxAttempts": 3, "BackoffRate": 2}],
+      "Next": "WaitBankReply"
+    },
+    "WaitBankReply": {"Type": "Wait", "TimestampPath": "$.complaintResult.sent.replyDueAt", "Next": "AskResolved"},
+    "AskResolved": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke.waitForTaskToken",
+      "Parameters": {"FunctionName": "${ClockFunctionArn}", "Payload": {"action": "ask", "stage": "resolved", "taskToken.$": "$$.Task.Token", "input.$": "$"}},
+      "TimeoutSecondsPath": "$.sched.clock.askTimeoutSeconds",
+      "ResultPath": "$.resolution",
+      "Catch": [{"ErrorEquals": ["States.Timeout"], "ResultPath": "$.resolveTimedOut", "Next": "Ombudsman"}],
+      "Next": "IsResolved"
+    },
+    "IsResolved": {
+      "Type": "Choice",
+      "Choices": [{"Variable": "$.resolution.resolved", "BooleanEquals": true, "Next": "Resolved"}],
+      "Default": "Ombudsman"
+    },
+    "Resolved": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {"FunctionName": "${ClockFunctionArn}", "Payload": {"action": "resolved", "input.$": "$"}},
+      "ResultPath": null,
+      "Retry": [{"ErrorEquals": ["States.ALL"], "IntervalSeconds": 2, "MaxAttempts": 3, "BackoffRate": 2}],
+      "End": true
+    },
+    "Ombudsman": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {"FunctionName": "${ClockFunctionArn}", "Payload": {"action": "ombudsman", "input.$": "$"}},
+      "ResultPath": null,
+      "Retry": [{"ErrorEquals": ["States.ALL"], "IntervalSeconds": 2, "MaxAttempts": 3, "BackoffRate": 2}],
+      "End": true
+    }
+  }
+}

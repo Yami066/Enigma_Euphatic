@@ -1,0 +1,10 @@
+{
+  "definition": "Bank Rate as published by RBI under Section 49 of the RBI Act, 1934 (RBI Directions 2025, para 7(c)). It moves with the repo rate (repo + 0.25%).",
+  "verify_url": "https://www.rbi.org.in/",
+  "history": [
+    {"effective_from": "2025-02-07", "rate_pct": 6.50, "note": "Repo 6.25%", "verified": false},
+    {"effective_from": "2025-04-09", "rate_pct": 6.25, "note": "Repo 6.00%", "verified": false},
+    {"effective_from": "2025-06-06", "rate_pct": 5.75, "note": "Repo 5.50%", "verified": false},
+    {"effective_from": "2025-12-05", "rate_pct": 5.50, "note": "Repo 5.25%; unchanged at the 5 Aug 2026 MPC", "verified": true, "source": "RBI MPC, 5 Aug 2026 (as reported by ClearTax: https://cleartax.in/s/repo-rate)"}
+  ]
+}

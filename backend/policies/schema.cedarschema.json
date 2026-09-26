@@ -1,0 +1,35 @@
+{
+  "Euphatics": {
+    "entityTypes": {
+      "User": {},
+      "Case": {
+        "shape": {
+          "type": "Record",
+          "attributes": {
+            "lead": {"type": "Entity", "name": "User"},
+            "heirs": {"type": "Set", "element": {"type": "Entity", "name": "User"}},
+            "helpers": {"type": "Set", "element": {"type": "Entity", "name": "User"}}
+          }
+        }
+      },
+      "Document": {
+        "shape": {
+          "type": "Record",
+          "attributes": {
+            "case": {"type": "Entity", "name": "Case"},
+            "kind": {"type": "String"}
+          }
+        }
+      }
+    },
+    "actions": {
+      "ViewCase": {"appliesTo": {"principalTypes": ["User"], "resourceTypes": ["Case"]}},
+      "EditCase": {"appliesTo": {"principalTypes": ["User"], "resourceTypes": ["Case"]}},
+      "ManageMembers": {"appliesTo": {"principalTypes": ["User"], "resourceTypes": ["Case"]}},
+      "UploadDocument": {"appliesTo": {"principalTypes": ["User"], "resourceTypes": ["Case"]}},
+      "UseAssistant": {"appliesTo": {"principalTypes": ["User"], "resourceTypes": ["Case"]}},
+      "ViewDocumentPreview": {"appliesTo": {"principalTypes": ["User"], "resourceTypes": ["Document"]}},
+      "DownloadOriginal": {"appliesTo": {"principalTypes": ["User"], "resourceTypes": ["Document"]}}
+    }
+  }
+}

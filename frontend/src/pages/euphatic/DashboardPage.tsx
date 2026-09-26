@@ -16,9 +16,9 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { useApp, type Asset } from "../../context/AppContext";
-import { CitationBlock } from "../../components/afterloss/CitationBlock";
-import { ClaimClockWidget } from "../../components/afterloss/ClaimClockWidget";
-import { StatusBadge } from "../../components/afterloss/StatusBadge";
+import { CitationBlock } from "../../components/euphatic/CitationBlock";
+import { ClaimClockWidget } from "../../components/euphatic/ClaimClockWidget";
+import { StatusBadge } from "../../components/euphatic/StatusBadge";
 
 export function DashboardPage() {
   const { caseData, setCurrentView, setActiveClaimPackModal, showToast } = useApp();

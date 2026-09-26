@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Download, ExternalLink, FileCheck, FileDown, FileText, Printer, Scale, ShieldAlert, ShieldCheck } from "lucide-react";
 import { useApp, type Asset } from "../../context/AppContext";
-import { CitationBlock } from "../../components/afterloss/CitationBlock";
+import { CitationBlock } from "../../components/euphatic/CitationBlock";
 
 export function PaperworkPage() {
   const { caseData, setActiveClaimPackModal, showToast } = useApp();

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { CheckCircle2, FileSearch, FileUp, Loader2, Sparkles, UploadCloud } from "lucide-react";
 import { useApp } from "../../context/AppContext";
-import { CitationBlock } from "../../components/afterloss/CitationBlock";
-import { DiscoveredAssetCard } from "../../components/afterloss/DiscoveredAssetCard";
+import { CitationBlock } from "../../components/euphatic/CitationBlock";
+import { DiscoveredAssetCard } from "../../components/euphatic/DiscoveredAssetCard";
 
 export function DocumentDiscoveryPage() {
   const { addAsset, showToast } = useApp();

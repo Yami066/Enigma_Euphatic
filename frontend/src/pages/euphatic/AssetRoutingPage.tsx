@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Check, ChevronRight, FileText, Info, Landmark, Plus, Scale, ShieldCheck } from "lucide-react";
 import { useApp, type Asset } from "../../context/AppContext";
-import { CitationBlock } from "../../components/afterloss/CitationBlock";
+import { CitationBlock } from "../../components/euphatic/CitationBlock";
 
 export function AssetRoutingPage() {
   const { caseData, updateAsset, setActiveClaimPackModal, showToast } = useApp();

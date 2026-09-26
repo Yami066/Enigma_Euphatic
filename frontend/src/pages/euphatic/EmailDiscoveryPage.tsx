@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { CheckCircle2, ChevronRight, Mail, RefreshCw, ShieldCheck, Sparkles } from "lucide-react";
 import { useApp, type Asset } from "../../context/AppContext";
-import { CitationBlock } from "../../components/afterloss/CitationBlock";
-import { DiscoveredAssetCard } from "../../components/afterloss/DiscoveredAssetCard";
+import { CitationBlock } from "../../components/euphatic/CitationBlock";
+import { DiscoveredAssetCard } from "../../components/euphatic/DiscoveredAssetCard";
 
 export function EmailDiscoveryPage() {
   const { addAsset, showToast } = useApp();

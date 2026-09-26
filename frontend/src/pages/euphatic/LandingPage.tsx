@@ -1,6 +1,6 @@
 import { ArrowRight, CheckCircle2, Clock, FileCheck, FileSearch, HelpCircle, Lock, Mail, Scale, ShieldCheck, Sparkles, TrendingUp, Users } from "lucide-react";
 import { useApp } from "../../context/AppContext";
-import { CitationBlock } from "../../components/afterloss/CitationBlock";
+import { CitationBlock } from "../../components/euphatic/CitationBlock";
 
 export function LandingPage() {
   const { setCurrentView, setAuthModalOpen, setAssistantOpen, lang, setLang } = useApp();

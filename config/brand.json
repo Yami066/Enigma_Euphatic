@@ -1,10 +1,10 @@
 {
-  "appName": "AfterLoss",
+  "appName": "Euphatic",
   "appNameHi": "आफ़्टर-लॉस",
   "tagline": "Find, claim and settle what a loved one left behind under RBI Directions 2025.",
   "taglineHi": "आरबीआई दिशानिर्देश 2025 के तहत अपनों की छोड़ी हुई संपत्ति खोजें, दावा करें और समय पर पाएं।",
-  "codeName": "afterloss",
-  "supportEmail": "help@afterloss.in",
+  "codeName": "euphatic",
+  "supportEmail": "help@euphatic.in",
   "colors": {
     "primary": "#4F3F38",
     "primaryDark": "#352A25",

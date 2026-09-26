@@ -78,7 +78,7 @@ export function AppShell({ children }: Props) {
 
   const getPageTitle = (key: ViewKey): string => {
     const item = navItems.find((n) => n.key === key);
-    if (!item) return key === "landing" ? "AfterLoss" : "Dashboard";
+    if (!item) return key === "landing" ? "Euphatic" : "Dashboard";
     return lang === "hi" ? item.labelHi : item.labelEn;
   };
 
@@ -94,7 +94,7 @@ export function AppShell({ children }: Props) {
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-base font-bold tracking-tight text-white">AfterLoss</span>
+                <span className="text-base font-bold tracking-tight text-white">Euphatic</span>
               </div>
               <span className="block text-[11px] font-medium text-[#ACA986]">
                 Estate Settlement

@@ -1,15 +1,15 @@
 import { AppProvider, useApp } from "./context/AppContext";
-import { AppShell } from "./components/afterloss/AppShell";
-import { LandingPage } from "./pages/afterloss/LandingPage";
-import { DashboardPage } from "./pages/afterloss/DashboardPage";
-import { GuidedIntakePage } from "./pages/afterloss/GuidedIntakePage";
-import { DocumentDiscoveryPage } from "./pages/afterloss/DocumentDiscoveryPage";
-import { EmailDiscoveryPage } from "./pages/afterloss/EmailDiscoveryPage";
-import { AssetRoutingPage } from "./pages/afterloss/AssetRoutingPage";
-import { PaperworkPage } from "./pages/afterloss/PaperworkPage";
-import { FollowupPage } from "./pages/afterloss/FollowupPage";
-import { SharedAccessPage } from "./pages/afterloss/SharedAccessPage";
-import { SettingsPage } from "./pages/afterloss/SettingsPage";
+import { AppShell } from "./components/euphatic/AppShell";
+import { LandingPage } from "./pages/euphatic/LandingPage";
+import { DashboardPage } from "./pages/euphatic/DashboardPage";
+import { GuidedIntakePage } from "./pages/euphatic/GuidedIntakePage";
+import { DocumentDiscoveryPage } from "./pages/euphatic/DocumentDiscoveryPage";
+import { EmailDiscoveryPage } from "./pages/euphatic/EmailDiscoveryPage";
+import { AssetRoutingPage } from "./pages/euphatic/AssetRoutingPage";
+import { PaperworkPage } from "./pages/euphatic/PaperworkPage";
+import { FollowupPage } from "./pages/euphatic/FollowupPage";
+import { SharedAccessPage } from "./pages/euphatic/SharedAccessPage";
+import { SettingsPage } from "./pages/euphatic/SettingsPage";
 
 function MainContent() {
   const { currentView } = useApp();

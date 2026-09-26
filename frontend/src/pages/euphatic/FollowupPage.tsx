@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AlertCircle, Calculator, Clock, FileDown, Flame, Scale, Send, ShieldAlert, ShieldCheck } from "lucide-react";
 import { useApp } from "../../context/AppContext";
-import { CitationBlock } from "../../components/afterloss/CitationBlock";
+import { CitationBlock } from "../../components/euphatic/CitationBlock";
 
 export function FollowupPage() {
   const { caseData, setActiveClaimPackModal, showToast } = useApp();

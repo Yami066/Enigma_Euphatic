@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Check, Copy, Mail, Shield, Trash2, UserPlus, Users } from "lucide-react";
 import { useApp } from "../../context/AppContext";
-import { CitationBlock } from "../../components/afterloss/CitationBlock";
+import { CitationBlock } from "../../components/euphatic/CitationBlock";
 
 export function SharedAccessPage() {
   const { caseData, setCaseData, setInviteModalOpen, showToast } = useApp();

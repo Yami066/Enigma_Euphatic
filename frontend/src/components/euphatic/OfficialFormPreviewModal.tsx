@@ -18,9 +18,9 @@ export function OfficialFormPreviewModal({ asset, onClose }: Props) {
   const handleDownloadPdf = () => {
     showToast(`Downloading official claim paperwork for ${asset.institution}...`);
     // Create an accessible text/pdf blob download demo
-    const docTitle = `AfterLoss_${asset.institution.replace(/\s+/g, "_")}_ClaimPack.txt`;
+    const docTitle = `Euphatic_${asset.institution.replace(/\s+/g, "_")}_ClaimPack.txt`;
     const docContent = `=====================================================
-AFTERLOSS — STATUTORY CLAIM PACK
+EUPHATIC — STATUTORY CLAIM PACK
 Governed by RBI Master Directions 2025 (Ref: DOR.RAG.REC.73/09.08.001/2024-25)
 =====================================================
 
@@ -45,7 +45,7 @@ PRIMARY CLAIMANT / NOMINEE:
 STATUTORY GUARANTEE:
 Under RBI Directions 2025 (para 31), settlement must be disbursed within 15 calendar days of receipt of complete documents. Delays attributable to the bank attract penal interest at Bank Rate + 4% p.a. under para 33.
 
-Generated on: ${new Date().toLocaleDateString("en-IN")} via AfterLoss Legal Engine.
+Generated on: ${new Date().toLocaleDateString("en-IN")} via Euphatic Legal Engine.
 =====================================================`;
     const blob = new Blob([docContent], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);

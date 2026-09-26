@@ -227,7 +227,7 @@ const DEFAULT_CASE_DATA: CaseData = {
 
 const STRINGS: Record<"en" | "hi", Record<string, string>> = {
   en: {
-    "brand.name": "AfterLoss",
+    "brand.name": "Euphatic",
     "brand.tagline": "Empathetic, authoritative estate settlement under RBI Directions 2025.",
     "compliance.tag": "RBI Directions 2025",
     "nav.landing": "Welcome",
@@ -250,7 +250,7 @@ const STRINGS: Record<"en" | "hi", Record<string, string>> = {
     "badge.neutral": "Not Initiated",
   },
   hi: {
-    "brand.name": "AfterLoss",
+    "brand.name": "Euphatic",
     "brand.tagline": "आरबीआई दिशानिर्देश 2025 के तहत पारिवारिक संपत्ति दावा और निपटान प्रणाली।",
     "compliance.tag": "आरबीआई दिशानिर्देश 2025",
     "nav.landing": "स्वागत",
@@ -305,7 +305,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<"en" | "hi">("en");
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
   const [caseData, setCaseData] = useState<CaseData>(() => {
-    const saved = localStorage.getItem("afterloss_case_data");
+    const saved = localStorage.getItem("euphatic_case_data");
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -323,7 +323,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    localStorage.setItem("afterloss_case_data", JSON.stringify(caseData));
+    localStorage.setItem("euphatic_case_data", JSON.stringify(caseData));
   }, [caseData]);
 
   const showToast = (msg: string) => {

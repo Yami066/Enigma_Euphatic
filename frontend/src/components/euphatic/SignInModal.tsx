@@ -22,7 +22,7 @@ export function SignInModal() {
     e.preventDefault();
     setIsAuthenticated(true);
     setAuthModalOpen(false);
-    showToast("Successfully authenticated. Welcome back to AfterLoss.");
+    showToast("Successfully authenticated. Welcome back to Euphatic.");
   };
 
   return (
@@ -41,7 +41,7 @@ export function SignInModal() {
             AL
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-[#4F3F38]">Sign In to AfterLoss</h2>
+            <h2 className="text-xl font-semibold text-[#4F3F38]">Sign In to Euphatic</h2>
             <div className="inline-flex items-center gap-1 rounded-full bg-[#F5F3EC] px-2 py-0.5 text-[11px] font-semibold text-[#8A7F76]">
               <ShieldCheck className="size-3 text-[#B7C497]" />
               RBI Directions 2025 Verified Vault

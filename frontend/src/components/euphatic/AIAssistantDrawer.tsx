@@ -18,8 +18,8 @@ export function AIAssistantDrawer() {
       role: "assistant",
       text:
         lang === "hi"
-          ? `नमस्ते। मैं आपका AfterLoss कानूनी सहायक हूँ। मैं आरबीआई दिशानिर्देश 2025, उत्तराधिकार अधिनियम और दावा प्रक्रियाओं में आपकी सहायता के लिए तैयार हूँ। आप वर्तमान में "${currentView}" स्क्रीन पर हैं।`
-          : `Hello. I am your AfterLoss Statutory Legal Assistant. I am directly grounded in RBI Directions 2025, the Indian Succession Act, and statutory estate protocols. You are currently viewing the "${currentView}" workspace. How may I assist your family today?`,
+          ? `नमस्ते। मैं आपका Euphatic कानूनी सहायक हूँ। मैं आरबीआई दिशानिर्देश 2025, उत्तराधिकार अधिनियम और दावा प्रक्रियाओं में आपकी सहायता के लिए तैयार हूँ। आप वर्तमान में "${currentView}" स्क्रीन पर हैं।`
+          : `Hello. I am your Euphatic Statutory Legal Assistant. I am directly grounded in RBI Directions 2025, the Indian Succession Act, and statutory estate protocols. You are currently viewing the "${currentView}" workspace. How may I assist your family today?`,
       citation:
         "RBI Master Directions 2025 (DOR.RAG.REC.73/09.08.001/2024-25) Para 31: Banks must settle deceased claims within 15 calendar days of receiving full paperwork.",
       source: "RBI Master Directions 2025 Para 31",
@@ -66,7 +66,7 @@ export function AIAssistantDrawer() {
         source = "RBI Directions 2025 para 35";
       } else if (lower.includes("ombudsman") || lower.includes("complaint") || lower.includes("late")) {
         reply =
-          "If the bank refuses to settle within 30 days of receiving your complaint or fails to pay statutory penal interest, you can directly escalate to the Reserve Bank - Integrated Ombudsman Scheme (RBI-IOS 2021) via CMS portal (cms.rbi.org.in). AfterLoss can auto-generate this complaint draft for your case.";
+          "If the bank refuses to settle within 30 days of receiving your complaint or fails to pay statutory penal interest, you can directly escalate to the Reserve Bank - Integrated Ombudsman Scheme (RBI-IOS 2021) via CMS portal (cms.rbi.org.in). Euphatic can auto-generate this complaint draft for your case.";
         citation = "Reserve Bank - Integrated Ombudsman Scheme (RBI-IOS) 2021 Clause 10.";
         source = "RBI-IOS 2021 Clause 10";
       } else {
@@ -95,7 +95,7 @@ export function AIAssistantDrawer() {
             <Bot className="size-5" />
           </div>
           <div>
-            <h3 className="text-base font-semibold text-[#4F3F38]">AfterLoss Legal AI</h3>
+            <h3 className="text-base font-semibold text-[#4F3F38]">Euphatic Legal AI</h3>
             <span className="font-mono text-xs text-[#8A7F76]">
               Screen: <strong className="text-[#4F3F38]">{currentView}</strong>
             </span>

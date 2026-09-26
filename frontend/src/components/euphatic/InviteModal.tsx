@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Copy, Mail, Shield, UserCheck, Users, X } from "lucide-react";
+import { Check, Copy, ExternalLink, Mail, MessageSquare, Send, Shield, UserCheck, Users, X } from "lucide-react";
 import { useApp } from "../../context/AppContext";
 
 export function InviteModal() {
@@ -7,10 +7,37 @@ export function InviteModal() {
   const [fullName, setFullName] = useState("");
   const [relation, setRelation] = useState("Daughter");
   const [role, setRole] = useState<"Claimant" | "Nominee" | "Non-claimant (NOC)" | "Declarant">("Non-claimant (NOC)");
-  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
   const [copied, setCopied] = useState(false);
 
   if (!inviteModalOpen) return null;
+
+  const inviteLink = `${window.location.origin}/?join=${caseData.caseId}`;
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(inviteLink);
+    setCopied(true);
+    showToast("Case invitation link copied to clipboard.");
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleSendWhatsApp = () => {
+    const cleaned = contact.replace(/[^0-9]/g, "");
+    const msg = `Hello ${fullName || "Family Member"}! You have been added as a legal heir (${role}) on Euphatics for Estate Settlement Case #${caseData.caseId} (${caseData.deceased.fullName || "Estate Record"}).\n\nPlease click this secure collaboration link to review bank accounts and provide your digital consent / NOC under RBI Directions 2025:\n${inviteLink}`;
+    const url = cleaned.length >= 10
+      ? `https://api.whatsapp.com/send?phone=${cleaned}&text=${encodeURIComponent(msg)}`
+      : `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+    showToast("Opening WhatsApp with pre-filled invitation...");
+  };
+
+  const handleSendEmail = () => {
+    const subject = `Legal Heir Invitation: Estate Settlement Case #${caseData.caseId}`;
+    const body = `Dear ${fullName || "Family Member"},\n\nYou have been listed as a legal heir (${role}) for the estate settlement of ${caseData.deceased.fullName || "our family member"} under RBI Master Directions 2025.\n\nPlease click the secure collaboration link below to review the bank accounts and complete your digital declaration / NOC:\n\n${inviteLink}\n\nCase Reference: ${caseData.caseId}\nDeceased: ${caseData.deceased.fullName || "Family Estate"}\nEuphatics LegalTech Platform`;
+    const targetEmail = contact.includes("@") ? contact : "";
+    window.open(`mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_blank");
+    showToast("Opening email composer with pre-filled invitation...");
+  };
 
   const handleInvite = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +48,8 @@ export function InviteModal() {
       fullName,
       relation,
       role,
-      email: email || undefined,
+      email: contact.includes("@") ? contact : undefined,
+      phone: !contact.includes("@") && contact.length > 0 ? contact : undefined,
     };
 
     setCaseData((prev) => ({
@@ -29,17 +57,14 @@ export function InviteModal() {
       heirs: [...prev.heirs, newHeir],
     }));
 
-    showToast(`Invitation sent to ${fullName} as ${role}.`);
+    showToast(`Added ${fullName} (${role}) to family estate tree.`);
+    // Automatically trigger dispatch if contact provided
+    if (contact.includes("@")) {
+      handleSendEmail();
+    } else if (contact.replace(/[^0-9]/g, "").length >= 10) {
+      handleSendWhatsApp();
+    }
     setInviteModalOpen(false);
-  };
-
-  const inviteLink = `${window.location.origin}/join/${caseData.caseId}?invite=${Math.random().toString(36).slice(2, 8)}`;
-
-  const copyLink = () => {
-    navigator.clipboard.writeText(inviteLink);
-    setCopied(true);
-    showToast("Case invitation link copied to clipboard.");
-    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -132,17 +157,40 @@ export function InviteModal() {
           </div>
 
           <div>
-            <label className="app-label">Email or Phone (Optional)</label>
-            <input
-              type="text"
-              placeholder="pooja.sharma@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="app-input"
-            />
+            <label className="app-label">Email or Phone Number</label>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="pooja.sharma@example.com or 9876543210"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
+                className="app-input pr-28"
+              />
+              <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={handleSendWhatsApp}
+                  className="rounded bg-[#25D366] text-white px-2 py-1 text-[10px] font-bold hover:bg-[#1EBE5B] transition-colors"
+                  title="Send via WhatsApp"
+                >
+                  WhatsApp
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSendEmail}
+                  className="rounded bg-[#4F3F38] text-white px-2 py-1 text-[10px] font-bold hover:bg-[#3a2d27] transition-colors"
+                  title="Send via Email"
+                >
+                  Email
+                </button>
+              </div>
+            </div>
+            <span className="app-helper">
+              Click WhatsApp or Email to immediately dispatch the invitation with pre-filled legal text.
+            </span>
           </div>
 
-          <div className="pt-2">
+          <div className="pt-2 flex flex-col gap-2">
             <button type="submit" className="btn-primary w-full">
               <Mail className="size-4" />
               Add Family Member & Generate Invite
@@ -150,8 +198,8 @@ export function InviteModal() {
           </div>
         </form>
 
-        <div className="mt-5 border-t border-[#EDE9E2] pt-4">
-          <label className="app-label">Or share direct secure link</label>
+        <div className="mt-5 border-t border-[#EDE9E2] pt-4 space-y-2">
+          <label className="app-label">Or share direct secure collaboration link</label>
           <div className="flex gap-2">
             <input
               type="text"
@@ -164,10 +212,13 @@ export function InviteModal() {
               onClick={copyLink}
               className="btn-secondary-sm shrink-0"
             >
-              <Copy className="size-3.5" />
+              {copied ? <Check className="size-3.5 text-[#B7C497]" /> : <Copy className="size-3.5" />}
               {copied ? "Copied!" : "Copy Link"}
             </button>
           </div>
+          <span className="text-[11px] text-[#6B6358] block">
+            Anyone opening this link on their phone or laptop will enter the case review & digital NOC consent portal.
+          </span>
         </div>
       </div>
     </div>

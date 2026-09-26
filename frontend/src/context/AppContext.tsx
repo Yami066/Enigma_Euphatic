@@ -335,7 +335,17 @@ export interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [currentView, setCurrentView] = useState<ViewKey>("landing");
+  const [currentView, setCurrentView] = useState<ViewKey>(() => {
+    try {
+      const search = window.location.search;
+      if (search && new URLSearchParams(search).get("join")) {
+        return "sharedAccess";
+      }
+    } catch {
+      // ignore
+    }
+    return "landing";
+  });
   const [lang, setLang] = useState<"en" | "hi">("en");
 
   const [currentUser, setCurrentUser] = useState<string | null>(() => {
@@ -347,6 +357,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   });
 
   const loadCaseForUser = (user: string | null): CaseData => {
+    try {
+      const search = window.location.search;
+      if (search && new URLSearchParams(search).get("join")) {
+        return DEFAULT_CASE_DATA;
+      }
+    } catch {
+      // ignore
+    }
     if (user === "demo@euphatics.example") {
       return DEFAULT_CASE_DATA;
     }

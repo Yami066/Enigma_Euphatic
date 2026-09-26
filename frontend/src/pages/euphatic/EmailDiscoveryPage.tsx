@@ -129,19 +129,40 @@ export function EmailDiscoveryPage() {
         <h4 className="text-xs font-bold text-[#4F3F38] uppercase tracking-wider">
           Active Statutory Search Queries
         </h4>
-        <div className="mt-3 grid grid-cols-1 gap-2 text-xs text-[#8A7F76] sm:grid-cols-2">
-          <div className="rounded bg-white p-2.5 font-mono text-[11px] border border-[#EDE9E2]">
-            from:(camsonline OR kfintech OR mfcentral) "statement"
-          </div>
-          <div className="rounded bg-white p-2.5 font-mono text-[11px] border border-[#EDE9E2]">
-            from:(zerodha OR groww OR nsdl OR cdsl) "contract note"
-          </div>
-          <div className="rounded bg-white p-2.5 font-mono text-[11px] border border-[#EDE9E2]">
-            from:(licindia OR hdfclife) "premium receipt" OR "policy"
-          </div>
-          <div className="rounded bg-white p-2.5 font-mono text-[11px] border border-[#EDE9E2]">
-            subject:(UAN OR PRAN OR "EPF passbook" OR "dividend credited")
-          </div>
+        <div className="mt-3 grid grid-cols-1 gap-3 text-xs text-[#8A7F76]">
+          {[
+            { label: "Mutual fund statements (CAS)", q: 'from:(camsonline OR kfintech OR mfcentral) "statement"' },
+            { label: "Demat and shares", q: 'from:(nsdl OR cdsl OR zerodha OR groww OR upstox) "contract note"' },
+            { label: "Insurance premiums and policies", q: 'subject:("premium receipt" OR "policy document") OR from:(licindia OR hdfclife)' },
+            { label: "PF, pension and NPS", q: 'subject:(UAN OR PRAN OR "EPF passbook" OR "dividend credited")' },
+          ].map((s, i) => (
+            <div key={i} className="flex flex-col gap-2 rounded bg-white p-3 border border-[#EDE9E2] sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <span className="block font-semibold text-[#4F3F38] mb-1">{s.label}</span>
+                <span className="font-mono text-[11px] text-[#8A7F76]">{s.q}</span>
+              </div>
+              <div className="flex items-center gap-2 mt-2 sm:mt-0">
+                <a
+                  href={`https://mail.google.com/mail/u/0/#search/${encodeURIComponent(s.q)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 rounded bg-[#F5F3EC] px-2 py-1 text-[11px] font-medium text-[#4F3F38] hover:bg-[#E8E4D9]"
+                >
+                  <Mail className="size-3" /> Gmail
+                </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(s.q);
+                    showToast("Search query copied to clipboard!");
+                  }}
+                  className="inline-flex items-center gap-1 rounded bg-[#F5F3EC] px-2 py-1 text-[11px] font-medium text-[#4F3F38] hover:bg-[#E8E4D9]"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

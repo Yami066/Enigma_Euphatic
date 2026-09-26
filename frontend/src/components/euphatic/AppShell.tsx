@@ -88,9 +88,13 @@ export function AppShell({ children }: Props) {
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] flex-col justify-between bg-[#4F3F38] text-white md:flex">
         <div>
           {/* Logo & Product Brand Header */}
-          <div className="flex items-center gap-3 border-b border-white/10 px-5 py-4">
+          <button 
+            type="button" 
+            onClick={() => handleNavClick("dashboard")}
+            className="flex w-full items-center gap-3 border-b border-white/10 px-5 py-4 text-left transition-colors hover:bg-white/5"
+          >
             <div className="flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-[#3a2d27] font-mono text-base font-bold text-[#FFB077] shadow-inner">
-              AL
+              EE
             </div>
             <div>
               <div className="flex items-center gap-1.5">
@@ -100,7 +104,7 @@ export function AppShell({ children }: Props) {
                 Estate Settlement
               </span>
             </div>
-          </div>
+          </button>
 
           {/* Compliance Tag */}
           <div className="mx-4 mt-3 rounded-full bg-white/5 px-3 py-1 text-center">

@@ -222,7 +222,7 @@ export function AppShell({ children }: Props) {
                 type="button"
                 onClick={() => setLang("en")}
                 className={`rounded-full px-2.5 py-1 transition-all ${
-                  lang === "en" ? "bg-white text-[#4F3F38] shadow-sm" : "text-[#8A7F76]"
+                  lang === "en" ? "bg-white text-[#4F3F38] shadow-sm" : "text-[#6B6358]"
                 }`}
               >
                 EN
@@ -231,7 +231,7 @@ export function AppShell({ children }: Props) {
                 type="button"
                 onClick={() => setLang("hi")}
                 className={`rounded-full px-2.5 py-1 transition-all ${
-                  lang === "hi" ? "bg-white text-[#4F3F38] shadow-sm" : "text-[#8A7F76]"
+                  lang === "hi" ? "bg-white text-[#4F3F38] shadow-sm" : "text-[#6B6358]"
                 }`}
               >
                 हिं

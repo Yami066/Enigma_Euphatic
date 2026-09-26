@@ -29,7 +29,7 @@ export function FollowupPage() {
           </div>
           <div>
             <h2 className="text-xl font-bold text-[#4F3F38]">Statutory Follow-Up & Penal Interest</h2>
-            <p className="text-xs text-[#8A7F76]">
+            <p className="text-xs text-[#6B6358]">
               Real-time monitoring of the mandatory 15-day settlement window under RBI Directions 2025. If banks delay, penal interest at Bank Rate + 4% p.a. accrues automatically.
             </p>
           </div>
@@ -89,13 +89,13 @@ export function FollowupPage() {
         {/* Calculation Result Callout */}
         <div className="flex flex-col justify-between gap-4 rounded-[10px] bg-[#F5F3EC] p-5 sm:flex-row sm:items-center">
           <div>
-            <span className="text-xs font-semibold text-[#8A7F76] uppercase tracking-wider">
+            <span className="text-xs font-semibold text-[#6B6358] uppercase tracking-wider">
               Statutory Compensation Payable by Bank:
             </span>
             <div className="text-3xl font-bold text-[#AA4342]">
               {formatInr(accruedPenalInterest)}
             </div>
-            <span className="text-xs text-[#8A7F76]">
+            <span className="text-xs text-[#6B6358]">
               Accumulating at {formatInr(dailyInterest)} per day of continued delay.
             </span>
           </div>
@@ -117,20 +117,20 @@ export function FollowupPage() {
       {/* Escalation & Ombudsman Protocol */}
       <div className="app-card space-y-4">
         <h3 className="text-lg font-bold text-[#4F3F38]">Escalation to Banking Ombudsman (RBI-IOS)</h3>
-        <p className="text-xs text-[#8A7F76]">
+        <p className="text-xs text-[#6B6358]">
           If the bank does not resolve the claim within 30 days of receiving your formal complaint, you are entitled to file a complaint with the Reserve Bank - Integrated Ombudsman Scheme.
         </p>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="rounded-lg border border-[#EDE9E2] bg-[#FFFDFB] p-4 text-xs">
             <span className="font-semibold text-[#4F3F38]">Step 1: Branch Demand Letter</span>
-            <p className="mt-1 text-[#8A7F76]">
+            <p className="mt-1 text-[#6B6358]">
               Issue the formal notice under Para 33 citing exact calculated interest.
             </p>
           </div>
           <div className="rounded-lg border border-[#EDE9E2] bg-[#FFFDFB] p-4 text-xs">
             <span className="font-semibold text-[#4F3F38]">Step 2: RBI CMS Escalation</span>
-            <p className="mt-1 text-[#8A7F76]">
+            <p className="mt-1 text-[#6B6358]">
               Upload the pre-drafted complaint to cms.rbi.org.in for automated regulatory intervention.
             </p>
           </div>

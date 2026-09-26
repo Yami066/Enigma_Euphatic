@@ -35,7 +35,7 @@ export function SharedAccessPage() {
             </div>
             <div>
               <h2 className="text-xl font-bold text-[#4F3F38]">Family Co-Claimants & Legal Heirs</h2>
-              <p className="text-xs text-[#8A7F76]">
+              <p className="text-xs text-[#6B6358]">
                 Manage family member roles for Annex I-C declarations and Annex I-D No Objection Certificates (NOC).
               </p>
             </div>
@@ -60,7 +60,7 @@ export function SharedAccessPage() {
             type="text"
             readOnly
             value={inviteLink}
-            className="app-input font-mono text-xs text-[#8A7F76]"
+            className="app-input font-mono text-xs text-[#6B6358]"
           />
           <button
             type="button"
@@ -83,7 +83,7 @@ export function SharedAccessPage() {
         <div className="app-card overflow-x-auto p-0">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-[#EDE9E2] bg-[#F5F3EC]/50 font-semibold text-[#8A7F76]">
+              <tr className="border-b border-[#EDE9E2] bg-[#F5F3EC]/50 font-semibold text-[#6B6358]">
                 <th className="px-5 py-3.5">Full Legal Name</th>
                 <th className="px-5 py-3.5">Relation</th>
                 <th className="px-5 py-3.5">Settlement Capacity</th>
@@ -97,20 +97,20 @@ export function SharedAccessPage() {
                   <td className="px-5 py-4 font-semibold text-[#4F3F38]">
                     {heir.fullName}
                   </td>
-                  <td className="px-5 py-4 text-[#8A7F76]">{heir.relation}</td>
+                  <td className="px-5 py-4 text-[#6B6358]">{heir.relation}</td>
                   <td className="px-5 py-4">
                     <span className="rounded-full bg-[#F5F3EC] px-2.5 py-0.5 font-semibold text-[#4F3F38] border border-[#EDE9E2]">
                       {heir.role}
                     </span>
                   </td>
-                  <td className="px-5 py-4 text-[#8A7F76]">
+                  <td className="px-5 py-4 text-[#6B6358]">
                     {heir.email || heir.phone || "Invited via Link"}
                   </td>
                   <td className="px-5 py-4 text-right">
                     <button
                       type="button"
                       onClick={() => handleDeleteHeir(heir.personId, heir.fullName)}
-                      className="text-[#8A7F76] hover:text-[#AA4342]"
+                      className="text-[#6B6358] hover:text-[#AA4342]"
                       title="Remove from case"
                     >
                       <Trash2 className="size-4" />

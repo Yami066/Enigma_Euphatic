@@ -93,7 +93,7 @@ export function DocumentDiscoveryPage() {
           </div>
           <div>
             <h2 className="text-xl font-bold text-[#4F3F38]">Document OCR & Statement Forensics</h2>
-            <p className="text-xs text-[#8A7F76]">
+            <p className="text-xs text-[#6B6358]">
               Upload PDFs of bank statements, passbook scans, or tax filings. Our engine parses transaction narrations for ECS/NACH mandates, recurring debits, and SIPs.
             </p>
           </div>
@@ -108,7 +108,7 @@ export function DocumentDiscoveryPage() {
         <h3 className="mt-3 text-base font-semibold text-[#4F3F38]">
           {isScanning ? "Analyzing statement transactions..." : "Upload Bank Statement or Passbook Scan (PDF / Images)"}
         </h3>
-        <p className="mx-auto mt-1 max-w-sm text-xs text-[#8A7F76]">
+        <p className="mx-auto mt-1 max-w-sm text-xs text-[#6B6358]">
           Private and secure. Aadhaar numbers and sensitive identifiers are automatically masked.
         </p>
 
@@ -129,7 +129,7 @@ export function DocumentDiscoveryPage() {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-lg font-semibold text-[#4F3F38]">Auto-Discovered Accounts ({discoveredLeads.length})</h3>
-            <p className="text-xs text-[#8A7F76]">
+            <p className="text-xs text-[#6B6358]">
               Confirm leads to add them to your active statutory claim portfolio.
             </p>
           </div>
@@ -147,7 +147,7 @@ export function DocumentDiscoveryPage() {
             ))}
           </div>
         ) : (
-          <div className="app-card text-center text-xs text-[#8A7F76]">
+          <div className="app-card text-center text-xs text-[#6B6358]">
             All discovered leads have been reviewed or added to claims.
           </div>
         )}

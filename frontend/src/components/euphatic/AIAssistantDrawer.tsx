@@ -115,7 +115,7 @@ export function AIAssistantDrawer() {
           </div>
           <div>
             <h3 className="text-base font-semibold text-[#4F3F38]">Euphatic AI Assistant</h3>
-            <span className="font-mono text-xs text-[#8A7F76]">
+            <span className="font-mono text-xs text-[#6B6358]">
               Screen: <strong className="text-[#4F3F38]">{currentView}</strong>
             </span>
           </div>
@@ -123,7 +123,7 @@ export function AIAssistantDrawer() {
         <button
           type="button"
           onClick={() => setAssistantOpen(false)}
-          className="rounded-lg p-2 text-[#8A7F76] hover:bg-[#F5F3EC] hover:text-[#4F3F38]"
+          className="rounded-lg p-2 text-[#6B6358] hover:bg-[#F5F3EC] hover:text-[#4F3F38]"
         >
           <X className="size-5" />
         </button>
@@ -138,7 +138,7 @@ export function AIAssistantDrawer() {
             className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 font-medium transition-all ${
               mode === "explain"
                 ? "bg-white text-[#4F3F38] shadow-sm font-semibold"
-                : "text-[#8A7F76] hover:text-[#4F3F38]"
+                : "text-[#6B6358] hover:text-[#4F3F38]"
             }`}
           >
             <Lightbulb className="size-3.5 text-[#FFB077]" />
@@ -150,7 +150,7 @@ export function AIAssistantDrawer() {
             className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 font-medium transition-all ${
               mode === "web"
                 ? "bg-white text-[#4F3F38] shadow-sm font-semibold"
-                : "text-[#8A7F76] hover:text-[#4F3F38]"
+                : "text-[#6B6358] hover:text-[#4F3F38]"
             }`}
           >
             <Globe2 className="size-3.5 text-[#2E3D1F]" />
@@ -196,7 +196,7 @@ export function AIAssistantDrawer() {
 
       {/* Sample Quick Prompts */}
       <div className="border-t border-[#EDE9E2] bg-[#F5F3EC]/40 p-3">
-        <div className="mb-2 flex items-center justify-between text-[11px] font-semibold text-[#8A7F76]">
+        <div className="mb-2 flex items-center justify-between text-[11px] font-semibold text-[#6B6358]">
           <span className="flex items-center gap-1.5">
             {mode === "web" ? <Globe2 className="size-3.5 text-[#2E3D1F]" /> : <Lightbulb className="size-3.5 text-[#FFB077]" />}
             {mode === "web" ? "Suggested Web Inquiries" : "Common Statutory Questions"}

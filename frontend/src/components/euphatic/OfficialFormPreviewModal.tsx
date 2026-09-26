@@ -67,7 +67,7 @@ Generated on: ${new Date().toLocaleDateString("en-IN")} via Euphatic Legal Engin
             </div>
             <div>
               <h2 className="text-lg font-bold text-[#4F3F38]">Official Claim Pack — {asset.institution}</h2>
-              <div className="flex items-center gap-2 text-xs text-[#8A7F76]">
+              <div className="flex items-center gap-2 text-xs text-[#6B6358]">
                 <span>Case {caseData.caseId}</span>
                 <span>•</span>
                 <span className="font-semibold text-[#4F3F38]">{asset.routeTitle}</span>
@@ -87,7 +87,7 @@ Generated on: ${new Date().toLocaleDateString("en-IN")} via Euphatic Legal Engin
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg p-2 text-[#8A7F76] hover:bg-[#F5F3EC] hover:text-[#4F3F38]"
+              className="rounded-lg p-2 text-[#6B6358] hover:bg-[#F5F3EC] hover:text-[#4F3F38]"
             >
               <X className="size-5" />
             </button>
@@ -108,7 +108,7 @@ Generated on: ${new Date().toLocaleDateString("en-IN")} via Euphatic Legal Engin
               className={`border-b-2 px-4 py-2.5 text-xs font-semibold transition-all ${
                 activeFormTab === tab.id
                   ? "border-[#4F3F38] bg-white text-[#4F3F38]"
-                  : "border-transparent text-[#8A7F76] hover:text-[#4F3F38]"
+                  : "border-transparent text-[#6B6358] hover:text-[#4F3F38]"
               }`}
             >
               {tab.label}
@@ -127,7 +127,7 @@ Generated on: ${new Date().toLocaleDateString("en-IN")} via Euphatic Legal Engin
           {activeFormTab === "claim" && (
             <div className="space-y-6 rounded-[8px] border border-[#EDE9E2] bg-[#FFFDFB] p-6 text-[#4F3F38]">
               <div className="text-center">
-                <span className="text-xs font-bold tracking-widest text-[#8A7F76] uppercase">
+                <span className="text-xs font-bold tracking-widest text-[#6B6358] uppercase">
                   {asset.nomination === "nominee" ? "ANNEXURE I-A" : "ANNEXURE I-B"}
                 </span>
                 <h3 className="mt-1 text-base font-bold text-[#4F3F38]">
@@ -135,7 +135,7 @@ Generated on: ${new Date().toLocaleDateString("en-IN")} via Euphatic Legal Engin
                     ? "APPLICATION FOR SETTLEMENT OF DECEASED CLAIM BY REGISTERED NOMINEE"
                     : "APPLICATION FOR SETTLEMENT OF DECEASED CLAIM BY SURVIVING LEGAL HEIRS"}
                 </h3>
-                <p className="text-xs text-[#8A7F76]">
+                <p className="text-xs text-[#6B6358]">
                   (Prescribed under RBI Master Directions on Settlement of Deceased Depositors)
                 </p>
               </div>
@@ -181,7 +181,7 @@ Generated on: ${new Date().toLocaleDateString("en-IN")} via Euphatic Legal Engin
           {activeFormTab === "affidavit" && (
             <div className="space-y-4 rounded-[8px] border border-[#EDE9E2] bg-[#FFFDFB] p-6 text-[#4F3F38]">
               <div className="text-center">
-                <span className="text-xs font-bold tracking-widest text-[#8A7F76] uppercase">ANNEXURE I-C</span>
+                <span className="text-xs font-bold tracking-widest text-[#6B6358] uppercase">ANNEXURE I-C</span>
                 <h3 className="mt-1 text-base font-bold text-[#4F3F38]">
                   DECLARATION OF LEGAL HEIRS & FAMILY TREE AFFIDAVIT
                 </h3>
@@ -191,7 +191,7 @@ Generated on: ${new Date().toLocaleDateString("en-IN")} via Euphatic Legal Engin
               </p>
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-[#EDE9E2] text-[#8A7F76]">
+                  <tr className="border-b border-[#EDE9E2] text-[#6B6358]">
                     <th className="py-2">Legal Heir Name</th>
                     <th>Relation</th>
                     <th>Age</th>
@@ -215,7 +215,7 @@ Generated on: ${new Date().toLocaleDateString("en-IN")} via Euphatic Legal Engin
           {activeFormTab === "noc" && (
             <div className="space-y-4 rounded-[8px] border border-[#EDE9E2] bg-[#FFFDFB] p-6 text-[#4F3F38]">
               <div className="text-center">
-                <span className="text-xs font-bold tracking-widest text-[#8A7F76] uppercase">ANNEXURE I-D</span>
+                <span className="text-xs font-bold tracking-widest text-[#6B6358] uppercase">ANNEXURE I-D</span>
                 <h3 className="mt-1 text-base font-bold text-[#4F3F38]">
                   RELINQUISHMENT OF CLAIM & NO OBJECTION CERTIFICATE (NOC)
                 </h3>
@@ -258,7 +258,7 @@ Generated on: ${new Date().toLocaleDateString("en-IN")} via Euphatic Legal Engin
 
         {/* Modal Footer */}
         <div className="flex items-center justify-between border-t border-[#EDE9E2] px-6 py-4">
-          <div className="flex items-center gap-2 text-xs text-[#8A7F76]">
+          <div className="flex items-center gap-2 text-xs text-[#6B6358]">
             <ShieldCheck className="size-4 text-[#B7C497]" />
             Generated strictly in compliance with RBI Directions 2025
           </div>

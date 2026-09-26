@@ -58,7 +58,7 @@ export function DashboardPage() {
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-[#8A7F76]">
+              <span className="font-mono text-xs font-bold text-[#6B6358]">
                 ESTATE SETTLEMENT #{caseData.caseId}
               </span>
               <span className="rounded-full bg-[#B7C497]/30 px-2 py-0.5 text-[11px] font-semibold text-[#2E3D1F]">
@@ -68,7 +68,7 @@ export function DashboardPage() {
             <h2 className="mt-1 text-2xl font-bold text-[#4F3F38]">
               {caseData.deceased.fullName}
             </h2>
-            <p className="mt-0.5 text-xs text-[#8A7F76]">
+            <p className="mt-0.5 text-xs text-[#6B6358]">
               Claimant: <strong className="text-[#4F3F38]">{caseData.claimant.fullName}</strong> ({caseData.claimant.relation}) • Death Cert:{" "}
               <span className="font-mono text-[#4F3F38]">{caseData.deceased.deathCertNo}</span>
             </p>
@@ -98,25 +98,25 @@ export function DashboardPage() {
       {/* Metrics Row */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         <div className="app-card p-5">
-          <span className="text-xs text-[#8A7F76]">Total Portfolio Value</span>
+          <span className="text-xs text-[#6B6358]">Total Portfolio Value</span>
           <div className="mt-1 text-2xl font-bold text-[#4F3F38]">{formatInr(totalValue)}</div>
-          <span className="text-[11px] text-[#8A7F76]">{caseData.assets.length} identified accounts</span>
+          <span className="text-[11px] text-[#6B6358]">{caseData.assets.length} identified accounts</span>
         </div>
 
         <div className="app-card p-5">
-          <span className="text-xs text-[#8A7F76]">Statutory On Track</span>
+          <span className="text-xs text-[#6B6358]">Statutory On Track</span>
           <div className="mt-1 text-2xl font-bold text-[#2E3D1F]">{onTrackCount}</div>
-          <span className="text-[11px] text-[#8A7F76]">Within 15/30-day window</span>
+          <span className="text-[11px] text-[#6B6358]">Within 15/30-day window</span>
         </div>
 
         <div className="app-card p-5">
-          <span className="text-xs text-[#8A7F76]">Attention Needed</span>
+          <span className="text-xs text-[#6B6358]">Attention Needed</span>
           <div className="mt-1 text-2xl font-bold text-[#FFB077]">{attentionCount}</div>
-          <span className="text-[11px] text-[#8A7F76]">Deadline expiring soon</span>
+          <span className="text-[11px] text-[#6B6358]">Deadline expiring soon</span>
         </div>
 
         <div className="app-card p-5">
-          <span className="text-xs text-[#8A7F76]">Delayed / Overdue</span>
+          <span className="text-xs text-[#6B6358]">Delayed / Overdue</span>
           <div className="mt-1 text-2xl font-bold text-[#AA4342]">{overdueCount}</div>
           <span className="text-[11px] text-[#AA4342] font-semibold">Penal Interest Due</span>
         </div>
@@ -127,7 +127,7 @@ export function DashboardPage() {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-lg font-semibold text-[#4F3F38]">Active Statutory Clocks</h3>
-            <p className="text-xs text-[#8A7F76]">
+            <p className="text-xs text-[#6B6358]">
               Real-time countdowns under RBI Directions 2025 para 31 (15-day settlement deadline).
             </p>
           </div>
@@ -168,7 +168,7 @@ export function DashboardPage() {
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
           <div>
             <h3 className="text-lg font-semibold text-[#4F3F38]">All Estate Accounts & Holdings</h3>
-            <p className="text-xs text-[#8A7F76]">
+            <p className="text-xs text-[#6B6358]">
               Complete ledger of verified and auto-discovered assets.
             </p>
           </div>
@@ -185,7 +185,7 @@ export function DashboardPage() {
                   key={f.id}
                   onClick={() => setFilterType(f.id)}
                   className={`rounded-md px-2.5 py-1 font-semibold transition-all ${
-                    filterType === f.id ? "bg-[#4F3F38] text-white" : "text-[#8A7F76] hover:text-[#4F3F38]"
+                    filterType === f.id ? "bg-[#4F3F38] text-white" : "text-[#6B6358] hover:text-[#4F3F38]"
                   }`}
                 >
                   {f.label}
@@ -207,7 +207,7 @@ export function DashboardPage() {
         <div className="app-card overflow-x-auto p-0">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-[#EDE9E2] bg-[#F5F3EC]/50 font-semibold text-[#8A7F76]">
+              <tr className="border-b border-[#EDE9E2] bg-[#F5F3EC]/50 font-semibold text-[#6B6358]">
                 <th className="px-5 py-3.5">Institution & Account</th>
                 <th className="px-5 py-3.5">Category</th>
                 <th className="px-5 py-3.5">Amount</th>
@@ -221,12 +221,12 @@ export function DashboardPage() {
                 <tr key={asset.assetId} className="hover:bg-[#F5F3EC]/30">
                   <td className="px-5 py-4">
                     <div className="font-semibold text-[#4F3F38]">{asset.institution}</div>
-                    <div className="font-mono text-[11px] text-[#8A7F76]">
+                    <div className="font-mono text-[11px] text-[#6B6358]">
                       {asset.accountNumber ? `••••${asset.accountNumber.slice(-4)}` : "Verified in Statement"}
                     </div>
                   </td>
 
-                  <td className="px-5 py-4 text-[#8A7F76]">
+                  <td className="px-5 py-4 text-[#6B6358]">
                     <span className="capitalize">{asset.assetType.replace("_", " ")}</span>
                   </td>
 
@@ -236,7 +236,7 @@ export function DashboardPage() {
 
                   <td className="px-5 py-4">
                     <div className="font-medium text-[#4F3F38]">{asset.routeTitle}</div>
-                    <div className="text-[11px] text-[#8A7F76]">
+                    <div className="text-[11px] text-[#6B6358]">
                       Nomination: <strong className="capitalize text-[#4F3F38]">{asset.nomination}</strong>
                     </div>
                   </td>

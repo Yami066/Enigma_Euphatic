@@ -24,7 +24,7 @@ export function PaperworkPage() {
             </div>
             <div>
               <h2 className="text-xl font-bold text-[#4F3F38]">Official RBI Claim Packs & Forms</h2>
-              <p className="text-xs text-[#8A7F76]">
+              <p className="text-xs text-[#6B6358]">
                 Fully filled statutory claim dossiers, NOC affidavits, and demand letters generated to official RBI specifications.
               </p>
             </div>
@@ -48,18 +48,18 @@ export function PaperworkPage() {
             <div>
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="font-mono text-xs font-bold text-[#8A7F76]">
+                  <span className="font-mono text-xs font-bold text-[#6B6358]">
                     {asset.accountNumber ? `••••${asset.accountNumber.slice(-4)}` : "SAFE DEPOSIT"}
                   </span>
                   <h3 className="text-base font-bold text-[#4F3F38]">{asset.institution}</h3>
-                  <p className="text-xs text-[#8A7F76]">{asset.routeTitle}</p>
+                  <p className="text-xs text-[#6B6358]">{asset.routeTitle}</p>
                 </div>
                 <span className="font-mono text-sm font-bold text-[#4F3F38]">
                   {asset.amount > 0 ? formatInr(asset.amount) : "Locker Box"}
                 </span>
               </div>
 
-              <div className="mt-4 rounded-lg bg-[#F5F3EC]/60 p-3 text-xs text-[#8A7F76] space-y-1">
+              <div className="mt-4 rounded-lg bg-[#F5F3EC]/60 p-3 text-xs text-[#6B6358] space-y-1">
                 <div>
                   Claimant: <strong className="text-[#4F3F38]">{caseData.claimant.fullName}</strong>
                 </div>

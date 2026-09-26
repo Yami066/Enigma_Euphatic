@@ -268,7 +268,7 @@ export const PhoneDiscoveryModal: React.FC<PhoneDiscoveryModalProps> = ({
                 />
                 <span
                   className={`text-[10px] font-medium transition-colors ${
-                    i <= stepNumber ? 'text-brand-700' : 'text-stone-400'
+                    i <= stepNumber ? 'text-brand-700' : 'text-[#6B6358]'
                   }`}
                 >
                   {label}
@@ -313,7 +313,7 @@ export const PhoneDiscoveryModal: React.FC<PhoneDiscoveryModalProps> = ({
                       if (phoneError) setPhoneError('');
                     }}
                     onKeyDown={(e) => e.key === 'Enter' && handlePhoneSubmit()}
-                    className={`focus-ring h-12 w-full rounded-xl border bg-white pl-[5.5rem] pr-3 text-base font-mono tracking-wider text-ink placeholder:text-stone-400 transition-colors ${
+                    className={`focus-ring h-12 w-full rounded-xl border bg-white pl-[5.5rem] pr-3 text-base font-mono tracking-wider text-ink placeholder:text-[#6B6358] transition-colors ${
                       phoneError ? 'border-red-300 ring-1 ring-red-200' : 'border-line'
                     }`}
                     autoFocus
@@ -532,7 +532,7 @@ export const PhoneDiscoveryModal: React.FC<PhoneDiscoveryModalProps> = ({
                           ? 'bg-brand-50/80 text-brand-900'
                           : active
                             ? 'bg-white shadow-sm ring-1 ring-brand-100 text-ink'
-                            : 'text-stone-400'
+                            : 'text-[#6B6358]'
                       }`}
                     >
                       {done ? (

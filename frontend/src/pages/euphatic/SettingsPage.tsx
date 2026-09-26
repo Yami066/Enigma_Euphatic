@@ -33,7 +33,7 @@ export function SettingsPage() {
           </div>
           <div>
             <h2 className="text-xl font-bold text-[#4F3F38]">Case Workspace Settings</h2>
-            <p className="text-xs text-[#8A7F76]">
+            <p className="text-xs text-[#6B6358]">
               Case metadata, compliance audit settings, notification triggers, and data privacy options.
             </p>
           </div>
@@ -46,22 +46,22 @@ export function SettingsPage() {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 text-xs">
           <div className="rounded-lg bg-[#F5F3EC]/50 p-3">
-            <span className="text-[#8A7F76]">Case Identifier:</span>
+            <span className="text-[#6B6358]">Case Identifier:</span>
             <div className="font-mono text-sm font-bold text-[#4F3F38]">{caseData.caseId}</div>
           </div>
 
           <div className="rounded-lg bg-[#F5F3EC]/50 p-3">
-            <span className="text-[#8A7F76]">Compliance Framework:</span>
+            <span className="text-[#6B6358]">Compliance Framework:</span>
             <div className="font-semibold text-[#4F3F38]">RBI Master Directions 2025</div>
           </div>
 
           <div className="rounded-lg bg-[#F5F3EC]/50 p-3">
-            <span className="text-[#8A7F76]">Place of Jurisdiction:</span>
+            <span className="text-[#6B6358]">Place of Jurisdiction:</span>
             <div className="font-semibold text-[#4F3F38]">{caseData.deceased.placeOfDeath}</div>
           </div>
 
           <div className="rounded-lg bg-[#F5F3EC]/50 p-3">
-            <span className="text-[#8A7F76]">Deceased PAN:</span>
+            <span className="text-[#6B6358]">Deceased PAN:</span>
             <div className="font-mono font-semibold text-[#4F3F38]">{caseData.deceased.pan}</div>
           </div>
         </div>
@@ -73,7 +73,7 @@ export function SettingsPage() {
           <Languages className="size-4 text-[#4F3F38]" />
           <h3 className="text-base font-bold text-[#4F3F38]">Display Language / भाषा</h3>
         </div>
-        <p className="text-xs text-[#8A7F76]">
+        <p className="text-xs text-[#6B6358]">
           Switch between English and Hindi across all screens and official legal text.
         </p>
 
@@ -89,7 +89,7 @@ export function SettingsPage() {
             }`}
           >
             <div className="text-sm font-bold text-[#4F3F38]">English</div>
-            <div className="text-xs text-[#8A7F76]">Official Indian English legal terminology</div>
+            <div className="text-xs text-[#6B6358]">Official Indian English legal terminology</div>
           </button>
 
           <button
@@ -103,7 +103,7 @@ export function SettingsPage() {
             }`}
           >
             <div className="text-sm font-bold text-[#4F3F38]">हिन्दी (Hindi)</div>
-            <div className="text-xs text-[#8A7F76]">आरबीआई दिशानिर्देश और कानूनी अनुवाद</div>
+            <div className="text-xs text-[#6B6358]">आरबीआई दिशानिर्देश और कानूनी अनुवाद</div>
           </button>
         </div>
       </div>
@@ -118,7 +118,7 @@ export function SettingsPage() {
           <label className="flex items-center justify-between rounded-lg border border-[#EDE9E2] p-3 text-xs">
             <div>
               <span className="font-semibold text-[#4F3F38]">Day 10 Approaching Deadline Warning</span>
-              <p className="text-[#8A7F76]">Receive alert 5 days before the RBI 15-day window closes.</p>
+              <p className="text-[#6B6358]">Receive alert 5 days before the RBI 15-day window closes.</p>
             </div>
             <input
               type="checkbox"
@@ -131,7 +131,7 @@ export function SettingsPage() {
           <label className="flex items-center justify-between rounded-lg border border-[#EDE9E2] p-3 text-xs">
             <div>
               <span className="font-semibold text-[#4F3F38]">Day 16 Automatic Delay Penalty Notice Trigger</span>
-              <p className="text-[#8A7F76]">Generate demand letter on the exact date penal interest starts accruing.</p>
+              <p className="text-[#6B6358]">Generate demand letter on the exact date penal interest starts accruing.</p>
             </div>
             <input
               type="checkbox"
@@ -149,7 +149,7 @@ export function SettingsPage() {
           <Database className="size-4 text-[#4F3F38]" />
           <h3 className="text-base font-bold text-[#4F3F38]">Data Backup & Export</h3>
         </div>
-        <p className="text-xs text-[#8A7F76]">
+        <p className="text-xs text-[#6B6358]">
           All case records are encrypted. You can export a full JSON snapshot or reset demo data.
         </p>
 

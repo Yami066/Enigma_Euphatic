@@ -51,11 +51,11 @@ export function ClaimClockWidget({ asset, onPreviewPack, onDelayNotice }: Props)
       <div>
         <div className="flex items-start justify-between gap-3">
           <div>
-            <span className="font-mono text-xs font-bold text-[#8A7F76]">
+            <span className="font-mono text-xs font-bold text-[#6B6358]">
               {asset.accountNumber ? `A/C ••••${asset.accountNumber.slice(-4)}` : "ASSET"}
             </span>
             <h3 className="text-lg font-semibold text-[#4F3F38]">{asset.institution}</h3>
-            <p className="text-xs text-[#8A7F76]">{asset.routeTitle}</p>
+            <p className="text-xs text-[#6B6358]">{asset.routeTitle}</p>
           </div>
           <StatusBadge status={asset.status} />
         </div>
@@ -94,7 +94,7 @@ export function ClaimClockWidget({ asset, onPreviewPack, onDelayNotice }: Props)
               ) : (
                 <>
                   <span className="font-mono text-xl font-bold text-[#4F3F38]">{daysRemaining}d</span>
-                  <span className="text-[10px] text-[#8A7F76] uppercase">REMAINING</span>
+                  <span className="text-[10px] text-[#6B6358] uppercase">REMAINING</span>
                 </>
               )}
             </div>
@@ -104,11 +104,11 @@ export function ClaimClockWidget({ asset, onPreviewPack, onDelayNotice }: Props)
             <div className="text-sm font-semibold text-[#4F3F38]">
               {asset.amount > 0 ? formatInr(asset.amount) : "Locker Contents"}
             </div>
-            <div className="text-xs text-[#8A7F76]">
+            <div className="text-xs text-[#6B6358]">
               Statutory Window: <span className="font-semibold text-[#4F3F38]">{totalDays} calendar days</span>
             </div>
             {asset.docsCompleteDate && (
-              <div className="text-xs text-[#8A7F76]">
+              <div className="text-xs text-[#6B6358]">
                 Paperwork verified: <span className="font-mono font-medium text-[#4F3F38]">{asset.docsCompleteDate}</span>
               </div>
             )}

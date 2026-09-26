@@ -88,7 +88,7 @@ export function GuidedIntakePage() {
           </div>
           <div>
             <h2 className="text-xl font-bold text-[#4F3F38]">Guided Estate Intake Wizard</h2>
-            <p className="text-xs text-[#8A7F76]">
+            <p className="text-xs text-[#6B6358]">
               Statutory 3-step walkthrough aligned with Indian succession laws and RBI Directions 2025.
             </p>
           </div>
@@ -109,7 +109,7 @@ export function GuidedIntakePage() {
                   ? "text-[#4F3F38]"
                   : st.num < currentStep
                   ? "cursor-pointer text-[#B7C497]"
-                  : "text-[#8A7F76]/60"
+                  : "text-[#6B6358]/60"
               }`}
             >
               <div
@@ -118,7 +118,7 @@ export function GuidedIntakePage() {
                     ? "bg-[#FFB077] text-[#4F3F38]"
                     : st.num < currentStep
                     ? "bg-[#B7C497] text-[#2E3D1F]"
-                    : "bg-[#EDE9E2] text-[#8A7F76]"
+                    : "bg-[#EDE9E2] text-[#6B6358]"
                 }`}
               >
                 {st.num < currentStep ? "✓" : st.num}
@@ -133,7 +133,7 @@ export function GuidedIntakePage() {
       {currentStep === 1 && (
         <form onSubmit={handleNextStep1} className="app-card space-y-5">
           <h3 className="text-lg font-semibold text-[#4F3F38]">Step 1: About the Deceased</h3>
-          <p className="text-xs text-[#8A7F76]">
+          <p className="text-xs text-[#6B6358]">
             Enter official names and dates matching the government Death Certificate and PAN record.
           </p>
 
@@ -229,7 +229,7 @@ export function GuidedIntakePage() {
         <div className="space-y-6">
           <div className="app-card space-y-4">
             <h3 className="text-lg font-semibold text-[#4F3F38]">Step 2: Add Known Estate Accounts</h3>
-            <p className="text-xs text-[#8A7F76]">
+            <p className="text-xs text-[#6B6358]">
               Add bank savings, fixed deposits, insurance, or shares. You can also auto-scan statements in Document OCR.
             </p>
 
@@ -303,7 +303,7 @@ export function GuidedIntakePage() {
                   <div key={a.assetId} className="flex items-center justify-between p-3 text-xs">
                     <div>
                       <span className="font-semibold text-[#4F3F38]">{a.institution}</span>
-                      <span className="ml-2 text-[#8A7F76]">({a.assetType.replace("_", " ")})</span>
+                      <span className="ml-2 text-[#6B6358]">({a.assetType.replace("_", " ")})</span>
                     </div>
                     <div className="font-mono font-bold text-[#4F3F38]">
                       {a.amount > 0 ? `₹${a.amount.toLocaleString("en-IN")}` : "Locker"}
@@ -339,7 +339,7 @@ export function GuidedIntakePage() {
       {currentStep === 3 && (
         <form onSubmit={handleCompleteIntake} className="app-card space-y-5">
           <h3 className="text-lg font-semibold text-[#4F3F38]">Step 3: Primary Claimant & Settlement Account</h3>
-          <p className="text-xs text-[#8A7F76]">
+          <p className="text-xs text-[#6B6358]">
             Under RBI rules, banks credit proceeds directly via NEFT/RTGS to the verified bank account of the designated claimant.
           </p>
 
@@ -403,7 +403,7 @@ export function GuidedIntakePage() {
               </div>
             </div>
 
-            <div className="rounded-lg bg-[#F5F3EC] p-3 text-xs text-[#8A7F76]">
+            <div className="rounded-lg bg-[#F5F3EC] p-3 text-xs text-[#6B6358]">
               <strong className="text-[#4F3F38]">Note:</strong> Co-claimants and non-claiming heirs can be invited in the Family Access tab to review and digitally consent to Annex I-D No Objection Certificates.
             </div>
           </div>

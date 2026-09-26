@@ -22,7 +22,7 @@ export function AssetRoutingPage() {
           </div>
           <div>
             <h2 className="text-xl font-bold text-[#4F3F38]">Legal Route Engine & RBI Rules</h2>
-            <p className="text-xs text-[#8A7F76]">
+            <p className="text-xs text-[#6B6358]">
               Every account is dynamically evaluated under RBI Directions 2025 to determine whether a registered nominee, simplified board limit, or full indemnity applies.
             </p>
           </div>
@@ -32,7 +32,7 @@ export function AssetRoutingPage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         {/* Left Column: List of Assets */}
         <div className="space-y-2 lg:col-span-5">
-          <span className="text-xs font-semibold text-[#8A7F76] uppercase tracking-wider">
+          <span className="text-xs font-semibold text-[#6B6358] uppercase tracking-wider">
             Select Account to Inspect Route:
           </span>
           <div className="space-y-2">
@@ -51,7 +51,7 @@ export function AssetRoutingPage() {
                   <div className="flex items-start justify-between">
                     <div>
                       <h4 className="text-sm font-semibold text-[#4F3F38]">{asset.institution}</h4>
-                      <p className="font-mono text-xs text-[#8A7F76]">
+                      <p className="font-mono text-xs text-[#6B6358]">
                         {asset.accountNumber ? `••••${asset.accountNumber.slice(-4)}` : "Verified Box"}
                       </p>
                     </div>
@@ -64,7 +64,7 @@ export function AssetRoutingPage() {
                     <span className="rounded bg-white px-2 py-0.5 font-medium text-[#4F3F38] border border-[#EDE9E2]">
                       {asset.routeCode}
                     </span>
-                    <span className="capitalize text-[#8A7F76]">Nomination: {asset.nomination}</span>
+                    <span className="capitalize text-[#6B6358]">Nomination: {asset.nomination}</span>
                   </div>
                 </div>
               );
@@ -80,12 +80,12 @@ export function AssetRoutingPage() {
                 <span className="rounded-full bg-[#B7C497]/40 px-2.5 py-0.5 text-xs font-semibold text-[#2E3D1F]">
                   STATUTORY ROUTE CLASSIFICATION
                 </span>
-                <span className="font-mono text-xs text-[#8A7F76]">{selectedAsset.routeCode}</span>
+                <span className="font-mono text-xs text-[#6B6358]">{selectedAsset.routeCode}</span>
               </div>
               <h3 className="mt-2 text-xl font-bold text-[#4F3F38]">
                 {selectedAsset.routeTitle}
               </h3>
-              <p className="text-xs text-[#8A7F76]">
+              <p className="text-xs text-[#6B6358]">
                 Institution: <strong className="text-[#4F3F38]">{selectedAsset.institution}</strong> • Value:{" "}
                 <strong className="font-mono text-[#4F3F38]">
                   {selectedAsset.amount > 0 ? formatInr(selectedAsset.amount) : "Safe Custody"}
@@ -138,7 +138,7 @@ export function AssetRoutingPage() {
                         <Check className="size-4 text-[#B7C497]" />
                         <div>
                           <span className="font-semibold text-[#4F3F38]">{doc.title}</span>
-                          <p className="text-[11px] text-[#8A7F76]">{doc.desc}</p>
+                          <p className="text-[11px] text-[#6B6358]">{doc.desc}</p>
                         </div>
                       </div>
                       <span className="rounded bg-[#F5F3EC] px-2 py-0.5 text-[10px] font-semibold text-[#4F3F38]">
@@ -150,7 +150,7 @@ export function AssetRoutingPage() {
             </div>
 
             {/* Threshold & Guarantee note */}
-            <div className="rounded-[8px] bg-[#F5F3EC] p-4 text-xs text-[#8A7F76]">
+            <div className="rounded-[8px] bg-[#F5F3EC] p-4 text-xs text-[#6B6358]">
               <div className="flex items-center gap-2 font-semibold text-[#4F3F38]">
                 <ShieldCheck className="size-4 text-[#B7C497]" />
                 15-Day Protection Guarantee

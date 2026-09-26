@@ -24,7 +24,7 @@ export function LandingPage() {
               : "Claim what they left behind with authoritative legal precision."}
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base text-[#8A7F76] sm:text-lg">
+          <p className="mx-auto mt-6 max-w-2xl text-base text-[#6B6358] sm:text-lg">
             {lang === "hi"
               ? "बैंक खाते, सावधि जमा, बीमा, पीएफ और शेयर। 15-दिवसीय वैधानिक समय-सीमा और भारतीय रिज़र्व बैंक के नियमों के तहत संरचित दावा समाधान।"
               : "Bank accounts, fixed deposits, life insurance, EPF, and Demat shares. Fully mapped to the 15-day statutory settlement mandate under RBI Master Directions 2025."}
@@ -49,7 +49,7 @@ export function LandingPage() {
             </button>
           </div>
 
-          <div className="mt-8 flex items-center justify-center gap-6 text-xs text-[#8A7F76]">
+          <div className="mt-8 flex items-center justify-center gap-6 text-xs text-[#6B6358]">
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="size-4 text-[#B7C497]" />
               No Succession Certificate Required for Nominees
@@ -70,7 +70,7 @@ export function LandingPage() {
               <FileSearch className="size-5" />
             </div>
             <h3 className="text-lg font-semibold text-[#4F3F38]">Automated Asset Discovery</h3>
-            <p className="mt-2 text-sm text-[#8A7F76]">
+            <p className="mt-2 text-sm text-[#6B6358]">
               Bank statement narration parsing, Gmail financial scan, and direct UDGAM portal search to uncover dormant deposits and unknown policies.
             </p>
           </div>
@@ -80,7 +80,7 @@ export function LandingPage() {
               <Scale className="size-5" />
             </div>
             <h3 className="text-lg font-semibold text-[#4F3F38]">Statutory Legal Routing</h3>
-            <p className="mt-2 text-sm text-[#8A7F76]">
+            <p className="mt-2 text-sm text-[#6B6358]">
               Classifies each asset under precise RBI routes: Registered Nominee, Simplified Board Threshold (up to ₹5L), or Above Threshold Indemnity.
             </p>
           </div>
@@ -90,7 +90,7 @@ export function LandingPage() {
               <Clock className="size-5" />
             </div>
             <h3 className="text-lg font-semibold text-[#4F3F38]">15-Day Statutory Clock</h3>
-            <p className="mt-2 text-sm text-[#8A7F76]">
+            <p className="mt-2 text-sm text-[#6B6358]">
               Automatic countdown once paperwork is submitted. Generates RBI Para 33 demand letters and Ombudsman escalation drafts if banks delay.
             </p>
           </div>
@@ -111,7 +111,7 @@ export function LandingPage() {
           <h2 className="text-2xl font-bold text-[#4F3F38] sm:text-3xl">
             Everything your family needs in one calm, secure space.
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-[#8A7F76]">
+          <p className="mx-auto mt-3 max-w-xl text-sm text-[#6B6358]">
             Ready to generate Annex I-A, Annex I-B, Annex I-C affidavits, and Annex I-D No Objection Certificates in minutes.
           </p>
           <div className="mt-8 flex justify-center gap-4">

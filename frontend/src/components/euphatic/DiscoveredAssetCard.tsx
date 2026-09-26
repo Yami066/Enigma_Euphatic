@@ -27,7 +27,7 @@ export function DiscoveredAssetCard({ asset, onConfirm, onDismiss }: Props) {
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 rounded-full bg-[#F5F3EC] px-2.5 py-0.5 text-[11px] font-semibold text-[#8A7F76]">
+            <span className="inline-flex items-center gap-1 rounded-full bg-[#F5F3EC] px-2.5 py-0.5 text-[11px] font-semibold text-[#6B6358]">
               <SourceIcon className="size-3" />
               {sourceMeta.label}
             </span>
@@ -37,14 +37,14 @@ export function DiscoveredAssetCard({ asset, onConfirm, onDismiss }: Props) {
           </div>
 
           <h4 className="text-base font-semibold text-[#4F3F38]">{asset.institution}</h4>
-          <p className="font-mono text-xs text-[#8A7F76]">
+          <p className="font-mono text-xs text-[#6B6358]">
             Account: {asset.accountNumber ? `••••${asset.accountNumber.slice(-4)}` : "Verified in Narration"}
           </p>
           <div className="pt-1 text-sm font-bold text-[#4F3F38]">
             {formatInr(asset.amount)}
           </div>
           {asset.rbiCitation && (
-            <p className="text-xs text-[#8A7F76] italic">
+            <p className="text-xs text-[#6B6358] italic">
               Proposed Route: {asset.routeTitle || "Simplified Bank Settlement"}
             </p>
           )}
@@ -54,7 +54,7 @@ export function DiscoveredAssetCard({ asset, onConfirm, onDismiss }: Props) {
           <button
             type="button"
             onClick={onDismiss}
-            className="btn-secondary-sm text-xs text-[#8A7F76]"
+            className="btn-secondary-sm text-xs text-[#6B6358]"
             title="Dismiss lead"
           >
             <X className="size-3.5" />

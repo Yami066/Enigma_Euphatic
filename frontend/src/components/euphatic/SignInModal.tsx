@@ -31,7 +31,7 @@ export function SignInModal() {
         <button
           type="button"
           onClick={() => setAuthModalOpen(false)}
-          className="absolute right-4 top-4 text-[#8A7F76] hover:text-[#4F3F38]"
+          className="absolute right-4 top-4 text-[#6B6358] hover:text-[#4F3F38]"
         >
           <X className="size-5" />
         </button>
@@ -42,7 +42,7 @@ export function SignInModal() {
           </div>
           <div>
             <h2 className="text-xl font-semibold text-[#4F3F38]">Sign In to Euphatic</h2>
-            <div className="inline-flex items-center gap-1 rounded-full bg-[#F5F3EC] px-2 py-0.5 text-[11px] font-semibold text-[#8A7F76]">
+            <div className="inline-flex items-center gap-1 rounded-full bg-[#F5F3EC] px-2 py-0.5 text-[11px] font-semibold text-[#6B6358]">
               <ShieldCheck className="size-3 text-[#B7C497]" />
               RBI Directions 2025 Verified Vault
             </div>
@@ -56,7 +56,7 @@ export function SignInModal() {
                 type="button"
                 onClick={() => setMethod("phone")}
                 className={`flex-1 rounded-md py-1.5 text-xs font-semibold transition-all ${
-                  method === "phone" ? "bg-white text-[#4F3F38] shadow-sm" : "text-[#8A7F76]"
+                  method === "phone" ? "bg-white text-[#4F3F38] shadow-sm" : "text-[#6B6358]"
                 }`}
               >
                 Mobile Phone (OTP)
@@ -65,7 +65,7 @@ export function SignInModal() {
                 type="button"
                 onClick={() => setMethod("email")}
                 className={`flex-1 rounded-md py-1.5 text-xs font-semibold transition-all ${
-                  method === "email" ? "bg-white text-[#4F3F38] shadow-sm" : "text-[#8A7F76]"
+                  method === "email" ? "bg-white text-[#4F3F38] shadow-sm" : "text-[#6B6358]"
                 }`}
               >
                 Work / Personal Email
@@ -78,9 +78,9 @@ export function SignInModal() {
               </label>
               <div className="relative">
                 {method === "phone" ? (
-                  <Phone className="absolute left-3 top-3.5 size-4 text-[#8A7F76]" />
+                  <Phone className="absolute left-3 top-3.5 size-4 text-[#6B6358]" />
                 ) : (
-                  <Mail className="absolute left-3 top-3.5 size-4 text-[#8A7F76]" />
+                  <Mail className="absolute left-3 top-3.5 size-4 text-[#6B6358]" />
                 )}
                 <input
                   type={method === "phone" ? "tel" : "email"}
@@ -102,7 +102,7 @@ export function SignInModal() {
           </form>
         ) : (
           <form onSubmit={handleVerifyOtp} className="space-y-5">
-            <div className="rounded-lg bg-[#F5F3EC] p-3 text-xs text-[#8A7F76]">
+            <div className="rounded-lg bg-[#F5F3EC] p-3 text-xs text-[#6B6358]">
               Enter the 6-digit code sent to <strong className="text-[#4F3F38]">{identifier}</strong>
               <button
                 type="button"
@@ -146,7 +146,7 @@ export function SignInModal() {
           </form>
         )}
 
-        <div className="mt-6 border-t border-[#EDE9E2] pt-4 text-center text-xs text-[#8A7F76]">
+        <div className="mt-6 border-t border-[#EDE9E2] pt-4 text-center text-xs text-[#6B6358]">
           By continuing, you confirm that you are a legal heir, executor, or nominee authorized under applicable Indian laws.
         </div>
       </div>

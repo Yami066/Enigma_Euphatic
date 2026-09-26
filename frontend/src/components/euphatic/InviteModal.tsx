@@ -48,7 +48,7 @@ export function InviteModal() {
         <button
           type="button"
           onClick={() => setInviteModalOpen(false)}
-          className="absolute right-4 top-4 text-[#8A7F76] hover:text-[#4F3F38]"
+          className="absolute right-4 top-4 text-[#6B6358] hover:text-[#4F3F38]"
         >
           <X className="size-5" />
         </button>
@@ -59,7 +59,7 @@ export function InviteModal() {
           </div>
           <div>
             <h2 className="text-xl font-semibold text-[#4F3F38]">Invite Family Co-Claimant or Heir</h2>
-            <p className="text-xs text-[#8A7F76]">
+            <p className="text-xs text-[#6B6358]">
               Case Reference: <span className="font-mono font-bold text-[#4F3F38]">{caseData.caseId}</span>
             </p>
           </div>
@@ -125,7 +125,7 @@ export function InviteModal() {
                     />
                     <span className="text-xs font-semibold text-[#4F3F38]">{item.label}</span>
                   </div>
-                  <span className="mt-1 text-[11px] text-[#8A7F76]">{item.desc}</span>
+                  <span className="mt-1 text-[11px] text-[#6B6358]">{item.desc}</span>
                 </label>
               ))}
             </div>
@@ -157,7 +157,7 @@ export function InviteModal() {
               type="text"
               readOnly
               value={inviteLink}
-              className="app-input font-mono text-xs text-[#8A7F76]"
+              className="app-input font-mono text-xs text-[#6B6358]"
             />
             <button
               type="button"

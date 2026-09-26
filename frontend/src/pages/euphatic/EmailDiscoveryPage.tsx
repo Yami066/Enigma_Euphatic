@@ -92,7 +92,7 @@ export function EmailDiscoveryPage() {
           </div>
           <div>
             <h2 className="text-xl font-bold text-[#4F3F38]">Email Inbox Financial Discovery</h2>
-            <p className="text-xs text-[#8A7F76]">
+            <p className="text-xs text-[#6B6358]">
               Performs client-side targeted searches for Consolidated Account Statements (CAS), Demat contract notes, EPFO UAN alerts, and insurance policy schedules.
             </p>
           </div>
@@ -108,7 +108,7 @@ export function EmailDiscoveryPage() {
               Target Account: deceased.family.archive@gmail.com
             </h3>
           </div>
-          <p className="text-xs text-[#8A7F76]">
+          <p className="text-xs text-[#6B6358]">
             Targeting queries: CAMS, KFintech, Zerodha, Groww, LIC, EPFO, and dividend credits.
           </p>
         </div>
@@ -129,7 +129,7 @@ export function EmailDiscoveryPage() {
         <h4 className="text-xs font-bold text-[#4F3F38] uppercase tracking-wider">
           Active Statutory Search Queries
         </h4>
-        <div className="mt-3 grid grid-cols-1 gap-3 text-xs text-[#8A7F76]">
+        <div className="mt-3 grid grid-cols-1 gap-3 text-xs text-[#6B6358]">
           {[
             { label: "Mutual fund statements (CAS)", q: 'from:(camsonline OR kfintech OR mfcentral) "statement"' },
             { label: "Demat and shares", q: 'from:(nsdl OR cdsl OR zerodha OR groww OR upstox) "contract note"' },
@@ -139,7 +139,7 @@ export function EmailDiscoveryPage() {
             <div key={i} className="flex flex-col gap-2 rounded bg-white p-3 border border-[#EDE9E2] sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <span className="block font-semibold text-[#4F3F38] mb-1">{s.label}</span>
-                <span className="font-mono text-[11px] text-[#8A7F76]">{s.q}</span>
+                <span className="font-mono text-[11px] text-[#6B6358]">{s.q}</span>
               </div>
               <div className="flex items-center gap-2 mt-2 sm:mt-0">
                 <a
@@ -184,7 +184,7 @@ export function EmailDiscoveryPage() {
             ))}
           </div>
         ) : (
-          <div className="app-card text-center text-xs text-[#8A7F76]">
+          <div className="app-card text-center text-xs text-[#6B6358]">
             No pending email leads. All accounts have been triaged.
           </div>
         )}

@@ -1,0 +1,9 @@
+{
+  "demo": {
+    "email": "demo@euphatics.example",
+    "password": "SampleCase2026",
+    "note": "A shared sandbox account for the 'Try the demo' button. Public on purpose: it holds only invented data, and the sample case is created fresh on each sign-in. Not a secret, and not a real mailbox."
+  },
+  "googleClientId": "818586495601-9p0b4afoevifm8fn5praarpk6f901064.apps.googleusercontent.com",
+  "note": "OAuth 2.0 Web client ID from Google Cloud (ends in .apps.googleusercontent.com). It is public by design; never put a client secret here. Steps: docs/DEPLOYMENT.md, 'Optional: Gmail discovery'."
+}

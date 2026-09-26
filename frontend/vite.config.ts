@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
-const brandPath = fileURLToPath(new URL("./config/brand.json", import.meta.url));
+const brandPath = fileURLToPath(new URL("./src/config/brand.json", import.meta.url));
 const brand = JSON.parse(readFileSync(brandPath, "utf-8"));
 
 // Injects the product name from config/brand.json into index.html, so a rename is one line.

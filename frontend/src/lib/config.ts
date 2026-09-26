@@ -1,5 +1,5 @@
-import brand from "../../config/brand.json";
-import integrations from "../../config/integrations.json";
+import brand from "../config/brand.json";
+import integrations from "../config/integrations.json";
 
 export const config = {
   apiUrl: (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "") ?? "",

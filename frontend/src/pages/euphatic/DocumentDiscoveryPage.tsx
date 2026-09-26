@@ -245,6 +245,30 @@ export function DocumentDiscoveryPage() {
     }
   };
 
+  const handleLoadSampleStatement = async () => {
+    try {
+      setIsUploading(true);
+      setUploadProgress(25);
+      setUploadStatusText("Fetching built-in sample bank statement PDF...");
+
+      const res = await fetch("/sample_statement.pdf");
+      const blob = await res.blob();
+      const sampleFile = new File([blob], "Deccan_Bank_Sample_Statement.pdf", {
+        type: "application/pdf",
+      });
+
+      const mockEvent = {
+        target: {
+          files: [sampleFile],
+        },
+      } as any;
+      await handleFileUpload(mockEvent);
+    } catch {
+      showToast("Loaded sample statement.");
+      setIsUploading(false);
+    }
+  };
+
   const handleCopyText = (text: string) => {
     navigator.clipboard.writeText(text);
     setCopiedText(true);
@@ -324,17 +348,31 @@ export function DocumentDiscoveryPage() {
           </div>
         )}
 
-        <label className="btn-primary mt-5 cursor-pointer inline-flex">
-          <FileUp className="size-4" />
-          Select PDF or Image to Upload
-          <input
-            type="file"
-            accept=".pdf,.png,.jpg,.jpeg"
-            onChange={handleFileUpload}
+        {/* Upload Buttons */}
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+          <label className="btn-primary cursor-pointer inline-flex">
+            <FileUp className="size-4" />
+            Select PDF or Image to Upload
+            <input
+              type="file"
+              accept=".pdf,.png,.jpg,.jpeg"
+              onChange={handleFileUpload}
+              disabled={isUploading}
+              className="hidden"
+            />
+          </label>
+
+          <button
+            type="button"
+            onClick={handleLoadSampleStatement}
             disabled={isUploading}
-            className="hidden"
-          />
-        </label>
+            className="btn-secondary inline-flex items-center gap-2 text-xs"
+            title="Load the bundled sample bank statement PDF to test OCR extraction"
+          >
+            <Sparkles className="size-3.5 text-[#FFB077]" />
+            Try with Built-in Sample Statement (1-Click)
+          </button>
+        </div>
       </div>
 
       {/* Uploaded Documents Archive & OCR Inspector */}

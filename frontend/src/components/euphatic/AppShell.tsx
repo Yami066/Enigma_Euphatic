@@ -28,6 +28,7 @@ import { InviteModal } from "./InviteModal";
 import { OfficialFormPreviewModal } from "./OfficialFormPreviewModal";
 import { SignInModal } from "./SignInModal";
 import { Toast } from "./Toast";
+import { doSignOut } from "../../lib/auth";
 
 interface Props {
   children: ReactNode;
@@ -157,16 +158,17 @@ export function AppShell({ children }: Props) {
 
           {isAuthenticated ? (
             <div className="flex items-center justify-between pt-1">
-              <span className="truncate text-xs text-[#EDE9E2]/80">
-                {caseData.claimant.fullName}
+              <span className="truncate text-xs font-medium text-[#EDE9E2]">
+                {localStorage.getItem("euphatics_user") || caseData.claimant.fullName}
               </span>
               <button
                 type="button"
-                onClick={() => {
+                onClick={async () => {
+                  await doSignOut();
                   setIsAuthenticated(false);
                   showToast("Signed out from workspace.");
                 }}
-                className="text-[#ACA986] hover:text-[#FFB077]"
+                className="text-[#ACA986] hover:text-[#FFB077] transition-colors"
                 title="Sign out"
               >
                 <LogOut className="size-4" />
@@ -176,9 +178,9 @@ export function AppShell({ children }: Props) {
             <button
               type="button"
               onClick={() => setAuthModalOpen(true)}
-              className="btn-primary-sm w-full text-xs"
+              className="btn-primary-sm w-full text-xs font-semibold"
             >
-              Sign In
+              Sign In / Register
             </button>
           )}
         </div>

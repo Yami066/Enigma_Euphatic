@@ -13,3 +13,9 @@ export function fmtDateTime(iso: string | undefined | null, hi = false): string 
   if (isNaN(+d)) return iso;
   return d.toLocaleString(hi ? "hi-IN" : "en-IN", { dateStyle: "medium", timeStyle: "short" });
 }
+
+export function fmtCurrency(amount: number | undefined | null): string {
+  if (amount == null || isNaN(amount)) return "₹0";
+  return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(amount);
+}
+

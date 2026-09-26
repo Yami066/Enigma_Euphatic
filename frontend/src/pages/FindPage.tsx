@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Briefcase, CreditCard, ExternalLink, FileUp, HandCoins, HeartPulse, Landmark, LineChart, PieChart, PiggyBank,
-  ShieldCheck, TrendingUp, Umbrella, Wand2,
+  ShieldCheck, Smartphone, TrendingUp, Umbrella, Wand2,
 } from "lucide-react";
 import { api, rupees, uploadDocument } from "../lib/api";
 import { ASSET_TYPES, useCase } from "../lib/case";
 import { Button, Card, Chip, CopyButton, Empty, ErrorNote, Field, inputCls, Modal, Spinner } from "../components/ui";
+import PhoneDiscoveryModal from "../components/PhoneDiscoveryModal";
+import type { SetuDiscoveredAccount } from "../services/setuAA";
 
 const ICONS: Record<string, ReactElement> = {
   shares: <TrendingUp className="size-5" />,
@@ -28,6 +30,14 @@ const ICONS: Record<string, ReactElement> = {
 export default function FindPage() {
   const { t } = useTranslation();
   const [tab, setTab] = useState<"docs" | "search">("docs");
+  const [showAAModal, setShowAAModal] = useState(false);
+  const { caseId } = useCase();
+
+  const handleAAImport = (accounts: SetuDiscoveredAccount[]) => {
+    console.log("[Setu AA] Importing accounts to case:", caseId, accounts);
+    // Future: POST each account to the backend via the api() helper
+  };
+
   return (
     <div className="space-y-5">
       <div>
@@ -36,6 +46,23 @@ export default function FindPage() {
           {t("find.sub", "Recent accounts show up in the family's own papers. Official searches mostly show money dormant for 7–10+ years. We use both.")}
         </p>
       </div>
+
+      {/* Setu AA Discovery CTA */}
+      <Card tone="brand" className="flex flex-col gap-4 sm:flex-row sm:items-center">
+        <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-brand-100 text-brand-800">
+          <Smartphone className="size-6" />
+        </div>
+        <div className="flex-1">
+          <p className="font-semibold">{t("find.aaTitle", "Discover via phone number (RBI AA)")}</p>
+          <p className="text-sm text-brand-800">
+            {t("find.aaText", "Use the RBI Account Aggregator framework to discover all banks, insurance, PF, and mutual funds linked to a mobile number — in one go.")}
+          </p>
+        </div>
+        <Button onClick={() => setShowAAModal(true)} icon={<Smartphone className="size-4" />}>
+          {t("find.aaStart", "Start Discovery")}
+        </Button>
+      </Card>
+
       <div className="flex gap-2 rounded-xl bg-stone-100 p-1 text-sm">
         {(["docs", "search"] as const).map((k) => (
           <button
@@ -48,6 +75,13 @@ export default function FindPage() {
         ))}
       </div>
       {tab === "docs" ? <FromDocuments /> : <SearchKit />}
+
+      <PhoneDiscoveryModal
+        open={showAAModal}
+        onClose={() => setShowAAModal(false)}
+        onImport={handleAAImport}
+        caseId={caseId}
+      />
     </div>
   );
 }

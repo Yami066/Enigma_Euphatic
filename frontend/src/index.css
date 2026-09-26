@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Noto Sans", "Noto Sans Devanagari", system-ui, -apple-system, sans-serif;
+  --font-sans: "IBM Plex Sans", "IBM Plex Sans Devanagari", "Noto Sans Devanagari", "Noto Sans", system-ui, -apple-system, sans-serif;
+  --font-serif: "IBM Plex Serif", "IBM Plex Sans Devanagari", "Noto Serif Devanagari", "Noto Sans Devanagari", Georgia, serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* Euphatic Color Tokens */
@@ -51,12 +52,29 @@ body {
   overflow-x: hidden;
   background-color: var(--color-bg);
   color: var(--color-espresso);
-  font-family: "Noto Sans", "Noto Sans Devanagari", system-ui, -apple-system, sans-serif;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  font-family: var(--font-sans);
   font-size: 15px;
-  line-height: 24px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Headings use IBM Plex Serif with Devanagari protection */
+h1, h2, h3, h4, h5, h6, .font-serif, .heading-serif {
+  font-family: var(--font-serif);
+  font-feature-settings: "liga" 1, "kern" 1;
+}
+
+/* Hindi Devanagari text protection: ensure matras/diacritics have comfortable line-height */
+:lang(hi), [lang="hi"], .lang-hi {
+  font-family: "IBM Plex Sans Devanagari", "Noto Sans Devanagari", "IBM Plex Sans", system-ui, sans-serif;
+  line-height: 1.65;
+}
+
+:lang(hi) h1, :lang(hi) h2, :lang(hi) h3, :lang(hi) h4, :lang(hi) h5, :lang(hi) h6,
+[lang="hi"] h1, [lang="hi"] h2, [lang="hi"] h3, [lang="hi"] h4, [lang="hi"] h5, [lang="hi"] h6 {
+  font-family: "IBM Plex Sans Devanagari", "Noto Serif Devanagari", "IBM Plex Serif", serif;
+  line-height: 1.45;
 }
 
 /* Custom Scrollbars */

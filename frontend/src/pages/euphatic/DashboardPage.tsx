@@ -21,7 +21,7 @@ import { ClaimClockWidget } from "../../components/euphatic/ClaimClockWidget";
 import { StatusBadge } from "../../components/euphatic/StatusBadge";
 
 export function DashboardPage() {
-  const { caseData, setCurrentView, setActiveClaimPackModal, showToast } = useApp();
+  const { caseData, setCurrentView, setActiveClaimPackModal, showToast, loadMockData, startFreshCase } = useApp();
   const [filterType, setFilterType] = useState<string>("all");
 
   const totalValue = useMemo(() => {
@@ -66,15 +66,24 @@ export function DashboardPage() {
               </span>
             </div>
             <h2 className="mt-1 text-2xl font-bold text-[#4F3F38]">
-              {caseData.deceased.fullName}
+              {caseData.deceased.fullName || "Fresh Estate (No Deceased Configured)"}
             </h2>
             <p className="mt-0.5 text-xs text-[#6B6358]">
-              Claimant: <strong className="text-[#4F3F38]">{caseData.claimant.fullName}</strong> ({caseData.claimant.relation}) • Death Cert:{" "}
-              <span className="font-mono text-[#4F3F38]">{caseData.deceased.deathCertNo}</span>
+              Claimant: <strong className="text-[#4F3F38]">{caseData.claimant.fullName || "Not Specified"}</strong>
+              {caseData.deceased.deathCertNo ? ` • Death Cert: ${caseData.deceased.deathCertNo}` : ""}
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={loadMockData}
+              className="btn-secondary-sm text-xs"
+              title="Load pre-filled sample estate with SBI/HDFC accounts to test features"
+            >
+              <Sparkles className="size-3.5 text-[#FFB077]" />
+              Load Sample Mock Data
+            </button>
             <button
               type="button"
               onClick={() => setCurrentView("intake")}
@@ -204,62 +213,100 @@ export function DashboardPage() {
           </div>
         </div>
 
-        <div className="app-card overflow-x-auto p-0">
-          <table className="w-full text-left text-xs">
-            <thead>
-              <tr className="border-b border-[#EDE9E2] bg-[#F5F3EC]/50 font-semibold text-[#6B6358]">
-                <th className="px-5 py-3.5">Institution & Account</th>
-                <th className="px-5 py-3.5">Category</th>
-                <th className="px-5 py-3.5">Amount</th>
-                <th className="px-5 py-3.5">Statutory Route</th>
-                <th className="px-5 py-3.5">Status</th>
-                <th className="px-5 py-3.5 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#EDE9E2]">
-              {filteredAssets.map((asset) => (
-                <tr key={asset.assetId} className="hover:bg-[#F5F3EC]/30">
-                  <td className="px-5 py-4">
-                    <div className="font-semibold text-[#4F3F38]">{asset.institution}</div>
-                    <div className="font-mono text-[11px] text-[#6B6358]">
-                      {asset.accountNumber ? `••••${asset.accountNumber.slice(-4)}` : "Verified in Statement"}
-                    </div>
-                  </td>
-
-                  <td className="px-5 py-4 text-[#6B6358]">
-                    <span className="capitalize">{asset.assetType.replace("_", " ")}</span>
-                  </td>
-
-                  <td className="px-5 py-4 font-mono font-semibold text-[#4F3F38]">
-                    {asset.amount > 0 ? formatInr(asset.amount) : "Locker Box"}
-                  </td>
-
-                  <td className="px-5 py-4">
-                    <div className="font-medium text-[#4F3F38]">{asset.routeTitle}</div>
-                    <div className="text-[11px] text-[#6B6358]">
-                      Nomination: <strong className="capitalize text-[#4F3F38]">{asset.nomination}</strong>
-                    </div>
-                  </td>
-
-                  <td className="px-5 py-4">
-                    <StatusBadge status={asset.status} />
-                  </td>
-
-                  <td className="px-5 py-4 text-right">
-                    <button
-                      type="button"
-                      onClick={() => setActiveClaimPackModal(asset)}
-                      className="btn-secondary-sm text-xs"
-                    >
-                      <FileDown className="size-3" />
-                      Claim Pack
-                    </button>
-                  </td>
+        {filteredAssets.length === 0 ? (
+          <div className="app-card text-center py-12 px-6">
+            <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-[#F5F3EC] text-[#4F3F38]">
+              <Sparkles className="size-6 text-[#FFB077]" />
+            </div>
+            <h3 className="mt-4 text-lg font-bold text-[#4F3F38]">No Assets or Claims in This Estate Yet</h3>
+            <p className="mx-auto mt-2 max-w-md text-xs text-[#6B6358] leading-relaxed">
+              This account has a clean workspace. You can start entering your family's estate details, discover accounts via document OCR, or load sample mock data to explore.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => setCurrentView("intake")}
+                className="btn-primary-sm text-xs"
+              >
+                <Compass className="size-3.5" />
+                Start Guided Estate Intake
+              </button>
+              <button
+                type="button"
+                onClick={() => setCurrentView("docDiscovery")}
+                className="btn-secondary-sm text-xs"
+              >
+                <FileSearch className="size-3.5" />
+                Scan Documents
+              </button>
+              <button
+                type="button"
+                onClick={loadMockData}
+                className="btn-secondary-sm text-xs"
+              >
+                <Sparkles className="size-3.5 text-[#FFB077]" />
+                Load Sample Mock Data
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="app-card overflow-x-auto p-0">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-[#EDE9E2] bg-[#F5F3EC]/50 font-semibold text-[#6B6358]">
+                  <th className="px-5 py-3.5">Institution & Account</th>
+                  <th className="px-5 py-3.5">Category</th>
+                  <th className="px-5 py-3.5">Amount</th>
+                  <th className="px-5 py-3.5">Statutory Route</th>
+                  <th className="px-5 py-3.5">Status</th>
+                  <th className="px-5 py-3.5 text-right">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-[#EDE9E2]">
+                {filteredAssets.map((asset) => (
+                  <tr key={asset.assetId} className="hover:bg-[#F5F3EC]/30">
+                    <td className="px-5 py-4">
+                      <div className="font-semibold text-[#4F3F38]">{asset.institution}</div>
+                      <div className="font-mono text-[11px] text-[#6B6358]">
+                        {asset.accountNumber ? `••••${asset.accountNumber.slice(-4)}` : "Verified in Statement"}
+                      </div>
+                    </td>
+
+                    <td className="px-5 py-4 text-[#6B6358]">
+                      <span className="capitalize">{asset.assetType.replace("_", " ")}</span>
+                    </td>
+
+                    <td className="px-5 py-4 font-mono font-semibold text-[#4F3F38]">
+                      {asset.amount > 0 ? formatInr(asset.amount) : "Locker Box"}
+                    </td>
+
+                    <td className="px-5 py-4">
+                      <div className="font-medium text-[#4F3F38]">{asset.routeTitle}</div>
+                      <div className="text-[11px] text-[#6B6358]">
+                        Nomination: <strong className="capitalize text-[#4F3F38]">{asset.nomination}</strong>
+                      </div>
+                    </td>
+
+                    <td className="px-5 py-4">
+                      <StatusBadge status={asset.status} />
+                    </td>
+
+                    <td className="px-5 py-4 text-right">
+                      <button
+                        type="button"
+                        onClick={() => setActiveClaimPackModal(asset)}
+                        className="btn-secondary-sm text-xs"
+                      >
+                        <FileDown className="size-3" />
+                        Claim Pack
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </section>
     </div>
   );

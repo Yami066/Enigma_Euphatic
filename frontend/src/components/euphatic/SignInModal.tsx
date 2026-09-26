@@ -14,9 +14,10 @@ import {
 } from "../../lib/auth";
 
 export function SignInModal() {
-  const { authModalOpen, setAuthModalOpen, setIsAuthenticated, showToast, setCaseData } = useApp();
+  const { authModalOpen, setAuthModalOpen, loginUser, showToast, setCurrentView } = useApp();
   const [method, setMethod] = useState<"email" | "phone">("email");
   const [mode, setMode] = useState<"in" | "up" | "confirm">("in");
+  const [useMockData, setUseMockData] = useState(false);
 
   // Email state
   const [email, setEmail] = useState("");
@@ -34,19 +35,10 @@ export function SignInModal() {
 
   if (!authModalOpen) return null;
 
-  const handleAuthSuccess = async (userEmail: string) => {
-    setIsAuthenticated(true);
-    localStorage.setItem("euphatics_user", userEmail);
-    setCaseData((prev) => ({
-      ...prev,
-      claimant: {
-        ...prev.claimant,
-        email: userEmail.includes("@") ? userEmail : prev.claimant.email,
-        phone: userEmail.startsWith("+") || !userEmail.includes("@") ? userEmail : prev.claimant.phone,
-      },
-    }));
+  const handleAuthSuccess = async (userEmail: string, loadMock: boolean = useMockData) => {
+    loginUser(userEmail, loadMock);
     setAuthModalOpen(false);
-    showToast(`Authenticated successfully as ${userEmail}.`);
+    setCurrentView("dashboard");
   };
 
   const handleEmailSubmit = async (e: FormEvent) => {
@@ -131,11 +123,9 @@ export function SignInModal() {
       try {
         await doSignIn(demoEmail, demoPw);
       } catch {
-        // Fallback for direct demo session
         localStorage.setItem("euphatics_token", "demo-token");
-        localStorage.setItem("euphatics_user", demoEmail);
       }
-      await handleAuthSuccess(demoEmail);
+      await handleAuthSuccess(demoEmail, true);
     } catch (err: any) {
       setError(err?.message || "Could not log into demo mode.");
     } finally {
@@ -312,6 +302,16 @@ export function SignInModal() {
               </div>
             )}
 
+            <label className="flex items-center gap-2 cursor-pointer text-xs text-[#6B6358] hover:text-[#4F3F38]">
+              <input
+                type="checkbox"
+                checked={useMockData}
+                onChange={(e) => setUseMockData(e.target.checked)}
+                className="size-4 rounded border-[#EDE9E2] text-[#4F3F38]"
+              />
+              <span>Pre-load sample mock estate data (SBI, HDFC, Nominees)</span>
+            </label>
+
             <button type="submit" disabled={busy} className="btn-primary w-full">
               {busy ? (
                 "Processing..."
@@ -390,6 +390,16 @@ export function SignInModal() {
                     ))}
                   </div>
                 </div>
+
+                <label className="flex items-center gap-2 cursor-pointer text-xs text-[#6B6358] hover:text-[#4F3F38]">
+                  <input
+                    type="checkbox"
+                    checked={useMockData}
+                    onChange={(e) => setUseMockData(e.target.checked)}
+                    className="size-4 rounded border-[#EDE9E2] text-[#4F3F38]"
+                  />
+                  <span>Pre-load sample mock estate data (SBI, HDFC, Nominees)</span>
+                </label>
 
                 <button type="submit" disabled={busy} className="btn-primary w-full">
                   <CheckCircle2 className="size-4" />

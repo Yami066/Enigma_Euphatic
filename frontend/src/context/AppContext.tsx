@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { doSignOut } from "../lib/auth";
 
 export type ViewKey =
   | "landing"
@@ -274,14 +275,47 @@ const STRINGS: Record<"en" | "hi", Record<string, string>> = {
   },
 };
 
+export const createEmptyCaseData = (userIdentifier?: string): CaseData => ({
+  caseId: "AL-" + new Date().getFullYear() + "-" + Math.floor(1000 + Math.random() * 9000),
+  deceased: {
+    fullName: "",
+    dateOfDeath: "",
+    placeOfDeath: "",
+    deathCertNo: "",
+    pan: "",
+    religion: "Hindu",
+  },
+  claimant: {
+    fullName: userIdentifier ? userIdentifier.split("@")[0].replace(/[._]/g, " ") : "Family Claimant",
+    relation: "Self / Legal Heir",
+    email: userIdentifier && userIdentifier.includes("@") ? userIdentifier : "",
+    phone: userIdentifier && !userIdentifier.includes("@") ? userIdentifier : "",
+    bankName: "",
+    bankAccountNumber: "",
+    ifsc: "",
+  },
+  heirs: [],
+  assets: [],
+});
+
+export const getStorageKeyForUser = (user: string | null) => {
+  if (!user) return "euphatic_case_data_guest";
+  return `euphatic_case_data_${user.trim().toLowerCase()}`;
+};
+
 export interface AppContextType {
   currentView: ViewKey;
   setCurrentView: (view: ViewKey) => void;
   lang: "en" | "hi";
   setLang: (lang: "en" | "hi") => void;
   t: (key: string, fallback?: string) => string;
+  currentUser: string | null;
   isAuthenticated: boolean;
   setIsAuthenticated: (auth: boolean) => void;
+  loginUser: (userIdentifier: string, useMockData?: boolean) => void;
+  logoutUser: () => Promise<void>;
+  loadMockData: () => void;
+  startFreshCase: () => void;
   caseData: CaseData;
   setCaseData: React.Dispatch<React.SetStateAction<CaseData>>;
   authModalOpen: boolean;
@@ -303,17 +337,36 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export function AppProvider({ children }: { children: ReactNode }) {
   const [currentView, setCurrentView] = useState<ViewKey>("dashboard");
   const [lang, setLang] = useState<"en" | "hi">("en");
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
-  const [caseData, setCaseData] = useState<CaseData>(() => {
-    const saved = localStorage.getItem("euphatic_case_data");
+
+  const [currentUser, setCurrentUser] = useState<string | null>(() => {
+    return localStorage.getItem("euphatics_user") || null;
+  });
+
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return Boolean(localStorage.getItem("euphatics_user") || localStorage.getItem("euphatics_token"));
+  });
+
+  const loadCaseForUser = (user: string | null): CaseData => {
+    const key = getStorageKeyForUser(user);
+    const saved = localStorage.getItem(key);
     if (saved) {
       try {
         return JSON.parse(saved);
       } catch {
-        return DEFAULT_CASE_DATA;
+        // fall through
       }
     }
-    return DEFAULT_CASE_DATA;
+    // If demo or unauthenticated guest who hasn't created a case yet:
+    if (!user || user === "demo@euphatics.example") {
+      return DEFAULT_CASE_DATA;
+    }
+    // If it's a real new user who hasn't added data yet:
+    return createEmptyCaseData(user);
+  };
+
+  const [caseData, setCaseData] = useState<CaseData>(() => {
+    const initialUser = localStorage.getItem("euphatics_user") || null;
+    return loadCaseForUser(initialUser);
   });
 
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -322,9 +375,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [activeClaimPackModal, setActiveClaimPackModal] = useState<Asset | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Persist case data under the specific user's key
   useEffect(() => {
-    localStorage.setItem("euphatic_case_data", JSON.stringify(caseData));
-  }, [caseData]);
+    const key = getStorageKeyForUser(currentUser);
+    localStorage.setItem(key, JSON.stringify(caseData));
+  }, [caseData, currentUser]);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -339,6 +394,60 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const t = (key: string, fallback?: string): string => {
     return STRINGS[lang]?.[key] ?? fallback ?? key;
+  };
+
+  const loginUser = (userIdentifier: string, useMockData: boolean = false) => {
+    const cleaned = userIdentifier.trim().toLowerCase();
+    setCurrentUser(cleaned);
+    setIsAuthenticated(true);
+    localStorage.setItem("euphatics_user", cleaned);
+
+    if (useMockData) {
+      const mock: CaseData = {
+        ...DEFAULT_CASE_DATA,
+        claimant: {
+          ...DEFAULT_CASE_DATA.claimant,
+          email: cleaned.includes("@") ? cleaned : DEFAULT_CASE_DATA.claimant.email,
+          phone: !cleaned.includes("@") ? cleaned : DEFAULT_CASE_DATA.claimant.phone,
+        },
+      };
+      setCaseData(mock);
+      const key = getStorageKeyForUser(cleaned);
+      localStorage.setItem(key, JSON.stringify(mock));
+      showToast(`Logged in as ${cleaned} with Sample Mock Data.`);
+    } else {
+      const loaded = loadCaseForUser(cleaned);
+      setCaseData(loaded);
+      showToast(`Logged in as ${cleaned}.`);
+    }
+  };
+
+  const logoutUser = async () => {
+    await doSignOut();
+    setCurrentUser(null);
+    setIsAuthenticated(false);
+    localStorage.removeItem("euphatics_user");
+    localStorage.removeItem("euphatics_token");
+    setCaseData(loadCaseForUser(null));
+    showToast("Signed out from workspace.");
+  };
+
+  const loadMockData = () => {
+    const mock: CaseData = {
+      ...DEFAULT_CASE_DATA,
+      claimant: {
+        ...DEFAULT_CASE_DATA.claimant,
+        email: currentUser && currentUser.includes("@") ? currentUser : DEFAULT_CASE_DATA.claimant.email,
+      },
+    };
+    setCaseData(mock);
+    showToast("Loaded sample mock estate data (Rameshwar Prasad Sharma).");
+  };
+
+  const startFreshCase = () => {
+    const fresh = createEmptyCaseData(currentUser || undefined);
+    setCaseData(fresh);
+    showToast("Started fresh estate. Ready for intake.");
   };
 
   const addAsset = (newAst: Partial<Asset>) => {
@@ -384,8 +493,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
         lang,
         setLang,
         t,
+        currentUser,
         isAuthenticated,
         setIsAuthenticated,
+        loginUser,
+        logoutUser,
+        loadMockData,
+        startFreshCase,
         caseData,
         setCaseData,
         authModalOpen,

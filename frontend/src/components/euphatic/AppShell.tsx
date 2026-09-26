@@ -44,6 +44,8 @@ export function AppShell({ children }: Props) {
     isAuthenticated,
     setIsAuthenticated,
     caseData,
+    currentUser,
+    logoutUser,
     setAuthModalOpen,
     setAssistantOpen,
     setInviteModalOpen,
@@ -159,15 +161,11 @@ export function AppShell({ children }: Props) {
           {isAuthenticated ? (
             <div className="flex items-center justify-between pt-1">
               <span className="truncate text-xs font-medium text-[#EDE9E2]">
-                {localStorage.getItem("euphatics_user") || caseData.claimant.fullName}
+                {currentUser || caseData.claimant.fullName}
               </span>
               <button
                 type="button"
-                onClick={async () => {
-                  await doSignOut();
-                  setIsAuthenticated(false);
-                  showToast("Signed out from workspace.");
-                }}
+                onClick={logoutUser}
                 className="text-[#ACA986] hover:text-[#FFB077] transition-colors"
                 title="Sign out"
               >

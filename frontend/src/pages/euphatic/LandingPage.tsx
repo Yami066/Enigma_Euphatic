@@ -3,7 +3,17 @@ import { useApp } from "../../context/AppContext";
 import { CitationBlock } from "../../components/euphatic/CitationBlock";
 
 export function LandingPage() {
-  const { setCurrentView, setAuthModalOpen, setAssistantOpen, lang, setLang } = useApp();
+  const {
+    setCurrentView,
+    setAuthModalOpen,
+    setAssistantOpen,
+    lang,
+    setLang,
+    currentUser,
+    logoutUser,
+    loadMockData,
+    startFreshCase,
+  } = useApp();
 
   return (
     <div className="-mx-4 -my-6 space-y-16 md:-mx-8 md:-my-7">
@@ -58,6 +68,126 @@ export function LandingPage() {
               <CheckCircle2 className="size-4 text-[#B7C497]" />
               Bank Rate + 4% Statutory Delay Penalty
             </span>
+          </div>
+        </div>
+      </section>
+
+      {/* Account Access & Workspace Options Section */}
+      <section className="mx-auto max-w-5xl px-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {/* Card 1: User Account */}
+          <div className="app-card relative flex flex-col justify-between border-t-4 border-t-[#4F3F38] bg-white shadow-soft">
+            <div>
+              <div className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-[#F5F3EC] px-3 py-1 text-xs font-semibold text-[#4F3F38]">
+                <ShieldCheck className="size-3.5 text-[#B7C497]" />
+                Private Legal Vault
+              </div>
+              <h3 className="text-xl font-bold text-[#4F3F38]">
+                {currentUser ? `Welcome Back, ${currentUser}` : "Sign In or Register"}
+              </h3>
+              <p className="mt-2 text-sm text-[#6B6358] leading-relaxed">
+                {currentUser
+                  ? "Your estate workspace is currently active. All your nominees, bank accounts, and statutory claim packs are saved under your private account."
+                  : "Create an account or log in to securely save your family's deceased records, Class-I legal heirs, and 15-day bank claim timelines in your private vault."}
+              </p>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              {currentUser ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setCurrentView("dashboard")}
+                    className="btn-primary flex-1 text-xs"
+                  >
+                    Open My Workspace
+                    <ArrowRight className="size-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      startFreshCase();
+                      setCurrentView("intake");
+                    }}
+                    className="btn-secondary text-xs"
+                  >
+                    Start Clean Intake
+                  </button>
+                  <button
+                    type="button"
+                    onClick={logoutUser}
+                    className="rounded-[8px] border border-[#EDE9E2] px-3 py-2 text-xs font-semibold text-[#6B6358] hover:bg-[#F5F3EC] transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setAuthModalOpen(true)}
+                    className="btn-primary flex-1 text-xs"
+                  >
+                    <Lock className="size-3.5" />
+                    Sign In / Create Account
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      startFreshCase();
+                      setCurrentView("intake");
+                    }}
+                    className="btn-secondary text-xs"
+                  >
+                    Start Clean Intake
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Card 2: Interactive Mock Data Demo */}
+          <div className="app-card relative flex flex-col justify-between border-t-4 border-t-[#FFB077] bg-gradient-to-br from-[#FFFDFB] to-[#F5F3EC]/50 shadow-soft">
+            <div>
+              <div className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-[#FFB077]/15 px-3 py-1 text-xs font-semibold text-[#4F3F38]">
+                <Sparkles className="size-3.5 text-[#FFB077]" />
+                Explore Without Sign Up
+              </div>
+              <h3 className="text-xl font-bold text-[#4F3F38]">
+                Explore with Sample Mock Data
+              </h3>
+              <p className="mt-2 text-sm text-[#6B6358] leading-relaxed">
+                Test the platform immediately with a pre-configured sample estate:
+              </p>
+              <ul className="mt-3 space-y-1.5 text-xs text-[#6B6358]">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="size-3.5 text-[#B7C497] shrink-0" />
+                  <span><strong>Late Rameshwar Prasad Sharma</strong> (Delhi, Hindu Law)</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="size-3.5 text-[#B7C497] shrink-0" />
+                  <span><strong>₹24.15 Lakhs Total</strong>: SBI FD, HDFC Savings, Groww Demat</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="size-3.5 text-[#B7C497] shrink-0" />
+                  <span>Active 15-day claim clocks & generated Annexure I-A/B/C/D packs</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  loadMockData();
+                  setCurrentView("dashboard");
+                }}
+                className="btn-primary flex-1 text-xs"
+              >
+                Load Sample Mock Data & Open Workspace
+                <ArrowRight className="size-3.5" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
